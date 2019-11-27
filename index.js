@@ -58,78 +58,54 @@ app.get("/welcome", function(req, res) {
 });
 
 // ***** REGISTER ROUTE *****
-app.post("/register", (req, res) => {
+app.post("/register", async (req, res) => {
     console.log("req body in /register: ", req.body);
     const first = req.body.first;
     const last = req.body.last;
     const email = req.body.email;
     let password = req.body.password;
-    hash(password)
-        .then(hashedPassword => {
-            console.log("hash: ", hashedPassword);
-            // return hashedPassword;
-            db.registerUser(first, last, email, hashedPassword)
-                .then(results => {
-                    console.log("registerUser fn results: ", results.rows[0]);
-                    const userId = results.rows[0].id;
-
-                    req.session = {
-                        userId: userId,
-                        first: first,
-                        last: last,
-                        email: email,
-                        password: hashedPassword
-                    };
-                    console.log(req.session);
-                    res.json({
-                        success: true
-                    });
-                })
-                .catch(err => {
-                    console.log("error in registerUser fn: ", err);
-                });
-        })
-        .catch(err => {
-            console.log("error in register route: ", err);
+    try {
+        let hashedPassword = await hash(password);
+        let id = await db.registerUser(first, last, email, hashedPassword);
+        req.session.userId = id;
+        console.log(req.session);
+        res.json({
+            success: true
         });
+    } catch (err) {
+        console.log("error in register route: ", err);
+    }
 });
 
 // ***** LOGIN ROUTE *****
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
     console.log("req body in /login: ", req.body);
     let email = req.body.email;
     let password = req.body.password;
-    db.login(email)
-        .then(results => {
-            console.log("login results ", results.rows[0]);
-            let hashedPassword = results.rows[0].password;
-
-            compare(password, hashedPassword)
-                .then(match => {
-                    console.log(match);
-
-                    if (match) {
-                        req.session = {
-                            userId: results.rows[0].id
-                        };
-                        res.json({
-                            success: true
-                        });
-                    } else {
-                        res.json({
-                            success: false
-                        });
-                    }
-                })
-                .catch(err => console.log("error in compare function: ", err));
-        })
-        .catch(err => console.log("error in login function: ", err));
+    try {
+        let userInfo = await db.login(email);
+        let match = await compare(password, userInfo.rows[0].password);
+        if (match) {
+            req.session = {
+                userId: userInfo.rows[0].id
+            };
+            res.json({
+                success: true
+            });
+        } else {
+            res.json({
+                success: false
+            });
+        }
+    } catch (err) {
+        console.log("error in login route: ", err);
+    }
 });
 
 // ***** LOGOUT ROUTE *****
 app.get("/logout", (req, res) => {
     req.session = null;
-    res.redirect("/register");
+    res.redirect("/welcome#/login");
 });
 
 app.get("*", function(req, res) {
