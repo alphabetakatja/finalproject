@@ -3,8 +3,8 @@ const app = express();
 const compression = require("compression");
 const db = require("./utils/db");
 const cookieSession = require("cookie-session");
-// importing both fns from bcrypt
 const { hash, compare } = require("./utils/bc");
+const csurf = require("csurf");
 
 // middleware that will run with any single route
 app.use(express.static("./public"));
@@ -22,6 +22,13 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
+
+app.use(csurf());
+
+app.use(function(req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 app.use(compression());
 
@@ -50,6 +57,7 @@ app.get("/welcome", function(req, res) {
     }
 });
 
+// ***** REGISTER ROUTE *****
 app.post("/register", (req, res) => {
     console.log("req body in /register: ", req.body);
     const first = req.body.first;
@@ -84,6 +92,44 @@ app.post("/register", (req, res) => {
         .catch(err => {
             console.log("error in register route: ", err);
         });
+});
+
+// ***** LOGIN ROUTE *****
+app.post("/login", (req, res) => {
+    console.log("req body in /login: ", req.body);
+    let email = req.body.email;
+    let password = req.body.password;
+    db.login(email)
+        .then(results => {
+            console.log("login results ", results.rows[0]);
+            let hashedPassword = results.rows[0].password;
+
+            compare(password, hashedPassword)
+                .then(match => {
+                    console.log(match);
+
+                    if (match) {
+                        req.session = {
+                            userId: results.rows[0].id
+                        };
+                        res.json({
+                            success: true
+                        });
+                    } else {
+                        res.json({
+                            success: false
+                        });
+                    }
+                })
+                .catch(err => console.log("error in compare function: ", err));
+        })
+        .catch(err => console.log("error in login function: ", err));
+});
+
+// ***** LOGOUT ROUTE *****
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/register");
 });
 
 app.get("*", function(req, res) {

@@ -2,21 +2,16 @@ import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 
-// req.session.userId = rows[0].id;
-// res.json({})
-
-export default class Register extends React.Component {
+export default class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
     submit() {
         axios
-            .post("/register", {
+            .post("/login", {
                 email: this.state.email,
-                password: this.state.password,
-                last: this.state.last,
-                first: this.state.first
+                password: this.state.password
             })
             .then(({ data }) => {
                 console.log("data in register: ", data);
@@ -51,18 +46,6 @@ export default class Register extends React.Component {
                 )}
                 <input
                     type="text"
-                    name="first"
-                    placeholder="First Name"
-                    onChange={e => this.handleChange(e.target)}
-                />
-                <input
-                    type="text"
-                    name="last"
-                    placeholder="Last Name"
-                    onChange={e => this.handleChange(e.target)}
-                />
-                <input
-                    type="text"
                     name="email"
                     placeholder="Email"
                     onChange={e => this.handleChange(e.target)}
@@ -74,11 +57,11 @@ export default class Register extends React.Component {
                     onChange={e => this.handleChange(e.target)}
                 />
                 <button className="submit-btn" onClick={e => this.submit(e)}>
-                    Register
+                    Login
                 </button>
                 <div className="register-form_footer">
                     <Link className="login-link" to="/login">
-                        Already a member? Please log in...
+                        Not a member yet? Please register...
                     </Link>
                 </div>
             </div>

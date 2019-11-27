@@ -8,3 +8,8 @@ module.exports.registerUser = function(first, last, email, password) {
         [first, last, email, password]
     );
 };
+
+// ***** LOGIN ROUTE *****
+module.exports.login = function(email) {
+    return db.query(`SELECT * FROM users WHERE email=$1`, [email]);
+};
