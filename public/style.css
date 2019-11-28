@@ -11,27 +11,42 @@ body {
     color: #cccccc;
 }
 
-.logo {
+.sn-logo {
     width: 100px;
     height: 100px;
-    text-align: center;
+}
+
+.logo {
+    width: 200px;
+    height: 200px;
+    text-align: right;
 }
 
 .text-box {
     position: absolute;
     width: 600px;
     top: 50%;
-    left: 30%;
+    left: 25%;
     transform: translate(-50%, -50%);
-    color: #faeee7;
+    color: #f9d5bb;
 }
 
 .text-box h1 {
     margin-top: 0;
     margin-bottom: 20px;
     word-spacing: 4px;
-    font-size: 400%;
-    letter-spacing: 1px;
+    font-size: 375%;
+    font-weight: 300px;
+    letter-spacing: 2px;
+}
+
+.text-box h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    word-spacing: 4px;
+    font-size: 105%;
+    font-weight: 200px;
+    letter-spacing: 2px;
 }
 
 .registration-form {
@@ -84,6 +99,5 @@ body {
 .login-link {
     color: #da9833;
     text-align: center;
-
     padding-right: 60px;
 }

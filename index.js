@@ -5,9 +5,13 @@ const db = require("./utils/db");
 const cookieSession = require("cookie-session");
 const { hash, compare } = require("./utils/bc");
 const csurf = require("csurf");
+const multer = require("multer");
+const uidSafe = require("uid-safe");
+const path = require("path");
 
 // middleware that will run with any single route
 app.use(express.static("./public"));
+app.use(express.static("./uploads"));
 
 app.use(
     express.urlencoded({
@@ -22,6 +26,25 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14
     })
 );
+
+// boilerplate for file upload
+var diskStorage = multer.diskStorage({
+    destination: function(req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function(req, file, callback) {
+        uidSafe(24).then(function(uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    }
+});
+
+var uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152
+    }
+});
 
 app.use(csurf());
 
@@ -49,7 +72,7 @@ if (process.env.NODE_ENV != "production") {
 // all the routes should go above the * route
 
 app.get("/welcome", function(req, res) {
-    if (req.session.userId) {
+    if (req.session.userId && req.url == "/welcome") {
         console.log("redirected to welcome");
         res.redirect("/");
     } else {
@@ -60,10 +83,12 @@ app.get("/welcome", function(req, res) {
 // ***** REGISTER ROUTE *****
 app.post("/register", async (req, res) => {
     console.log("req body in /register: ", req.body);
-    const first = req.body.first;
-    const last = req.body.last;
-    const email = req.body.email;
-    let password = req.body.password;
+
+    let { first, last, email, password } = req.body;
+    // const first = req.body.first;
+    // const last = req.body.last;
+    // const email = req.body.email;
+    // let password = req.body.password;
     try {
         let hashedPassword = await hash(password);
         let id = await db.registerUser(first, last, email, hashedPassword);
@@ -80,8 +105,9 @@ app.post("/register", async (req, res) => {
 // ***** LOGIN ROUTE *****
 app.post("/login", async (req, res) => {
     console.log("req body in /login: ", req.body);
-    let email = req.body.email;
-    let password = req.body.password;
+    let { email, password } = req.body;
+    // let email = req.body.email;
+    // let password = req.body.password;
     try {
         let userInfo = await db.login(email);
         let match = await compare(password, userInfo.rows[0].password);
