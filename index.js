@@ -87,10 +87,6 @@ app.post("/register", async (req, res) => {
     console.log("req body in /register: ", req.body);
 
     let { first, last, email, password } = req.body;
-    // const first = req.body.first;
-    // const last = req.body.last;
-    // const email = req.body.email;
-    // let password = req.body.password;
     try {
         let hashedPassword = await hash(password);
         let id = await db.registerUser(first, last, email, hashedPassword);
@@ -108,8 +104,6 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
     console.log("req body in /login: ", req.body);
     let { email, password } = req.body;
-    // let email = req.body.email;
-    // let password = req.body.password;
     try {
         let userInfo = await db.login(email);
         let match = await compare(password, userInfo.rows[0].password);
@@ -132,12 +126,22 @@ app.post("/login", async (req, res) => {
 
 // ***** APP ROUTE *****
 
-app.get("/user", (req, res) => {});
+app.get("/user", (req, res) => {
+    db.getUserInfo(req.session.userId).then(({ rows }) => {
+        console.log("rows in user: ", rows[0]);
+        res.json(rows[0]);
+    });
+});
 
 // ***** UPLOAD ROUTE *****
 app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     const imageUrl = `${s3Url}${req.file.filename}`;
     console.log("imageUrl: ", imageUrl);
+    db.uploadImage(imageUrl, req.session.userId).then(({ rows }) => {
+        res.json({
+            imageUrl: rows[0]
+        });
+    });
 });
 
 // ***** LOGOUT ROUTE *****

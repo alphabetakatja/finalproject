@@ -12,7 +12,6 @@ export default class Uploader extends React.Component {
         console.log("Uploader has mounted");
         console.log("this.props: ", this.props.methodInApp);
 
-        this.props.methodInApp("I am a muffin!");
         // axios.get()
         // this is where we want to contact the server and ask info about the user
         // when we get info back we wanto to add it to state... setState
@@ -25,6 +24,8 @@ export default class Uploader extends React.Component {
             .post("/upload", fd)
             .then(response => {
                 console.log("response from post upload ", response.data);
+                console.log("this is post upload: ", this);
+                this.props.methodInApp(response.data.imageUrl.url);
             })
             .catch(function(err) {
                 console.log("error in post upload: ", err);

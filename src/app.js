@@ -17,8 +17,13 @@ export default class App extends React.Component {
     }
     componentDidMount() {
         console.log("app has mounted");
-        axios.get("/user").then(response => {
-            console.log(response);
+        axios.get("/user").then(({ data }) => {
+            this.setState({
+                first: data.first,
+                last: data.last,
+                imageUrl: data.url,
+                uploaderIsVisible: false
+            });
         });
         // this is where we want to contact the server and ask info about the user
         // when we get info back we wanto to add it to state... setState
@@ -29,9 +34,13 @@ export default class App extends React.Component {
             uploaderIsVisible: !this.state.uploaderIsVisible
         });
     }
-    methodInApp(muffin) {
+    methodInApp(imageUrl) {
         console.log("I am a method in App!");
-        console.log("muffin: ", muffin);
+        console.log("muffin: ", imageUrl);
+        this.setState({
+            imageUrl: imageUrl
+        });
+        this.toggleModal();
     }
     render() {
         return (

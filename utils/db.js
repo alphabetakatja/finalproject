@@ -20,5 +20,8 @@ module.exports.getUserInfo = function(userId) {
 };
 
 module.exports.uploadImage = function(imageUrl, userId) {
-    return db.query(`UPDATE users SET url=$1 WHERE id=$2`, [imageUrl, userId]);
+    return db.query(`UPDATE users SET url=$1 WHERE id=$2 RETURNING url`, [
+        imageUrl,
+        userId
+    ]);
 };
