@@ -1,3 +1,9 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
         url("/images/background2.jpg");
@@ -8,7 +14,6 @@ body {
     /* display: grid; */
     min-height: 100vh;
     /* grid-template-rows: 90px 1fr 20px; */
-    color: #cccccc;
 }
 
 .sn-logo {
@@ -102,6 +107,7 @@ body {
     padding-right: 60px;
 }
 
+/****** PROFILEPIC.JS ******/
 .profile-pic {
     width: 100px;
     height: 100px;
@@ -111,34 +117,125 @@ body {
     top: 0;
 }
 .profile-pic img {
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     color: #da9833;
+    position: relative;
+    right: 10px;
+    top: 10px;
+    border-radius: 50%;
+}
+
+.profile-pic h2 {
+    top: 20px;
+    right: 100px;
+    font-size: 14px;
+    color: black;
+}
+
+.profilepic-main img {
+    border-radius: 5px;
+    width: 200px;
+    height: 200px;
+    left: 10px;
     position: absolute;
 }
+
+/****** APP.JS ******/
+
+.app-container {
+    display: grid;
+    min-height: 100vh;
+    grid-template-rows: 90px 1fr 20px;
+}
+
+.app-logo {
+    width: 100px;
+    height: 100px;
+    left: 10px;
+    /* position: absolute; */
+}
+
 .app-header {
-    border: 1px solid green;
-}
-
-.uploader-modal {
-    width: 400px;
-    height: 300px;
-    border: 2px solid #fd5f00;
-    border-radius: 5px;
-    background-color: #e4c666;
-    text-align: center;
-}
-
-.upload-file {
-    padding: 10px;
-    color: white;
-    font-weight: bold;
+    height: 125px;
     background: #da9833;
-    width: 275px;
-    border: none;
-    outline: none;
+    display: flex;
+    justify-content: space-between;
+    position: fixed;
+    z-index: 1;
+    width: 100%;
+}
+
+/****** UPLOADER.JS ******/
+
+/* .upload-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    top: 25px;
+}
+
+.upload-file + label {
+    width: 100px;
+    padding: 5px;
+    background-color: #ce792e;
+    border: 1px solid #b6743b;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-size: 14px;
+} */
+
+/* .upload-file:hover + label {
+    background-color: #f59542;
+    color: black;
+} */
+.upload-btn {
+    width: 100px;
+    padding: 5px;
+    color: white;
+    background-color: #ce792e;
+    border: 1px solid #b6743b;
     border-radius: 5px;
     letter-spacing: 2px;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+.uploader-modal {
+    position: fixed;
+    top: 30%;
+    left: 35%;
+    width: 400px;
+    height: 300px;
+    z-index: 1;
+    background: rgba(0, 0, 0, 0.7);
+    border: 3px solid #b6743b;
+    border-radius: 5px;
+    color: #ce792e;
+}
+
+.uploader-modal h3 {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 50px;
+}
+
+.uploader-modal h2 {
+    text-align: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.upload-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }

@@ -25,13 +25,17 @@ export default class App extends React.Component {
                 uploaderIsVisible: false
             });
         });
-        // this is where we want to contact the server and ask info about the user
-        // when we get info back we wanto to add it to state... setState
+        this.closeModal = this.closeModal.bind(this);
     }
     toggleModal() {
         console.log("toggleModal is running!");
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible
+        });
+    }
+    closeModal() {
+        this.setState({
+            uploaderIsVisible: false
         });
     }
     methodInApp(imageUrl) {
@@ -45,16 +49,27 @@ export default class App extends React.Component {
     render() {
         return (
             <div className="app-container">
-                <h1>Hello from App!</h1>
-                <ProfilePic
-                    toggleFunction={this.toggleModal.bind(this)}
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.imageUrl}
-                />
-                {this.state.uploaderIsVisible && (
-                    <Uploader methodInApp={this.methodInApp.bind(this)} />
-                )}
+                <div className="app-header">
+                    <img
+                        className="app-logo"
+                        src="/images/skate2.png"
+                        alt="logo"
+                    />
+                    <ProfilePic
+                        className="small-pic"
+                        toggleFunction={this.toggleModal.bind(this)}
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.imageUrl}
+                    />
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            methodInApp={this.methodInApp.bind(this)}
+                            closeModal={this.closeModal}
+                        />
+                    )}
+                </div>
+                <div className="app-main"></div>
             </div>
         );
     }

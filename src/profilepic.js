@@ -7,11 +7,9 @@ export function ProfilePic({ first, last, imageUrl, toggleFunction }) {
     imageUrl = imageUrl || "/images/default.png";
     return (
         <div className="profile-pic">
-            <img src={imageUrl} onClick={toggleFunction} />
-            <h2>
-                {first}
-                {last}
-            </h2>
+            <div className="profilepic-footer">
+                <img src={imageUrl} onClick={toggleFunction} />
+            </div>
         </div>
     );
 }

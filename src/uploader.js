@@ -11,11 +11,14 @@ export default class Uploader extends React.Component {
     componentDidMount() {
         console.log("Uploader has mounted");
         console.log("this.props: ", this.props.methodInApp);
-
-        // axios.get()
-        // this is where we want to contact the server and ask info about the user
-        // when we get info back we wanto to add it to state... setState
     }
+    // closeModal(e) {
+    //     e.preventDefault();
+    //     console.log("Closing the modal");
+    //     this.setState({
+    //         uploaderIsVisible: !this.state.uploaderIsVisible
+    //     });
+    // }
     handleClick(e) {
         e.preventDefault();
         var fd = new FormData();
@@ -41,22 +44,28 @@ export default class Uploader extends React.Component {
     render() {
         return (
             <div className="uploader-modal">
+                <h2 onClick={this.props.closeModal} id="closeBox">
+                    x
+                </h2>
                 <h3>Would you like to upload a photo?</h3>
-                <label>Upload</label>
-                <input
-                    className="upload-file"
-                    type="file"
-                    name="file"
-                    onChange={e => this.handleChange(e)}
-                />
-                <button
-                    className="upload-btn"
-                    type="submit"
-                    name="button"
-                    onClick={e => this.handleClick(e)}
-                >
-                    Submit
-                </button>
+
+                <div className="upload-container">
+                    <input
+                        className="upload-file"
+                        type="file"
+                        name="file"
+                        onChange={e => this.handleChange(e)}
+                    />
+                    <label>Upload</label>
+                    <button
+                        className="upload-btn"
+                        type="submit"
+                        name="button"
+                        onClick={e => this.handleClick(e)}
+                    >
+                        Submit
+                    </button>
+                </div>
             </div>
         );
     }
