@@ -10,13 +10,16 @@ export default class App extends React.Component {
         this.state = {
             first: "",
             last: "",
+            imageUrl: "",
             uploaderIsVisible: false
         };
-        this.toggleModal = this.toggleModal.bind(this);
+        // this.toggleModal = this.toggleModal.bind(this);
     }
     componentDidMount() {
         console.log("app has mounted");
-        // axios.get()
+        axios.get("/user").then(response => {
+            console.log(response);
+        });
         // this is where we want to contact the server and ask info about the user
         // when we get info back we wanto to add it to state... setState
     }
@@ -32,15 +35,16 @@ export default class App extends React.Component {
     }
     render() {
         return (
-            <div>
-                <h1 onClick={this.toggleModal}>Hello from App!</h1>
+            <div className="app-container">
+                <h1>Hello from App!</h1>
                 <ProfilePic
+                    toggleFunction={this.toggleModal.bind(this)}
                     first={this.state.first}
                     last={this.state.last}
                     imageUrl={this.state.imageUrl}
                 />
                 {this.state.uploaderIsVisible && (
-                    <Uploader methodInApp={this.methodInApp} />
+                    <Uploader methodInApp={this.methodInApp.bind(this)} />
                 )}
             </div>
         );

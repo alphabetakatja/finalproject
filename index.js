@@ -8,6 +8,8 @@ const csurf = require("csurf");
 const multer = require("multer");
 const uidSafe = require("uid-safe");
 const path = require("path");
+const s3 = require("./s3");
+const { s3Url } = require("./config");
 
 // middleware that will run with any single route
 app.use(express.static("./public"));
@@ -126,6 +128,16 @@ app.post("/login", async (req, res) => {
     } catch (err) {
         console.log("error in login route: ", err);
     }
+});
+
+// ***** APP ROUTE *****
+
+app.get("/user", (req, res) => {});
+
+// ***** UPLOAD ROUTE *****
+app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
+    const imageUrl = `${s3Url}${req.file.filename}`;
+    console.log("imageUrl: ", imageUrl);
 });
 
 // ***** LOGOUT ROUTE *****

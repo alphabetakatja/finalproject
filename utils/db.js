@@ -15,3 +15,10 @@ module.exports.login = function(email) {
 };
 
 // ***** APP ROUTE *****
+module.exports.getUserInfo = function(userId) {
+    return db.query(`SELECT * FROM users WHERE id=$1`, [userId]);
+};
+
+module.exports.uploadImage = function(imageUrl, userId) {
+    return db.query(`UPDATE users SET url=$1 WHERE id=$2`, [imageUrl, userId]);
+};

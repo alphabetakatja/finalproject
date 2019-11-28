@@ -101,3 +101,44 @@ body {
     text-align: center;
     padding-right: 60px;
 }
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    color: #da9833;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+.profile-pic img {
+    width: 100px;
+    height: 100px;
+    color: #da9833;
+    position: absolute;
+}
+.app-header {
+    border: 1px solid green;
+}
+
+.uploader-modal {
+    width: 400px;
+    height: 300px;
+    border: 2px solid #fd5f00;
+    border-radius: 5px;
+    background-color: #e4c666;
+    text-align: center;
+}
+
+.upload-file {
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    background: #da9833;
+    width: 275px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}

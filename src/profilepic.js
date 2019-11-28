@@ -1,16 +1,16 @@
 import React from "react";
 
 // desctructuring instead of passing props as arg
-export function ProfilePic({ first, last, imageUrl }) {
+export function ProfilePic({ first, last, imageUrl, toggleFunction }) {
     // console.log("props in ProfilePic: ", props);
-    imageUrl = imageUrl || "/images/default.jpg";
+    imageUrl = imageUrl || "/images/default.png";
     return (
-        <div>
+        <div className="profile-pic">
+            <img src={imageUrl} onClick={toggleFunction} />
             <h2>
-                I am the profile pic! {first}
+                {first}
                 {last}
             </h2>
-            <img src={imageUrl} />
         </div>
     );
 }
