@@ -16,6 +16,7 @@ export function Profile(props) {
                 last={props.last}
                 imageUrl={props.imageUrl}
                 profilePicClass="big-profile"
+                toggleFunction={props.toggleFunction}
             />
             <BioEditor bio={props.bio} updateBio={props.updateBio} />
         </div>

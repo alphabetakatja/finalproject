@@ -91,6 +91,7 @@ export default class App extends React.Component {
                         imageUrl={this.state.imageUrl}
                         updateBio={this.updateBio.bind(this)}
                         bio={this.state.bio}
+                        toggleFunction={this.toggleModal.bind(this)}
                     />
                 </div>
             </div>
