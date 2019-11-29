@@ -23,6 +23,7 @@ export default class App extends React.Component {
                 first: data.first,
                 last: data.last,
                 imageUrl: data.url,
+                bio: data.bio,
                 uploaderIsVisible: false
             });
         });
@@ -46,6 +47,13 @@ export default class App extends React.Component {
             imageUrl: imageUrl
         });
         this.toggleModal();
+    }
+    updateBio(bio) {
+        console.log("I am a method in updateBio!");
+        console.log("muffin: ", bio);
+        this.setState({
+            bio: bio
+        });
     }
     render() {
         if (!this.state.first) {
@@ -81,6 +89,8 @@ export default class App extends React.Component {
                         first={this.state.first}
                         last={this.state.last}
                         imageUrl={this.state.imageUrl}
+                        updateBio={this.updateBio.bind(this)}
+                        bio={this.state.bio}
                     />
                 </div>
             </div>

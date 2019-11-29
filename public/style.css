@@ -341,3 +341,15 @@ p {
     text-transform: uppercase;
     cursor: pointer;
 }
+
+.edit-btn {
+    width: 200px;
+    padding: 5px;
+    color: white;
+    background-color: #ce792e;
+    border: 1px solid #b6743b;
+    border-radius: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+}

@@ -26,4 +26,14 @@ module.exports.uploadImage = function(imageUrl, userId) {
     ]);
 };
 
-// ***** APP ROUTE *****
+// ***** BIOEDITOR ROUTE *****
+
+exports.saveBio = function(userId, bio) {
+    return db.query(
+        `UPDATE users
+            SET bio = $2
+            WHERE id = $1
+            RETURNING bio`,
+        [userId, bio]
+    );
+};

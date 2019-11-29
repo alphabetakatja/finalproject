@@ -17,7 +17,7 @@ export function Profile(props) {
                 imageUrl={props.imageUrl}
                 profilePicClass="big-profile"
             />
-            <BioEditor />
+            <BioEditor bio={props.bio} updateBio={props.updateBio} />
         </div>
     );
 }

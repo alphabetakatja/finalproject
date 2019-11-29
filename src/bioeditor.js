@@ -11,6 +11,7 @@ export class BioEditor extends React.Component {
             bioIsVisible: false
         };
         this.showBio = this.showBio.bind(this);
+        this.saveBio = this.saveBio.bind(this);
     }
     componentDidMount() {
         console.log("props in Bio editor: ", this.props);
@@ -20,7 +21,7 @@ export class BioEditor extends React.Component {
             console.log("no bio");
             this.setState(
                 {
-                    buttonText: "Add your bio..."
+                    buttonText: "Add your Bio..."
                 },
                 () => console.log("this.state in bioeditor: ", this.state)
             );
@@ -32,19 +33,45 @@ export class BioEditor extends React.Component {
             editingMode: !this.state.editingMode
         });
     }
+    handleChange(e) {
+        console.log("e.target.value", e.target.value);
+        this.setState({
+            bio: e.target.value
+        });
+    }
+    saveBio() {
+        console.log("this.state.bio", this.state.bio);
+        axios
+            .post("/bio", this.state)
+            .then(({ data }) => {
+                console.log("response from post upload ", data);
+                console.log("this is post upload: ", this.props);
+                this.props.updateBio(data.bio);
+                this.showBio();
+            })
+            .catch(function(err) {
+                console.log("error in post bio: ", err);
+            });
+    }
 
     render() {
         if (this.state.editingMode) {
             return (
                 <div className="bio-editor">
-                    <textarea defaultValue={this.props.bio} />
-                    <button className="edit-btn">Save</button>
+                    <textarea
+                        onChange={e => this.handleChange(e)}
+                        defaultValue={this.props.bio}
+                    />
+                    <button onClick={this.saveBio} className="edit-btn">
+                        Save
+                    </button>
                 </div>
             );
         } else {
             return (
                 <div className="bio-editor">
                     <h2>I am the bio editor!</h2>
+                    <p>{this.props.bio}</p>
                     <button onClick={this.showBio} className="edit-btn">
                         {this.state.buttonText}
                     </button>

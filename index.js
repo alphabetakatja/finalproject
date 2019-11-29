@@ -142,6 +142,15 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
     });
 });
 
+// ***** BIO ROUTE *****
+app.post("/bio", (req, res) => {
+    console.log("req/body in bio: ", req.body);
+    db.saveBio(req.session.userId, req.body.bio).then(({ rows }) => {
+        console.log("rows in bio: ", rows[0]);
+        res.json(rows[0]);
+    });
+});
+
 // ***** LOGOUT ROUTE *****
 app.get("/logout", (req, res) => {
     req.session = null;
