@@ -55,19 +55,20 @@ export default class App extends React.Component {
                         src="/images/skate2.png"
                         alt="logo"
                     />
-                    <ProfilePic
-                        className="small-pic"
-                        toggleFunction={this.toggleModal.bind(this)}
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.imageUrl}
-                    />
-                    {this.state.uploaderIsVisible && (
-                        <Uploader
-                            methodInApp={this.methodInApp.bind(this)}
-                            closeModal={this.closeModal}
+                    <div className="navbar">
+                        <ProfilePic
+                            toggleFunction={this.toggleModal.bind(this)}
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.imageUrl}
                         />
-                    )}
+                        {this.state.uploaderIsVisible && (
+                            <Uploader
+                                methodInApp={this.methodInApp.bind(this)}
+                                closeModal={this.closeModal}
+                            />
+                        )}
+                    </div>
                 </div>
                 <div className="app-main"></div>
             </div>

@@ -11,7 +11,6 @@ export default class Welcome extends React.Component {
     render() {
         return (
             <div className="welcome-container">
-                <img className="logo" src="/images/skate2.png" alt="logo" />
                 <HashRouter>
                     <div>
                         <Route exact path="/" component={Register} />

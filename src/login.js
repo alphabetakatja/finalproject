@@ -34,7 +34,7 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-            <div className="registration-form">
+            <div className="login-page">
                 <div className="text-box">
                     <h1>Concrete Soldiers</h1>
                     <h3>A skateboarding community</h3>
@@ -44,25 +44,40 @@ export default class Login extends React.Component {
                         Oooops! Make sure to fill out all the required fields...
                     </div>
                 )}
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    onChange={e => this.handleChange(e.target)}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={e => this.handleChange(e.target)}
-                />
-                <button className="submit-btn" onClick={e => this.submit(e)}>
-                    Login
-                </button>
-                <div className="register-form_footer">
-                    <Link className="login-link" to="/login">
-                        Not a member yet? Please register...
-                    </Link>
+                <div className="login-form">
+                    <div className="logo-container">
+                        <img src="/images/skate2.png" alt="logo" />
+                    </div>
+                    <div className="login-form_content">
+                        <div className="login-form_header">
+                            Login to your account:
+                        </div>
+                        <input
+                            className="login-form_input"
+                            type="text"
+                            name="email"
+                            placeholder="Email"
+                            onChange={e => this.handleChange(e.target)}
+                        />
+                        <input
+                            className="login-form_input"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={e => this.handleChange(e.target)}
+                        />
+                        <button
+                            className="login-form_btn"
+                            onClick={e => this.submit(e)}
+                        >
+                            Login
+                        </button>
+                        <div className="login-form_footer">
+                            <Link className="sign-up_link" to="/">
+                                Not a member yet? Please register...
+                            </Link>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

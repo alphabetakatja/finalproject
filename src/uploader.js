@@ -12,13 +12,6 @@ export default class Uploader extends React.Component {
         console.log("Uploader has mounted");
         console.log("this.props: ", this.props.methodInApp);
     }
-    // closeModal(e) {
-    //     e.preventDefault();
-    //     console.log("Closing the modal");
-    //     this.setState({
-    //         uploaderIsVisible: !this.state.uploaderIsVisible
-    //     });
-    // }
     handleClick(e) {
         e.preventDefault();
         var fd = new FormData();
@@ -47,16 +40,20 @@ export default class Uploader extends React.Component {
                 <h2 onClick={this.props.closeModal} id="closeBox">
                     x
                 </h2>
-                <h3>Would you like to upload a photo?</h3>
+                <h3>
+                    UPDATE <br />
+                    <ion-icon name="camera" size="large"></ion-icon>
+                </h3>
 
                 <div className="upload-container">
                     <input
                         className="upload-file"
+                        id="file"
                         type="file"
                         name="file"
                         onChange={e => this.handleChange(e)}
                     />
-                    <label>Upload</label>
+                    <label htmlFor="file">Upload</label>
                     <button
                         className="upload-btn"
                         type="submit"

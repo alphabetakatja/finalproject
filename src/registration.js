@@ -2,9 +2,6 @@ import React from "react";
 import axios from "./axios";
 import { Link } from "react-router-dom";
 
-// req.session.userId = rows[0].id;
-// res.json({})
-
 export default class Register extends React.Component {
     constructor(props) {
         super(props);
@@ -39,7 +36,7 @@ export default class Register extends React.Component {
     }
     render() {
         return (
-            <div className="registration-form">
+            <div className="registration-page">
                 <div className="text-box">
                     <h1>Concrete Soldiers</h1>
                     <h3>A skateboarding community</h3>
@@ -49,37 +46,53 @@ export default class Register extends React.Component {
                         Oooops! Make sure to fill out all the required fields...
                     </div>
                 )}
-                <input
-                    type="text"
-                    name="first"
-                    placeholder="First Name"
-                    onChange={e => this.handleChange(e.target)}
-                />
-                <input
-                    type="text"
-                    name="last"
-                    placeholder="Last Name"
-                    onChange={e => this.handleChange(e.target)}
-                />
-                <input
-                    type="text"
-                    name="email"
-                    placeholder="Email"
-                    onChange={e => this.handleChange(e.target)}
-                />
-                <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    onChange={e => this.handleChange(e.target)}
-                />
-                <button className="submit-btn" onClick={e => this.submit(e)}>
-                    Register
-                </button>
-                <div className="register-form_footer">
-                    <Link className="login-link" to="/login">
-                        Already a member? Please log in...
-                    </Link>
+                <div className="register-form">
+                    <div className="logo-container">
+                        <img src="/images/skate2.png" alt="logo" />
+                    </div>
+                    <div className="register-form_content">
+                        <h4>Create a new account</h4>
+                        <p>It`s quick and easy</p>
+                        <input
+                            className="register-form_input"
+                            type="text"
+                            name="first"
+                            placeholder="First Name"
+                            onChange={e => this.handleChange(e.target)}
+                        />
+                        <input
+                            className="register-form_input"
+                            type="text"
+                            name="last"
+                            placeholder="Last Name"
+                            onChange={e => this.handleChange(e.target)}
+                        />
+                        <input
+                            className="register-form_input"
+                            type="text"
+                            name="email"
+                            placeholder="Email"
+                            onChange={e => this.handleChange(e.target)}
+                        />
+                        <input
+                            className="register-form_input"
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={e => this.handleChange(e.target)}
+                        />
+                        <button
+                            className="register-form_btn"
+                            onClick={e => this.submit(e)}
+                        >
+                            Register
+                        </button>
+                    </div>
+                    <div className="register-form_footer">
+                        <Link className="log-in_link" to="/login">
+                            Already a member? Please log in...
+                        </Link>
+                    </div>
                 </div>
             </div>
         );
