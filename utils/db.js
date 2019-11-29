@@ -25,3 +25,5 @@ module.exports.uploadImage = function(imageUrl, userId) {
         userId
     ]);
 };
+
+// ***** APP ROUTE *****

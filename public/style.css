@@ -195,15 +195,7 @@ p {
 }
 
 /****** PROFILEPIC.JS ******/
-.profile-pic {
-    /* width: 100px;
-    height: 100px;
-    color: #da9833; */
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-.profile-pic img {
+.small-profile {
     width: 65px;
     height: 65px;
     color: black;
@@ -211,8 +203,24 @@ p {
     right: 20px;
     top: 5px;
     border-radius: 5px;
-    border: 3px solid #00541a;
+    border: 3px solid #4d4d4d;
     object-fit: cover;
+}
+
+.big-profile {
+    width: 200px;
+    height: 200px;
+    color: black;
+    position: relative;
+    margin-left: 15px;
+
+    border-radius: 5px;
+    border: 3px solid #da9833;
+    object-fit: cover;
+}
+
+.bio-editor {
+    color: #da9833;
 }
 
 /****** APP.JS ******/
@@ -232,7 +240,7 @@ p {
     background: #da9833;
     display: flex;
     justify-content: space-between;
-    position: fixed;
+    /* position: fixed; */
     z-index: 1;
     width: 100%;
 }
@@ -250,6 +258,10 @@ p {
     margin-right: 30px;
     width: 20px;
     heigth: 20px;
+}
+
+.app-main {
+    padding-top: 75px;
 }
 
 /****** UPLOADER.JS ******/

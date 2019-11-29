@@ -3,6 +3,7 @@ import axios from "./axios";
 // import Logo from "./logo";
 import { ProfilePic } from "./profilepic";
 import Uploader from "./uploader";
+import { Profile } from "./profile";
 
 export default class App extends React.Component {
     constructor() {
@@ -47,6 +48,9 @@ export default class App extends React.Component {
         this.toggleModal();
     }
     render() {
+        if (!this.state.first) {
+            return null;
+        }
         return (
             <div className="app-container">
                 <div className="app-header">
@@ -55,12 +59,14 @@ export default class App extends React.Component {
                         src="/images/skate2.png"
                         alt="logo"
                     />
+
                     <div className="navbar">
                         <ProfilePic
                             toggleFunction={this.toggleModal.bind(this)}
                             first={this.state.first}
                             last={this.state.last}
                             imageUrl={this.state.imageUrl}
+                            profilePicClass="small-profile"
                         />
                         {this.state.uploaderIsVisible && (
                             <Uploader
@@ -70,7 +76,13 @@ export default class App extends React.Component {
                         )}
                     </div>
                 </div>
-                <div className="app-main"></div>
+                <div className="app-main">
+                    <Profile
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.imageUrl}
+                    />
+                </div>
             </div>
         );
     }

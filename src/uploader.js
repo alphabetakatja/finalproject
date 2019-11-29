@@ -18,10 +18,10 @@ export default class Uploader extends React.Component {
         fd.append("file", this.state.imageUrl);
         axios
             .post("/upload", fd)
-            .then(response => {
-                console.log("response from post upload ", response.data);
+            .then(({ data }) => {
+                console.log("response from post upload ", data);
                 console.log("this is post upload: ", this);
-                this.props.methodInApp(response.data.imageUrl.url);
+                this.props.methodInApp(data.url);
             })
             .catch(function(err) {
                 console.log("error in post upload: ", err);
