@@ -35,9 +35,10 @@ export default class Login extends React.Component {
     render() {
         return (
             <div className="login-page">
-                <div className="text-box">
-                    <h1>Concrete Soldiers</h1>
-                    <h3>A skateboarding community</h3>
+                <div className="welcome-header">
+                    <h3>
+                        Femmetor || A mentorship platform for womxn developers
+                    </h3>
                 </div>
                 {this.state.error && (
                     <div className="error">
@@ -46,12 +47,19 @@ export default class Login extends React.Component {
                 )}
                 <div className="login-form">
                     <div className="logo-container">
-                        <img src="/images/skate2.png" alt="logo" />
+                        <img src="/images/logo1.png" alt="logo" />
                     </div>
                     <div className="login-form_content">
                         <div className="login-form_header">
-                            Login to your account:
+                            <Link className="log-in_link" to="/login">
+                                Login
+                            </Link>
+                            ||
+                            <Link className="sign-up_link" to="/">
+                                Register
+                            </Link>
                         </div>
+                        <label>Email</label>
                         <input
                             className="login-form_input"
                             type="text"
@@ -59,6 +67,7 @@ export default class Login extends React.Component {
                             placeholder="Email"
                             onChange={e => this.handleChange(e.target)}
                         />
+                        <label>Password</label>
                         <input
                             className="login-form_input"
                             type="password"
@@ -72,11 +81,6 @@ export default class Login extends React.Component {
                         >
                             Login
                         </button>
-                        <div className="login-form_footer">
-                            <Link className="sign-up_link" to="/">
-                                Not a member yet? Please register...
-                            </Link>
-                        </div>
                     </div>
                 </div>
             </div>

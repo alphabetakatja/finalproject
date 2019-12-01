@@ -70,7 +70,6 @@ export class BioEditor extends React.Component {
         } else {
             return (
                 <div className="bio-editor">
-                    <h2>I am the bio editor!</h2>
                     <p>{this.props.bio}</p>
                     <button onClick={this.showBio} className="edit-btn">
                         {this.state.buttonText}

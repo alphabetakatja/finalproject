@@ -37,9 +37,10 @@ export default class Register extends React.Component {
     render() {
         return (
             <div className="registration-page">
-                <div className="text-box">
-                    <h1>Concrete Soldiers</h1>
-                    <h3>A skateboarding community</h3>
+                <div className="welcome-header">
+                    <h3>
+                        Femmetor || A mentorship platform for womxn developers
+                    </h3>
                 </div>
                 {this.state.error && (
                     <div className="error">
@@ -48,11 +49,18 @@ export default class Register extends React.Component {
                 )}
                 <div className="register-form">
                     <div className="logo-container">
-                        <img src="/images/skate2.png" alt="logo" />
+                        <img src="/images/logo1.png" alt="logo" />
                     </div>
                     <div className="register-form_content">
-                        <h4>Create a new account</h4>
-                        <p>It`s quick and easy</p>
+                        <p>
+                            <Link className="log-in_link" to="/login">
+                                Login
+                            </Link>
+                            ||
+                            <Link className="sign-up_link" to="/">
+                                Register
+                            </Link>
+                        </p>
                         <input
                             className="register-form_input"
                             type="text"
@@ -87,11 +95,6 @@ export default class Register extends React.Component {
                         >
                             Register
                         </button>
-                    </div>
-                    <div className="register-form_footer">
-                        <Link className="log-in_link" to="/login">
-                            Already a member? Please log in...
-                        </Link>
                     </div>
                 </div>
             </div>

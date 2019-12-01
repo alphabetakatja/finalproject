@@ -4,6 +4,7 @@ import axios from "./axios";
 import { ProfilePic } from "./profilepic";
 import Uploader from "./uploader";
 import { Profile } from "./profile";
+import { Link } from "react-router-dom";
 
 export default class App extends React.Component {
     constructor() {
@@ -68,21 +69,51 @@ export default class App extends React.Component {
                         alt="logo"
                     />
 
-                    <div className="navbar">
-                        <ProfilePic
-                            toggleFunction={this.toggleModal.bind(this)}
-                            first={this.state.first}
-                            last={this.state.last}
-                            imageUrl={this.state.imageUrl}
-                            profilePicClass="small-profile"
+                    <nav>
+                        <ul className="navbar">
+                            <li>
+                                <a href="#">
+                                    <ion-icon name="person"></ion-icon>profile
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <ion-icon name="people"></ion-icon>friends
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <ion-icon name="wifi"></ion-icon>
+                                    online
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <ion-icon name="chatboxes"></ion-icon>
+                                    chat
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/logout">
+                                    <ion-icon name="log-out"></ion-icon>
+                                    logout
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                    <ProfilePic
+                        toggleFunction={this.toggleModal.bind(this)}
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.imageUrl}
+                        profilePicClass="small-profile"
+                    />
+                    {this.state.uploaderIsVisible && (
+                        <Uploader
+                            methodInApp={this.methodInApp.bind(this)}
+                            closeModal={this.closeModal}
                         />
-                        {this.state.uploaderIsVisible && (
-                            <Uploader
-                                methodInApp={this.methodInApp.bind(this)}
-                                closeModal={this.closeModal}
-                            />
-                        )}
-                    </div>
+                    )}
                 </div>
                 <div className="app-main">
                     <Profile

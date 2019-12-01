@@ -12,10 +12,12 @@ export function ProfilePic({
     console.log("imageurl", imageUrl);
     imageUrl = imageUrl || "/images/default.png";
     return (
-        <img
-            className={profilePicClass}
-            src={imageUrl}
-            onClick={toggleFunction}
-        />
+        <div>
+            <img
+                className={profilePicClass}
+                src={imageUrl}
+                onClick={toggleFunction}
+            />
+        </div>
     );
 }

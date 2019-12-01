@@ -5,52 +5,53 @@
 }
 
 body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)),
-        url("/images/background2.jpg");
-    background-size: cover;
-    background-position: center;
+    background-color: black;
     height: 100%;
     background-attachment: fixed;
     font-family: "Work Sans", sans-serif;
-    /* display: grid; */
+
     min-height: 100vh;
-    /* grid-template-rows: 90px 1fr 20px; */
 }
 
-.text-box {
+.welcome-header {
+}
+
+.welcome-header h1,
+h2,
+h3 {
+    color: white;
+}
+
+.welcome-header h3 {
+    position: relative;
+    font-size: 150%;
+    word-spacing: 2px;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 200;
+}
+
+.welcome-header h3:after {
     position: absolute;
-    width: 600px;
-    top: 50%;
-    left: 25%;
-    transform: translate(-50%, -50%);
-    color: #f9d5bb;
-}
-
-.text-box h1 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    word-spacing: 4px;
-    font-size: 375%;
-    font-weight: 300px;
-    letter-spacing: 2px;
-}
-
-.text-box h3 {
-    margin-top: 0;
-    margin-bottom: 20px;
-    word-spacing: 4px;
-    font-size: 105%;
-    font-weight: 200px;
-    letter-spacing: 2px;
+    content: "";
+    left: 50%;
+    bottom: 0;
+    height: 1px;
+    transform: translateX(-50%);
+    width: 70%;
+    border-bottom: 1px solid white;
 }
 
 /****** LOGIN.JS  ******/
 
-/* .login-page {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-} */
+.login-page,
+.registration-page {
+    font-family: "Work Sans", sans-serif;
+    min-height: 100vh;
+}
 
 .login-form,
 .login-form *,
@@ -64,14 +65,11 @@ body {
 .register-form {
     width: 350px;
     max-width: 100%;
-
-    /* max-width: 350px; */
-    /* margin: 0 auto; */
     margin-left: 900px;
     margin-top: 100px;
     border-radius: 5px;
     overflow: hidden;
-    box-shadow: 0 0 5px rgb(197, 190, 190);
+    /* box-shadow: 0 0 5px white; */
 }
 
 .logo-container {
@@ -105,14 +103,14 @@ body {
 .register-form_header {
     margin-bottom: 15px;
     text-align: center;
-    color: #da9833;
+    color: white;
 }
 
 .register-form_content h4,
 p {
     margin-bottom: 15px;
     text-align: center;
-    color: #da9833;
+    color: white;
 }
 
 .login-form_input,
@@ -121,10 +119,11 @@ p {
     width: 100%;
     margin-bottom: 10px;
     padding: 10px;
-    border-radius: 5px;
-    border: 2px solid #da9833;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: white;
     background: rgba(0, 0, 0, 0.3);
-    color: #da9833;
+    color: white;
     outline: none;
     transition: border-color 0.5s;
     cursor: text;
@@ -133,14 +132,13 @@ p {
 .login-form_input:focus,
 .register-form_input:focus,
 .edit-form_input:focus {
-    /* #64b2cd */
-    border-color: #c2b0c9;
+    border-color: red;
 }
 
 .login-form_input::placeholder,
 .register-form_input::placeholder,
 .edit-form_input::placeholder {
-    color: #c36a2d;
+    color: white;
 }
 
 .login-form_btn,
@@ -150,35 +148,30 @@ p {
     color: white;
     font-size: 15px;
     font-weight: lighter;
-    background: #da9833;
+    background: black;
     width: 100%;
-    border: none;
     outline: none;
     border-radius: 5px;
     cursor: pointer;
+    border-color: white;
+    word-spacing: 2px;
+    text-align: center;
+    margin-top: 30px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 .login-form_btn:hover,
 .register-form_btn:hover,
 .edit-form_btn:hover {
-    background: #c36a2d;
-    color: black;
+    background: black;
+    color: red;
+    border-color: red;
 }
 .login-form_btn:active,
 .register-form_btn:active,
 .edit-form_btn:active {
-    background: #c299fc;
-    color: white;
-}
-.login-form_links,
-.register-form_links {
-    margin-top: 15px;
-    text-align: center;
-}
-.login-form_link,
-.register-form_link {
-    font-size: 0.9em;
-    color: #9b59b6;
-    text-decoration: none;
+    background: red;
+    color: black;
 }
 
 .login-form_footer,
@@ -189,9 +182,22 @@ p {
 
 .sign-up_link,
 .log-in_link {
-    font-size: 0.9em;
-    color: #da9833;
+    font-size: 1em;
+    color: white;
     text-decoration: none;
+    padding: 10px;
+    word-spacing: 2px;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: lowercase;
+}
+
+.sign-up_link:hover,
+.log-in_link:hover {
+    font-size: 1em;
+    color: red;
+    text-decoration: none;
+    padding: 10px;
 }
 
 /****** PROFILEPIC.JS ******/
@@ -203,7 +209,7 @@ p {
     right: 20px;
     top: 5px;
     border-radius: 5px;
-    border: 3px solid #4d4d4d;
+    border: 3px solid red;
     object-fit: cover;
 }
 
@@ -212,10 +218,10 @@ p {
     height: 200px;
     color: black;
     position: relative;
-    margin-left: 15px;
-
-    border-radius: 5px;
-    border: 3px solid #da9833;
+    margin-left: 30px;
+    border-radius: 50%;
+    padding: 20px;
+    border: 3px solid red;
     object-fit: cover;
 }
 
@@ -227,6 +233,7 @@ p {
 
 .app-container {
     min-height: 100vh;
+    background-color: white;
 }
 
 .app-logo {
@@ -236,28 +243,53 @@ p {
 }
 
 .app-header {
+    position: relative;
     height: 75px;
-    background: #da9833;
     display: flex;
     justify-content: space-between;
-    /* position: fixed; */
     z-index: 1;
-    width: 100%;
+}
+
+.app-header:after {
+    position: absolute;
+    content: "";
+    left: 50%;
+    bottom: 0;
+    height: 1px;
+    transform: translateX(-50%);
+    width: 80%;
+    border-bottom: 1px solid black;
 }
 
 .navbar {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: flex-end;
     align-items: flex-end;
-    /* position: fixed; */
-    top: 15px;
-    right: 0;
+    /* float: right; */
+    list-style: none;
+    margin-top: 35px;
+    margin-left: 650px;
+}
+.navbar li {
+    display: inline-block;
+    margin-left: 20px;
+    padding-left: 20px;
 }
 
-.navbar icon {
-    margin-right: 30px;
-    width: 20px;
-    heigth: 20px;
+.navbar li a:link,
+.navbar li a:visited {
+    padding: 8px 0;
+    color: black;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 90%;
+    border-bottom: 2px solid transparent;
+    transition: border-bottom 0.2s;
+}
+.navbar li a:hover,
+.navbar li a:active {
+    border-bottom: 2px solid red;
 }
 
 .app-main {
@@ -273,10 +305,10 @@ p {
     width: 400px;
     height: 300px;
     z-index: 1;
-    background: rgba(0, 0, 0, 0.7);
-    border: 3px solid #b6743b;
+    background: rgba(0, 0, 0, 0.9);
+    border: 3px solid red;
     border-radius: 5px;
-    color: #ce792e;
+    color: red;
 }
 
 .uploader-modal h3 {
@@ -313,8 +345,8 @@ p {
 .upload-file + label {
     width: 100px;
     padding: 5px;
-    background-color: #ce792e;
-    border: 1px solid #b6743b;
+    background-color: black;
+    border: 1px solid red;
     border-radius: 5px;
     color: white;
     cursor: pointer;
@@ -327,15 +359,15 @@ p {
 
 .upload-file:hover + label,
 .upload-btn:hover {
-    background-color: #c36a2d;
+    background-color: red;
     color: black;
 }
 .upload-btn {
     width: 100px;
     padding: 5px;
     color: white;
-    background-color: #ce792e;
-    border: 1px solid #b6743b;
+    background-color: black;
+    border: 1px solid red;
     border-radius: 5px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -346,10 +378,45 @@ p {
     width: 200px;
     padding: 5px;
     color: white;
-    background-color: #ce792e;
-    border: 1px solid #b6743b;
+    background-color: #503df9;
+    border: 1px solid #4d4142;
     border-radius: 5px;
     letter-spacing: 2px;
+    margin-left: 18px;
     text-transform: uppercase;
     cursor: pointer;
+}
+/* ***** PROFILE.JS ***** */
+.profile-name h1,
+.profile-name h2,
+.profile-name h3 {
+    color: black;
+    margin-bottom: 30px;
+    padding: 10px;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.user-info {
+    margin-left: 40px;
+}
+
+.profile-editor {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.bio-editor p {
+    color: black;
+}
+
+.bio-editor textarea {
+    width: 300px;
+    height: 200px;
 }

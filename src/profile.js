@@ -8,9 +8,6 @@ export function Profile(props) {
     console.log("props in Profile: ", props);
     return (
         <div className="profile-container">
-            <h1>
-                Hi {props.first} {props.last}!
-            </h1>
             <ProfilePic
                 first={props.first}
                 last={props.last}
@@ -18,7 +15,17 @@ export function Profile(props) {
                 profilePicClass="big-profile"
                 toggleFunction={props.toggleFunction}
             />
-            <BioEditor bio={props.bio} updateBio={props.updateBio} />
+
+            <div className="user-info">
+                <div className="profile-name">
+                    <h2>
+                        {props.first} {props.last}
+                    </h2>
+                </div>
+                <div className="profile-editor">
+                    <BioEditor bio={props.bio} updateBio={props.updateBio} />
+                </div>
+            </div>
         </div>
     );
 }
