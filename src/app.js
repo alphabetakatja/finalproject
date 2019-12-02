@@ -7,6 +7,7 @@ import Uploader from "./uploader";
 import { Profile } from "./profile";
 import { Link } from "react-router-dom";
 import { OtherProfile } from "./otherprofile";
+import { Header } from "./header";
 
 export default class App extends React.Component {
     constructor() {
@@ -66,47 +67,7 @@ export default class App extends React.Component {
             <div className="app-container">
                 <BrowserRouter>
                     <div>
-                        <div className="app-header">
-                            <img
-                                className="app-logo"
-                                src="/images/skate2.png"
-                                alt="logo"
-                            />
-
-                            <nav>
-                                <ul className="navbar">
-                                    <li>
-                                        <a href="#">
-                                            <ion-icon name="person"></ion-icon>
-                                            profile
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <ion-icon name="people"></ion-icon>
-                                            friends
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <ion-icon name="wifi"></ion-icon>
-                                            online
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#">
-                                            <ion-icon name="chatboxes"></ion-icon>
-                                            chat
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/logout">
-                                            <ion-icon name="log-out"></ion-icon>
-                                            logout
-                                        </a>
-                                    </li>
-                                </ul>
-                            </nav>
+                        <Header>
                             <ProfilePic
                                 toggleFunction={this.toggleModal.bind(this)}
                                 first={this.state.first}
@@ -120,7 +81,7 @@ export default class App extends React.Component {
                                     closeModal={this.closeModal}
                                 />
                             )}
-                        </div>
+                        </Header>
                         <div className="app-main">
                             <Route
                                 exact
