@@ -17,15 +17,15 @@ export class BioEditor extends React.Component {
         console.log("props in Bio editor: ", this.props);
         //if user has no bio === setState
         // axios request here
-        if (!this.props.bio) {
-            console.log("no bio");
-            this.setState(
-                {
-                    buttonText: "Add your Bio..."
-                },
-                () => console.log("this.state in bioeditor: ", this.state)
-            );
-        }
+        // if (!this.props.bio) {
+        //     console.log("no bio");
+        //     this.setState(
+        //         {
+        //             buttonText: "Add your Bio..."
+        //         },
+        //         () => console.log("this.state in bioeditor: ", this.state)
+        //     );
+        // }
     }
     showBio() {
         console.log("toggleBio is running!");
@@ -54,7 +54,14 @@ export class BioEditor extends React.Component {
             });
     }
 
+    // static getDerivedStateFromProps(props, state) {
+    // if (!props.bio)
+    // }
     render() {
+        let buttonText;
+        this.props.bio
+            ? (buttonText = "Edit your bio...")
+            : (buttonText = "Add your bio...");
         if (this.state.editingMode) {
             return (
                 <div className="bio-editor">
@@ -70,9 +77,9 @@ export class BioEditor extends React.Component {
         } else {
             return (
                 <div className="bio-editor">
-                    <p>{this.props.bio}</p>
+                    <p className="new-line">{this.props.bio}</p>
                     <button onClick={this.showBio} className="edit-btn">
-                        {this.state.buttonText}
+                        {buttonText}
                     </button>
                 </div>
             );

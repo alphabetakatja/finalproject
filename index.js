@@ -126,7 +126,7 @@ app.post("/login", async (req, res) => {
 
 // ***** APP ROUTE *****
 
-app.get("/user", (req, res) => {
+app.get("/user.json", (req, res) => {
     db.getUserInfo(req.session.userId).then(({ rows }) => {
         console.log("rows in user: ", rows[0]);
         res.json(rows[0]);
@@ -149,6 +149,25 @@ app.post("/bio", (req, res) => {
         console.log("rows in bio: ", rows[0]);
         res.json(rows[0]);
     });
+});
+
+// ***** OTHERPROFILE ROUTE *****
+
+app.get("/api/user/:id", (req, res) => {
+    console.log("req/body in bio: ", req.params);
+    if (req.session.userId != req.params.id) {
+        db.getOtherProfile(req.params.id).then(({ rows }) => {
+            console.log("rows in user/:id: ", rows[0]);
+            res.json({
+                otherUserData: rows[0],
+                loggedInUser: req.session.userId
+            });
+            //how to send req.session.userId to the front
+        });
+    } else
+        res.json({
+            success: false
+        });
 });
 
 // ***** LOGOUT ROUTE *****

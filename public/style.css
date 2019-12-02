@@ -416,6 +416,11 @@ p {
     color: black;
 }
 
+.new-line {
+    white-space: pre-line;
+    margin-left: 20px;
+}
+
 .bio-editor textarea {
     width: 300px;
     height: 200px;

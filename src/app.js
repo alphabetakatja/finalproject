@@ -1,10 +1,12 @@
 import React from "react";
 import axios from "./axios";
+import { BrowserRouter, Route } from "react-router-dom";
 // import Logo from "./logo";
 import { ProfilePic } from "./profilepic";
 import Uploader from "./uploader";
 import { Profile } from "./profile";
 import { Link } from "react-router-dom";
+import { OtherProfile } from "./otherprofile";
 
 export default class App extends React.Component {
     constructor() {
@@ -19,7 +21,7 @@ export default class App extends React.Component {
     }
     componentDidMount() {
         console.log("app has mounted");
-        axios.get("/user").then(({ data }) => {
+        axios.get("/user.json").then(({ data }) => {
             this.setState({
                 first: data.first,
                 last: data.last,
@@ -62,69 +64,94 @@ export default class App extends React.Component {
         }
         return (
             <div className="app-container">
-                <div className="app-header">
-                    <img
-                        className="app-logo"
-                        src="/images/skate2.png"
-                        alt="logo"
-                    />
+                <BrowserRouter>
+                    <div>
+                        <div className="app-header">
+                            <img
+                                className="app-logo"
+                                src="/images/skate2.png"
+                                alt="logo"
+                            />
 
-                    <nav>
-                        <ul className="navbar">
-                            <li>
-                                <a href="#">
-                                    <ion-icon name="person"></ion-icon>profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <ion-icon name="people"></ion-icon>friends
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <ion-icon name="wifi"></ion-icon>
-                                    online
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <ion-icon name="chatboxes"></ion-icon>
-                                    chat
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/logout">
-                                    <ion-icon name="log-out"></ion-icon>
-                                    logout
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <ProfilePic
-                        toggleFunction={this.toggleModal.bind(this)}
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.imageUrl}
-                        profilePicClass="small-profile"
-                    />
-                    {this.state.uploaderIsVisible && (
-                        <Uploader
-                            methodInApp={this.methodInApp.bind(this)}
-                            closeModal={this.closeModal}
-                        />
-                    )}
-                </div>
-                <div className="app-main">
-                    <Profile
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.imageUrl}
-                        updateBio={this.updateBio.bind(this)}
-                        bio={this.state.bio}
-                        toggleFunction={this.toggleModal.bind(this)}
-                    />
-                </div>
+                            <nav>
+                                <ul className="navbar">
+                                    <li>
+                                        <a href="#">
+                                            <ion-icon name="person"></ion-icon>
+                                            profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <ion-icon name="people"></ion-icon>
+                                            friends
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <ion-icon name="wifi"></ion-icon>
+                                            online
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <ion-icon name="chatboxes"></ion-icon>
+                                            chat
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/logout">
+                                            <ion-icon name="log-out"></ion-icon>
+                                            logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                            <ProfilePic
+                                toggleFunction={this.toggleModal.bind(this)}
+                                first={this.state.first}
+                                last={this.state.last}
+                                imageUrl={this.state.imageUrl}
+                                profilePicClass="small-profile"
+                            />
+                            {this.state.uploaderIsVisible && (
+                                <Uploader
+                                    methodInApp={this.methodInApp.bind(this)}
+                                    closeModal={this.closeModal}
+                                />
+                            )}
+                        </div>
+                        <div className="app-main">
+                            <Route
+                                exact
+                                path="/"
+                                render={() => (
+                                    <Profile
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        imageUrl={this.state.imageUrl}
+                                        updateBio={this.updateBio.bind(this)}
+                                        bio={this.state.bio}
+                                        toggleFunction={this.toggleModal.bind(
+                                            this
+                                        )}
+                                    />
+                                )}
+                            />
+                            <Route
+                                path="/user/:id"
+                                // component={OtherProfile}
+                                render={props => (
+                                    <OtherProfile
+                                        key={props.match.url}
+                                        match={props.match}
+                                        history={props.history}
+                                    />
+                                )}
+                            />
+                        </div>
+                    </div>
+                </BrowserRouter>
             </div>
         );
     }

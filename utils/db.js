@@ -28,7 +28,7 @@ module.exports.uploadImage = function(imageUrl, userId) {
 
 // ***** BIOEDITOR ROUTE *****
 
-exports.saveBio = function(userId, bio) {
+module.exports.saveBio = function(userId, bio) {
     return db.query(
         `UPDATE users
             SET bio = $2
@@ -36,4 +36,10 @@ exports.saveBio = function(userId, bio) {
             RETURNING bio`,
         [userId, bio]
     );
+};
+
+// ***** OTHERPROFILE ROUTE *****
+
+module.exports.getOtherProfile = function(userId) {
+    return db.query(`SELECT * FROM users WHERE id=$1`, [userId]);
 };
