@@ -89,8 +89,14 @@ app.post("/register", async (req, res) => {
     let { first, last, email, password } = req.body;
     try {
         let hashedPassword = await hash(password);
-        let id = await db.registerUser(first, last, email, hashedPassword);
-        req.session.userId = id;
+        let { rows } = await db.registerUser(
+            first,
+            last,
+            email,
+            hashedPassword
+        );
+        console.log("rows in register: ", rows);
+        req.session.userId = rows[0].id;
         console.log(req.session);
         res.json({
             success: true
@@ -127,10 +133,13 @@ app.post("/login", async (req, res) => {
 // ***** APP ROUTE *****
 
 app.get("/user.json", (req, res) => {
-    db.getUserInfo(req.session.userId).then(({ rows }) => {
-        console.log("rows in user: ", rows[0]);
-        res.json(rows[0]);
-    });
+    console.log("req.session in user: ", req.session.userId);
+    db.getUserInfo(req.session.userId)
+        .then(({ rows }) => {
+            console.log("rows in user: ", rows[0]);
+            res.json(rows[0]);
+        })
+        .catch(err => console.log("error in user.json ", err));
 });
 
 // ***** UPLOAD ROUTE *****
@@ -162,7 +171,6 @@ app.get("/api/user/:id", (req, res) => {
                 otherUserData: rows[0],
                 loggedInUser: req.session.userId
             });
-            //how to send req.session.userId to the front
         });
     } else
         res.json({

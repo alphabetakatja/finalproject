@@ -13,6 +13,12 @@ body {
     min-height: 100vh;
 }
 
+.particle-obj {
+    width: 100%;
+    height: 100%;
+    background-color: white;
+}
+
 .welcome-header {
 }
 
@@ -20,6 +26,11 @@ body {
 h2,
 h3 {
     color: white;
+}
+
+.error {
+    color: red;
+    /* font-weight: bold; */
 }
 
 .welcome-header h3 {

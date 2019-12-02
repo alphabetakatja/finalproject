@@ -5,7 +5,10 @@ import { Link } from "react-router-dom";
 export default class Register extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            passwordError: false,
+            failedValidation: ""
+        };
     }
     submit() {
         axios
@@ -31,8 +34,19 @@ export default class Register extends React.Component {
     handleChange(inputElement) {
         this.setState({
             [inputElement.name]: inputElement.value
-            //this.[inputElement.name] = inputElement.value
         });
+
+        if (this.state.password && this.state.password.length < 4) {
+            this.setState({
+                passwordError: true,
+                failedValidation: "invalidPassword"
+            });
+        }
+        if (this.state.password && this.state.password.length >= 4) {
+            this.setState({
+                passwordError: false
+            });
+        }
     }
     render() {
         return (
@@ -89,6 +103,13 @@ export default class Register extends React.Component {
                             placeholder="Password"
                             onChange={e => this.handleChange(e.target)}
                         />
+                        <div>
+                            {this.state.passwordError && (
+                                <div className="error">
+                                    Minimum 5 characters required...
+                                </div>
+                            )}
+                        </div>
                         <button
                             className="register-form_btn"
                             onClick={e => this.submit(e)}
