@@ -30,7 +30,10 @@ h3 {
 
 .error {
     color: red;
-    /* font-weight: bold; */
+    font-size: 12px;
+    word-spacing: 2px;
+    text-align: center;
+    letter-spacing: 1px;
 }
 
 .welcome-header h3 {
