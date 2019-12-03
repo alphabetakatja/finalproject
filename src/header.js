@@ -18,7 +18,7 @@ export class Header extends React.Component {
                 <BrowserRouter>
                     <img
                         className="app-logo"
-                        src="/images/logo1.png"
+                        src="/images/logo-w.png"
                         alt="logo"
                     />
 

@@ -222,8 +222,8 @@ p {
 
 /****** PROFILEPIC.JS ******/
 .small-profile {
-    width: 65px;
-    height: 65px;
+    width: 80px;
+    height: 80px;
     color: black;
     position: relative;
     right: 20px;
@@ -233,16 +233,31 @@ p {
     object-fit: cover;
 }
 
-.big-profile {
+/* .big-profile {
     width: 200px;
     height: 200px;
     color: black;
     position: relative;
     margin-left: 30px;
-    border-radius: 50%;
+    border-radius: 5px;
     padding: 20px;
     border: 3px solid #f49de7;
     object-fit: cover;
+} */
+
+.big-profile {
+    display: flex;
+    flex-direction: column;
+    color: #eaeaea;
+    margin: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    object-fit: cover;
+    width: 250px;
+    height: 250px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .bio-editor {
@@ -257,8 +272,8 @@ p {
 }
 
 .app-logo {
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 90px;
     margin-left: 20px;
 }
 
@@ -451,4 +466,39 @@ p {
 .bio-editor textarea {
     width: 300px;
     height: 200px;
+}
+
+/* ***** FINDUSERS.JS ***** */
+.recent-profile {
+    display: flex;
+    flex-direction: column;
+    color: #eaeaea;
+    margin: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    object-fit: cover;
+    width: 150px;
+    height: 150px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.search-title {
+    margin-left: 30px;
+    margin-bottom: 20px;
+}
+.search-field {
+    width: 15%;
+    margin-bottom: 10px;
+    margin-left: 30px;
+    padding: 10px;
+    outline: 0;
+    border-radius: 5px;
+    border-color: #503df9;
+    background: white;
+    color: #f49de7;
+    outline: none;
+    transition: border-color 0.5s;
+    cursor: text;
 }

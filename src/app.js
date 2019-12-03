@@ -112,6 +112,7 @@ export default class App extends React.Component {
                                 )}
                             />
                             <Route path="/users" component={FindUsers} />
+                            <Route path="/profile" component={Profile} />
                         </div>
                     </div>
                 </BrowserRouter>

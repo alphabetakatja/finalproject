@@ -61,7 +61,7 @@ export default class Login extends React.Component {
                 )}
                 <div className="login-form">
                     <div className="logo-container">
-                        <img src="/images/logo1.png" alt="logo" />
+                        <img src="/images/logo-w.png" alt="logo" />
                     </div>
                     <div className="login-form_content">
                         <div className="login-form_header">

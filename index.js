@@ -180,6 +180,16 @@ app.get("/api/user/:id", (req, res) => {
 
 // ***** FINDUSERS ROUTE *****
 
+app.get("/newusers", (req, res) => {
+    console.log("req.body in newusers ", req.body);
+    db.findNewUsers()
+        .then(({ rows }) => {
+            console.log("rows in newusers : ", rows);
+            res.json(rows);
+        })
+        .catch(err => console.log("error in /newusers: ", err));
+});
+
 app.get("/users/:val", (req, res) => {
     console.log("req.body in searchUser: ", req.params);
     db.findUsers(req.params.val).then(({ rows }) => {

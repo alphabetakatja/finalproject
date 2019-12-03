@@ -48,7 +48,7 @@ module.exports.getOtherProfile = function(userId) {
 
 module.exports.findNewUsers = function() {
     return db.query(
-        `SELECT id, name, surname, bio, pic_url, created_at FROM users
+        `SELECT id, first, last, bio, url, created_at FROM users
         ORDER BY id DESC
         LIMIT 4;
         `,
