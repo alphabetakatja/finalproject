@@ -43,3 +43,22 @@ module.exports.saveBio = function(userId, bio) {
 module.exports.getOtherProfile = function(userId) {
     return db.query(`SELECT * FROM users WHERE id=$1`, [userId]);
 };
+
+// ***** FINDPEOPLE ROUTE *****
+
+module.exports.findNewUsers = function() {
+    return db.query(
+        `SELECT id, name, surname, bio, pic_url, created_at FROM users
+        ORDER BY id DESC
+        LIMIT 4;
+        `,
+        []
+    );
+};
+
+module.exports.findUsers = function(val) {
+    return db.query(
+        `SELECT first, last, id, bio, url FROM  users WHERE first ILIKE $1 OR last ILIKE $1 LIMIT 4`,
+        [val + "%"]
+    );
+};

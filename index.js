@@ -178,6 +178,16 @@ app.get("/api/user/:id", (req, res) => {
         });
 });
 
+// ***** FINDUSERS ROUTE *****
+
+app.get("/users/:val", (req, res) => {
+    console.log("req.body in searchUser: ", req.params);
+    db.findUsers(req.params.val).then(({ rows }) => {
+        console.log("rows in searchUser : ", rows);
+        res.json(rows);
+    });
+});
+
 // ***** LOGOUT ROUTE *****
 app.get("/logout", (req, res) => {
     req.session = null;

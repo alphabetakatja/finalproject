@@ -6,6 +6,7 @@
 
 body {
     background-color: black;
+
     height: 100%;
     background-attachment: fixed;
     font-family: "Work Sans", sans-serif;
@@ -83,7 +84,7 @@ h3 {
     margin-top: 100px;
     border-radius: 5px;
     overflow: hidden;
-    /* box-shadow: 0 0 5px white; */
+    box-shadow: 0 0 10px white;
 }
 
 .logo-container {
@@ -177,9 +178,14 @@ p {
 .login-form_btn:hover,
 .register-form_btn:hover,
 .edit-form_btn:hover {
+    /* background: black;
+    color: red;
+    border-color: red; */
     background: black;
     color: red;
+    border-radius: 50px;
     border-color: red;
+    transition: all 0.3s ease 0s;
 }
 .login-form_btn:active,
 .register-form_btn:active,
@@ -223,7 +229,7 @@ p {
     right: 20px;
     top: 5px;
     border-radius: 5px;
-    border: 3px solid red;
+    border: 3px solid #f49de7;
     object-fit: cover;
 }
 
@@ -235,7 +241,7 @@ p {
     margin-left: 30px;
     border-radius: 50%;
     padding: 20px;
-    border: 3px solid red;
+    border: 3px solid #f49de7;
     object-fit: cover;
 }
 
@@ -303,7 +309,7 @@ p {
 }
 .navbar li a:hover,
 .navbar li a:active {
-    border-bottom: 2px solid red;
+    border-bottom: 2px solid #503df9;
 }
 
 .app-main {
@@ -392,13 +398,20 @@ p {
     width: 200px;
     padding: 5px;
     color: white;
-    background-color: #503df9;
-    border: 1px solid #4d4142;
+    background: linear-gradient(to right, #503df9, #f49de7);
+    border: 1px solid #503df9;
     border-radius: 5px;
     letter-spacing: 2px;
     margin-left: 18px;
     text-transform: uppercase;
     cursor: pointer;
+}
+
+.edit-btn:hover {
+    border-radius: 50px;
+    background: linear-gradient(to right, #f49de7, #503df9);
+    border-color: #f49de7;
+    transition: all 0.3s ease 0s;
 }
 /* ***** PROFILE.JS ***** */
 .profile-name h1,

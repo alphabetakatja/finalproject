@@ -17,15 +17,19 @@ export class BioEditor extends React.Component {
         console.log("props in Bio editor: ", this.props);
         //if user has no bio === setState
         // axios request here
-        // if (!this.props.bio) {
-        //     console.log("no bio");
-        //     this.setState(
-        //         {
-        //             buttonText: "Add your Bio..."
-        //         },
-        //         () => console.log("this.state in bioeditor: ", this.state)
-        //     );
-        // }
+        if (!this.props.bio) {
+            console.log("no bio");
+            this.setState(
+                {
+                    buttonText: "Add your Bio..."
+                },
+                () => console.log("this.state in bioeditor: ", this.state)
+            );
+        } else {
+            this.setState({
+                buttonText: "Edit your bio..."
+            });
+        }
     }
     showBio() {
         console.log("toggleBio is running!");
@@ -41,17 +45,24 @@ export class BioEditor extends React.Component {
     }
     saveBio() {
         console.log("this.state.bio", this.state.bio);
-        axios
-            .post("/bio", this.state)
-            .then(({ data }) => {
-                console.log("response from post upload ", data);
-                console.log("this is post upload: ", this.props);
-                this.props.updateBio(data.bio);
-                this.showBio();
-            })
-            .catch(function(err) {
-                console.log("error in post bio: ", err);
+        axios.post("/bio", this.state).then(({ data }) => {
+            console.log("response from post upload ", data);
+            console.log("this is post upload: ", this.props);
+            this.props.updateBio(data.bio);
+            this.showBio();
+        });
+        if (this.state.bio) {
+            this.setState({
+                buttonText: "Edit your bio..."
             });
+        } else {
+            this.setState({
+                buttonText: "Add your bio..."
+            });
+        }
+        // .catch(function(err) {
+        //     console.log("error in post bio: ", err);
+        // });
     }
 
     // static getDerivedStateFromProps(props, state) {
