@@ -111,7 +111,7 @@ export default class App extends React.Component {
                                     />
                                 )}
                             />
-                            <Route path="/users/" component={FindUsers} />
+                            <Route path="/users" component={FindUsers} />
                         </div>
                     </div>
                 </BrowserRouter>

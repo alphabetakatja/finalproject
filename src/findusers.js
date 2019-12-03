@@ -17,19 +17,22 @@ import { Link } from "react-router-dom";
 export function FindUsers() {
     const [users, setUsers] = useState([]);
     const [searchUser, setSearchUser] = useState("");
-    let userInput;
+    // let userInput;
     if (!users) {
         return null;
     }
     useEffect(() => {
-        userInput = false;
-        axios.get(`/users/${searchUser}`).then(({ data }) => {
-            console.log("data in findUsers get request: ", data);
-            if (!userInput) {
-                setUsers(users.concat(data));
-            }
-            console.log(users);
-        });
+        // userInput = false;
+        if (searchUser != "") {
+            axios.get(`/users/${searchUser}`).then(({ data }) => {
+                console.log("data in findUsers get request: ", data);
+                // if (!userInput) {
+                setUsers(data);
+                // }
+                console.log(users);
+            });
+        }
+        // return () => (userInput = true);
         // .catch(err => console.log("error in FindUsers: ", err));
     }, [searchUser]);
     return (
@@ -46,8 +49,17 @@ export function FindUsers() {
             <div>
                 {users.map(user => (
                     <div key={user.id}>
-                        {user.first}
-                        {user.last}
+                        <h5>
+                            {user.first} {user.last}
+                        </h5>
+
+                        <ProfilePic
+                            first={user.first}
+                            last={user.last}
+                            imageUrl={user.url}
+                            profilePicClass="big-profile"
+                        />
+                        <h5>{user.bio}</h5>
                     </div>
                 ))}
             </div>
