@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS friendships;
+
 CREATE TABLE friendships(
     id SERIAL PRIMARY KEY,
     receiver_id INT NOT NULL REFERENCES users(id),
@@ -5,6 +7,5 @@ CREATE TABLE friendships(
     accepted BOOLEAN DEFAULT FALSE
 );
 
-SELECT * FROM friendships
-WHERE (receiver_id = $1 AND sender_id = $2)
-OR (receiver_id = $2 AND sender_id = $1)
+
+INSERT INTO friendships (receiver_id, sender_id, accepted) VALUES (4, 201, true), (5, 201, false), (201, 6, true), (201, 7, false);

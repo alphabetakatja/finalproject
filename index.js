@@ -199,12 +199,36 @@ app.get("/users/:val", (req, res) => {
 });
 
 // ***** FRIENDSHIPBUTTON ROUTE *****
-app.get("/friendshipstatus/:otherId`", (req, res) => {
+app.get("/friendshipstatus/:otherId", (req, res) => {
     console.log("req.body in searchUser: ", req.params);
-    db.checkFriendshipStatus().then(({ rows }) => {
-        console.log("rows in checkFriendshipStatus : ", rows);
-        res.json(rows);
-    });
+    db.checkFriendshipStatus(req.params.otherId, req.session.userId).then(
+        ({ rows }) => {
+            console.log("rows in checkFriendshipStatus : ", rows);
+            if (rows.length == 0) {
+                res.json({
+                    buttonText: "Make friendship request"
+                });
+            }
+            if (rows.length > 0) {
+                if (rows[0].accepted == true) {
+                    res.json({
+                        buttonText: "End friendship"
+                    });
+                } else if (
+                    rows[0].sender_id == req.session.userId &&
+                    rows[0].accepted == false
+                ) {
+                    res.json({
+                        buttonText: "Cancel friendship request"
+                    });
+                } else {
+                    res.json({
+                        buttonText: "Accept Friend Request"
+                    });
+                }
+            }
+        }
+    );
 });
 
 // ***** LOGOUT ROUTE *****

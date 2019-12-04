@@ -45,6 +45,10 @@ export class BioEditor extends React.Component {
         });
     }
     saveBio() {
+        if (!this.state.bio) {
+            this.showBio();
+            return;
+        }
         console.log("this.state.bio", this.state.bio);
         axios.post("/bio", this.state).then(({ data }) => {
             console.log("response from post upload ", data);

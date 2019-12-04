@@ -62,3 +62,13 @@ module.exports.findUsers = function(val) {
         [val + "%"]
     );
 };
+
+// ***** FRIENDSHIPBUTTON ROUTE *****
+module.exports.checkFriendshipStatus = function(otherId, userId) {
+    return db.query(
+        `SELECT * FROM friendships
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)`,
+        [otherId, userId]
+    );
+};
