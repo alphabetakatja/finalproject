@@ -7,8 +7,8 @@ export class BioEditor extends React.Component {
         super(props);
         this.state = {
             editingMode: false,
-            buttonText: "Edit Bio...",
-            bioIsVisible: false
+            buttonText: "Edit Bio..."
+            // bioIsVisible: false
         };
         this.showBio = this.showBio.bind(this);
         this.saveBio = this.saveBio.bind(this);
@@ -25,11 +25,12 @@ export class BioEditor extends React.Component {
                 },
                 () => console.log("this.state in bioeditor: ", this.state)
             );
-        } else {
-            this.setState({
-                buttonText: "Edit your bio..."
-            });
         }
+        // else {
+        //     this.setState({
+        //         buttonText: "Edit your bio..."
+        //     });
+        // }
     }
     showBio() {
         console.log("toggleBio is running!");

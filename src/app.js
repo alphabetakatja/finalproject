@@ -29,6 +29,7 @@ export default class App extends React.Component {
                 last: data.last,
                 imageUrl: data.url,
                 bio: data.bio,
+                id: data.id,
                 uploaderIsVisible: false
             });
         });
@@ -61,7 +62,7 @@ export default class App extends React.Component {
         });
     }
     render() {
-        if (!this.state.first) {
+        if (!this.state.id) {
             return null;
         }
         return (

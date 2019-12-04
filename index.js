@@ -198,6 +198,15 @@ app.get("/users/:val", (req, res) => {
     });
 });
 
+// ***** FRIENDSHIPBUTTON ROUTE *****
+app.get("/friendshipstatus/:otherId`", (req, res) => {
+    console.log("req.body in searchUser: ", req.params);
+    db.checkFriendshipStatus().then(({ rows }) => {
+        console.log("rows in checkFriendshipStatus : ", rows);
+        res.json(rows);
+    });
+});
+
 // ***** LOGOUT ROUTE *****
 app.get("/logout", (req, res) => {
     req.session = null;
