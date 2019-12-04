@@ -72,3 +72,26 @@ module.exports.checkFriendshipStatus = function(otherId, userId) {
         [otherId, userId]
     );
 };
+
+module.exports.sendFriendRequest = function(otherId, userId) {
+    return db.query(
+        `INSERT INTO friendships (receiver_id, sender_id)
+        VALUES ($1, $2) RETURNING *`,
+        [otherId, userId]
+    );
+};
+
+module.exports.acceptFriendRequest = function(otherId, userId) {
+    return db.query(
+        `UPDATE friendships SET accepted = true WHERE (receiver_id = $2 AND sender_id = $1) OR (receiver_id = $2 AND sender_id = $1) RETURNING *`,
+        [otherId, userId]
+    );
+};
+
+module.exports.unfriend = function(otherId, userId) {
+    return db.query(
+        `DELETE FROM friendships WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1) RETURNING *`,
+        [otherId, userId]
+    );
+};

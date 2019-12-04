@@ -231,6 +231,50 @@ app.get("/friendshipstatus/:otherId", (req, res) => {
     );
 });
 
+// ***** SEND FRIEND REQUEST *****
+app.post("/send-friend-request/:otherId", (req, res) => {
+    console.log("req.params in send friend request post: ", req.params);
+    db.sendFriendRequest(req.params.otherId, req.session.userId).then(
+        ({ rows }) => {
+            console.log("rows in sendFriendRequest query: ", rows);
+            res.json({
+                buttonText: "Cancel friendship request"
+            });
+        }
+    );
+});
+
+// ***** ACCEPT FRIEND REQUEST *****
+app.post("/accept-friend-request/:otherId", (req, res) => {
+    console.log("req.params in accept friend request post: ", req.params);
+    db.acceptFriendRequest(req.params.otherId, req.session.userId).then(
+        ({ rows }) => {
+            console.log("rows in acceptFriendRequest query: ", rows);
+            res.json({
+                buttonText: "Make friendship request"
+            });
+        }
+    );
+});
+
+// ***** END FRIENDSHIP *****
+app.post("/end-friendship/:otherId", (req, res) => {
+    console.log("req.params in end friendship post request: ", req.params);
+    db.unfriend(req.params.otherId, req.session.userId).then(({ rows }) => {
+        console.log("rows in end Friendship query: ", rows);
+        res.json;
+    });
+});
+
+// ***** CANCEL FRIENDSHIP REQUEST *****
+app.post("/cancel-friendship/:otherId", (req, res) => {
+    console.log("req.params in end friendship post request: ", req.params);
+    db.unfriend(req.params.otherId, req.session.userId).then(({ rows }) => {
+        console.log("rows in cancel Friendship query: ", rows);
+        res.json;
+    });
+});
+
 // ***** LOGOUT ROUTE *****
 app.get("/logout", (req, res) => {
     req.session = null;
