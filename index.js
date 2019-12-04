@@ -251,7 +251,7 @@ app.post("/accept-friend-request/:otherId", (req, res) => {
         ({ rows }) => {
             console.log("rows in acceptFriendRequest query: ", rows);
             res.json({
-                buttonText: "Make friendship request"
+                buttonText: "End friendship"
             });
         }
     );
@@ -262,7 +262,9 @@ app.post("/end-friendship/:otherId", (req, res) => {
     console.log("req.params in end friendship post request: ", req.params);
     db.unfriend(req.params.otherId, req.session.userId).then(({ rows }) => {
         console.log("rows in end Friendship query: ", rows);
-        res.json;
+        res.json({
+            buttonText: "Make friendship request"
+        });
     });
 });
 
@@ -271,7 +273,9 @@ app.post("/cancel-friendship/:otherId", (req, res) => {
     console.log("req.params in end friendship post request: ", req.params);
     db.unfriend(req.params.otherId, req.session.userId).then(({ rows }) => {
         console.log("rows in cancel Friendship query: ", rows);
-        res.json;
+        res.json({
+            buttonText: "Make friendship request"
+        });
     });
 });
 

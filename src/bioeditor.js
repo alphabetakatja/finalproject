@@ -8,15 +8,13 @@ export class BioEditor extends React.Component {
         this.state = {
             editingMode: false,
             buttonText: "Edit Bio..."
-            // bioIsVisible: false
         };
         this.showBio = this.showBio.bind(this);
         this.saveBio = this.saveBio.bind(this);
     }
     componentDidMount() {
         console.log("props in Bio editor: ", this.props);
-        //if user has no bio === setState
-        // axios request here
+
         if (!this.props.bio) {
             console.log("no bio");
             this.setState(
@@ -26,11 +24,6 @@ export class BioEditor extends React.Component {
                 () => console.log("this.state in bioeditor: ", this.state)
             );
         }
-        // else {
-        //     this.setState({
-        //         buttonText: "Edit your bio..."
-        //     });
-        // }
     }
     showBio() {
         console.log("toggleBio is running!");
@@ -65,9 +58,6 @@ export class BioEditor extends React.Component {
                 buttonText: "Add your bio..."
             });
         }
-        // .catch(function(err) {
-        //     console.log("error in post bio: ", err);
-        // });
     }
 
     // static getDerivedStateFromProps(props, state) {

@@ -11,11 +11,8 @@ export class OtherProfile extends React.Component {
     componentDidMount() {
         // it comes from the BrowserRouter
         console.log("this.props.match: ", this.props.match);
-        // the id of the pther user -> this.props.match.params.id
+
         console.log("this.props.match.params.id: ", this.props.match.params.id);
-        // we want to make a request to the server passing along the this.props.match.params.id)
-        // the server needs to look up the data about that user adn send back info about he currently logeed in user
-        // we need to figure out if the other users id is the same as the logged in users id, if it is then send them away
         axios
             .get(`/api/user/${this.props.match.params.id}`)
             .then(({ data }) => {
