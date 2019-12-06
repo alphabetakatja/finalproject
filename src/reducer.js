@@ -6,19 +6,26 @@ export default function reducer(state = {}, action) {
             friends: action.friends
         };
     }
-    if (action.type == "ACCEPT_FRIEND_REQUEST" || action.type == "UNFRIEND") {
+    if (action.type == "ACCEPT_FRIEND_REQUEST") {
         state = {
             ...state,
             friends: state.friends.map(friend => {
                 if (friend.id == action.id) {
                     return {
                         ...friend,
-                        accepted: action.type == "ACCEPT_FRIEND_REQUEST"
+                        accepted: true,
+                        buttonText: action.buttonText
                     };
                 } else {
                     return friend;
                 }
             })
+        };
+    }
+    if (action.type == "UNFRIEND") {
+        state = {
+            ...state,
+            friends: state.friends.filter(friend => friend.id !== action.id)
         };
     }
     console.log("state in reducer ended as: ", state);
