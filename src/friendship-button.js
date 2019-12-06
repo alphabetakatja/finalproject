@@ -15,7 +15,7 @@ export function FriendshipButton({ otherId }) {
 
     function submit() {
         console.log("clicked on the button!!!", buttonText, otherId);
-        if (buttonText == "Make friendship request") {
+        if (buttonText == "Add friend") {
             axios.post(`/send-friend-request/${otherId}`).then(({ data }) => {
                 console.log("response in post send-friend-request: ", data);
                 setButtonText(data.buttonText);
@@ -40,9 +40,6 @@ export function FriendshipButton({ otherId }) {
                 setButtonText(data.buttonText);
             });
         }
-        // we can either do the logic here and then send to one of different 3 post ROUTES
-        // or we can make a post route to 1 route, and the route does the logic to determine
-        // what type of query to make
     }
 
     return (

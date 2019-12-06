@@ -206,7 +206,7 @@ app.get("/friendshipstatus/:otherId", (req, res) => {
             console.log("rows in checkFriendshipStatus : ", rows);
             if (rows.length == 0) {
                 res.json({
-                    buttonText: "Make friendship request"
+                    buttonText: "Add friend"
                 });
             }
             if (rows.length > 0) {
@@ -263,7 +263,7 @@ app.post("/end-friendship/:otherId", (req, res) => {
     db.unfriend(req.params.otherId, req.session.userId).then(({ rows }) => {
         console.log("rows in end Friendship query: ", rows);
         res.json({
-            buttonText: "Make friendship request"
+            buttonText: "Add friend"
         });
     });
 });
@@ -274,10 +274,22 @@ app.post("/cancel-friendship/:otherId", (req, res) => {
     db.unfriend(req.params.otherId, req.session.userId).then(({ rows }) => {
         console.log("rows in cancel Friendship query: ", rows);
         res.json({
-            buttonText: "Make friendship request"
+            buttonText: "Add friend"
         });
     });
 });
+
+// ***** FRIENDS ROUTE *****
+
+app.get("/api/friends", (req, res) => {
+    console.log("get req in /friends-wannabes in: ", req.session);
+    db.displayFriendsWannabes(req.session.userId).then(({ rows }) => {
+        console.log("results in displayFriendsWannabes: ", rows);
+        res.json(rows);
+    });
+});
+
+// POST /accept-friendship
 
 // ***** LOGOUT ROUTE *****
 app.get("/logout", (req, res) => {

@@ -46,7 +46,7 @@ export function FindUsers() {
         // return () => (userInput = true);
     }, [searchUser]);
     return (
-        <div>
+        <div className="findusers-container">
             <div className="new-users">
                 <div className="search-title">
                     <h4>Find people</h4>
@@ -62,38 +62,49 @@ export function FindUsers() {
                         />
                         <div className="user-info">
                             <div className="profile-name">
-                                <h2>
-                                    {newuser.first} {newuser.last}
-                                </h2>
+                                <Link to={`/user/${newuser.id}`}>
+                                    <h2>
+                                        {newuser.first} {newuser.last}
+                                    </h2>
+                                </Link>
+                                <strong>Member since: </strong>
+                                <p>
+                                    {new Date(
+                                        newuser.created_at
+                                    ).toLocaleString()}
+                                </p>
                             </div>
                         </div>
                     </div>
                 ))}
             </div>
-            <div className="search-title">
-                <h5>Are you looking for someone in particular?</h5>
-            </div>
-            <div>
-                <input
-                    className="search-field"
-                    onChange={e => setSearchUser(e.target.value)}
-                    placeholder="Find Users"
-                />
-            </div>
-            <div>
+
+            <div className="search-users">
+                <div className="search-title">
+                    <h5>Are you looking for someone in particular?</h5>
+                    <input
+                        className="search-field"
+                        onChange={e => setSearchUser(e.target.value)}
+                        placeholder="Find Users"
+                    />
+                </div>
                 {users.map(user => (
                     <div key={user.id} className="profile-container">
-                        <ProfilePic
-                            first={user.first}
-                            last={user.last}
-                            imageUrl={user.url || "/images/default.png"}
-                            profilePicClass="recent-profile"
-                        />
+                        <div>
+                            <ProfilePic
+                                first={user.first}
+                                last={user.last}
+                                imageUrl={user.url || "/images/default.png"}
+                                profilePicClass="recent-profile"
+                            />
+                        </div>
                         <div className="user-info">
                             <div className="profile-name">
-                                <h2>
-                                    {user.first} {user.last}
-                                </h2>
+                                <Link to={`/user/${user.id}`}>
+                                    <h2>
+                                        {user.first} {user.last}
+                                    </h2>
+                                </Link>
                             </div>
                             <div className="profile-editor">{user.bio}</div>
                         </div>

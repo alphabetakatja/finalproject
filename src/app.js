@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { OtherProfile } from "./otherprofile";
 import { Header } from "./header";
 import { FindUsers } from "./findusers";
+import { Friends } from "./friends";
 
 export default class App extends React.Component {
     constructor() {
@@ -114,6 +115,7 @@ export default class App extends React.Component {
                             />
                             <Route path="/users" component={FindUsers} />
                             <Route path="/profile" component={Profile} />
+                            <Route path="/friends" component={Friends} />
                         </div>
                     </div>
                 </BrowserRouter>

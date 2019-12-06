@@ -20,9 +20,6 @@ body {
     background-color: white;
 }
 
-.welcome-header {
-}
-
 .welcome-header h1,
 h2,
 h3 {
@@ -122,7 +119,7 @@ h3 {
 }
 
 .register-form_content h4,
-p {
+.register-form_content p {
     margin-bottom: 15px;
     text-align: center;
     color: white;
@@ -469,6 +466,12 @@ p {
 }
 
 /* ***** FINDUSERS.JS ***** */
+.findusers-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-left: 30px;
+}
 .recent-profile {
     display: flex;
     flex-direction: column;
@@ -489,7 +492,7 @@ p {
     margin-bottom: 20px;
 }
 .search-field {
-    width: 15%;
+    width: 200px;
     margin-bottom: 10px;
     margin-left: 30px;
     padding: 10px;
@@ -501,4 +504,17 @@ p {
     outline: none;
     transition: border-color 0.5s;
     cursor: text;
+}
+
+.profile-name a {
+    text-decoration: none;
+    color: black;
+}
+
+.new-users {
+    margin-right: 100px;
+}
+
+.search-users {
+    margin-left: 50px;
 }

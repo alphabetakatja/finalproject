@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 // import { FindUsers } from "/findusers";
 
 export class Header extends React.Component {
@@ -16,48 +16,43 @@ export class Header extends React.Component {
     render() {
         return (
             <div className="app-header">
-                <BrowserRouter>
-                    <img
-                        className="app-logo"
-                        src="/images/logo-w.png"
-                        alt="logo"
-                    />
+                <img className="app-logo" src="/images/logo-w.png" alt="logo" />
 
-                    <nav>
-                        <ul className="navbar">
-                            <li>
-                                <a href="#">
-                                    <ion-icon name="person"></ion-icon>
-                                    profile
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <ion-icon name="people"></ion-icon>
-                                    friends
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <ion-icon name="wifi"></ion-icon>
-                                    online
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <ion-icon name="chatboxes"></ion-icon>
-                                    chat
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/logout">
-                                    <ion-icon name="log-out"></ion-icon>
-                                    logout
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </BrowserRouter>
+                <nav>
+                    <ul className="navbar">
+                        <li>
+                            <Link to="/">
+                                <ion-icon name="person"></ion-icon>
+                                profile
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/friends">
+                                <ion-icon name="people"></ion-icon>
+                                friends
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/users">
+                                <ion-icon name="search"></ion-icon>
+                                find people
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="#">
+                                <ion-icon name="chatboxes"></ion-icon>
+                                chat
+                            </Link>
+                        </li>
+                        <li>
+                            <a href="/logout">
+                                <ion-icon name="log-out"></ion-icon>
+                                logout
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+
                 {this.props.children}
             </div>
         );
