@@ -182,7 +182,7 @@ app.get("/api/user/:id", (req, res) => {
 
 app.get("/newusers", (req, res) => {
     console.log("req.body in newusers ", req.body);
-    db.findNewUsers()
+    db.findNewUsers(req.session.userId)
         .then(({ rows }) => {
             console.log("rows in newusers : ", rows);
             res.json(rows);

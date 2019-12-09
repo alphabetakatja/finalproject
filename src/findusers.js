@@ -1,14 +1,3 @@
-// a new component with a search input field
-// function component with hooks,
-// useState - array of users, and value of the input field
-// useEffect
-//
-// when the component mounts you wont have any users (null)
-// after the first render we do an ajax req
-// query order by id desc (just first and last);
-
-// userId as key property
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { ProfilePic } from "./profilepic";
@@ -18,12 +7,11 @@ export function FindUsers() {
     const [users, setUsers] = useState([]);
     const [searchUser, setSearchUser] = useState("");
     const [newusers, setNewUsers] = useState([]);
-    // let userInput;
+
     if (!users) {
         return null;
     }
     useEffect(() => {
-        // userInput = false;
         axios
             .get("/newusers")
             .then(({ data }) => {
@@ -37,13 +25,11 @@ export function FindUsers() {
                 .get(`/users/${searchUser}`)
                 .then(({ data }) => {
                     console.log("data in findUsers get request: ", data);
-                    // if (!userInput) {
+
                     setUsers(data);
-                    // }
                 })
                 .catch(err => console.log("error in FindUsers: ", err));
         }
-        // return () => (userInput = true);
     }, [searchUser]);
     return (
         <div className="findusers-container">
@@ -53,7 +39,7 @@ export function FindUsers() {
                     <h5>Check out who recently joined!</h5>
                 </div>
                 {newusers.map(newuser => (
-                    <div key={newuser.id} className="profile-container">
+                    <div key={newuser.id} className="friend-container">
                         <ProfilePic
                             first={newuser.first}
                             last={newuser.last}
@@ -89,7 +75,7 @@ export function FindUsers() {
                     />
                 </div>
                 {users.map(user => (
-                    <div key={user.id} className="profile-container">
+                    <div key={user.id} className="friend-container">
                         <div>
                             <ProfilePic
                                 first={user.first}

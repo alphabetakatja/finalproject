@@ -230,18 +230,6 @@ h3 {
     object-fit: cover;
 }
 
-/* .big-profile {
-    width: 200px;
-    height: 200px;
-    color: black;
-    position: relative;
-    margin-left: 30px;
-    border-radius: 5px;
-    padding: 20px;
-    border: 3px solid #f49de7;
-    object-fit: cover;
-} */
-
 .big-profile {
     display: flex;
     flex-direction: column;
@@ -264,8 +252,8 @@ h3 {
 /****** APP.JS ******/
 
 .app-container {
-    min-height: 100vh;
     background-color: white;
+    overflow: hidden;
 }
 
 .app-logo {
@@ -473,8 +461,8 @@ h3 {
     margin-left: 30px;
 }
 .recent-profile {
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     color: #eaeaea;
     margin: 20px;
     border-top-right-radius: 10px;
@@ -517,4 +505,43 @@ h3 {
 
 .search-users {
     margin-left: 50px;
+}
+
+.friends-list {
+    display: flex;
+    margin-top: 0.5%;
+    justify-content: space-around;
+    flex-direction: column;
+    width: 100%;
+}
+
+.friendcol {
+    margin-left: 30px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    /* grid-gap: 6vw; */
+}
+
+.friend-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.25);
+    margin-right: 40px;
+    margin-bottom: 40px;
+    padding: 30px;
+}
+
+.friend-container img {
+    text-align: center;
+}
+
+.friends-list h4 {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
 }

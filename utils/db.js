@@ -46,13 +46,13 @@ module.exports.getOtherProfile = function(userId) {
 
 // ***** FINDPEOPLE ROUTE *****
 
-module.exports.findNewUsers = function() {
+module.exports.findNewUsers = function(userId) {
     return db.query(
-        `SELECT id, first, last, bio, url, created_at FROM users
+        `SELECT id, first, last, bio, url, created_at FROM users WHERE id != $1
         ORDER BY id DESC
         LIMIT 4;
         `,
-        []
+        [userId]
     );
 };
 
