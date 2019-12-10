@@ -33,13 +33,19 @@ export function FindUsers() {
     }, [searchUser]);
     return (
         <div className="findusers-container">
+            <div className="search-title">
+                <h4>Check out who recently joined...</h4>
+            </div>
             <div className="new-users">
-                <div className="search-title">
-                    <h4>Find people</h4>
-                    <h5>Check out who recently joined!</h5>
-                </div>
                 {newusers.map(newuser => (
                     <div key={newuser.id} className="friend-container">
+                        <div className="profile-name">
+                            <Link to={`/user/${newuser.id}`}>
+                                <h3>
+                                    {newuser.first} {newuser.last}
+                                </h3>
+                            </Link>
+                        </div>
                         <ProfilePic
                             first={newuser.first}
                             last={newuser.last}
@@ -47,51 +53,42 @@ export function FindUsers() {
                             profilePicClass="recent-profile"
                         />
                         <div className="user-info">
-                            <div className="profile-name">
-                                <Link to={`/user/${newuser.id}`}>
-                                    <h2>
-                                        {newuser.first} {newuser.last}
-                                    </h2>
-                                </Link>
-                                <strong>Member since: </strong>
-                                <p>
-                                    {new Date(
-                                        newuser.created_at
-                                    ).toLocaleString()}
-                                </p>
-                            </div>
+                            <strong>Member since: </strong>
+                            <p>
+                                {new Date(newuser.created_at).toLocaleString()}
+                            </p>
                         </div>
                     </div>
                 ))}
             </div>
 
-            <div className="search-users">
-                <div className="search-title">
-                    <h5>Are you looking for someone in particular?</h5>
-                    <input
-                        className="search-field"
-                        onChange={e => setSearchUser(e.target.value)}
-                        placeholder="Find Users"
-                    />
-                </div>
+            <div className="search-title">
+                <h4>Are you looking for someone in particular?</h4>
+                <input
+                    className="search-field"
+                    onChange={e => setSearchUser(e.target.value)}
+                    placeholder="Find Users"
+                />
+            </div>
+
+            <div className="new-users">
                 {users.map(user => (
                     <div key={user.id} className="friend-container">
-                        <div>
-                            <ProfilePic
-                                first={user.first}
-                                last={user.last}
-                                imageUrl={user.url || "/images/default.png"}
-                                profilePicClass="recent-profile"
-                            />
+                        <div className="profile-name">
+                            <Link to={`/user/${user.id}`}>
+                                <h3>
+                                    {user.first} {user.last}
+                                </h3>
+                            </Link>
                         </div>
+                        <ProfilePic
+                            first={user.first}
+                            last={user.last}
+                            imageUrl={user.url || "/images/default.png"}
+                            profilePicClass="recent-profile"
+                        />
+
                         <div className="user-info">
-                            <div className="profile-name">
-                                <Link to={`/user/${user.id}`}>
-                                    <h2>
-                                        {user.first} {user.last}
-                                    </h2>
-                                </Link>
-                            </div>
                             <div className="profile-editor">{user.bio}</div>
                         </div>
                     </div>

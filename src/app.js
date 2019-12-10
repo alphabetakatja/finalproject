@@ -62,6 +62,7 @@ export default class App extends React.Component {
             bio: bio
         });
     }
+    // {function}
     render() {
         if (!this.state.id) {
             return null;

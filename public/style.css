@@ -5,29 +5,60 @@
 }
 
 body {
-    background-color: black;
-
+    background-color: #2f416d;
     height: 100%;
     background-attachment: fixed;
     font-family: "Work Sans", sans-serif;
-
-    min-height: 100vh;
 }
 
-.particle-obj {
+.welcome-container {
     width: 100%;
     height: 100%;
-    background-color: white;
+    display: grid;
+    grid-template-rows: 90px 1fr;
+    justify-content: center;
 }
 
 .welcome-header h1,
-h2,
-h3 {
-    color: white;
+.welcome-header h2,
+.welcome-header h3 {
+    color: #cccccc;
+}
+
+.welcome-main {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    word-spacing: 2px;
+    letter-spacing: 1px;
+}
+.welcome-text {
+    color: #cccccc;
+    font-size: 18px;
+    align-self: flex-end;
+}
+
+.welcome-text h4,
+.welcome-text h3 {
+    padding-left: 20px;
+    padding-bottom: 20px;
+    word-spacing: 2px;
+
+    margin-top: 20px;
+    /* margin-bottom: 15px; */
+    letter-spacing: 1px;
+
+    font-weight: 200;
+}
+
+.flaticon {
+    height: 50px;
+    width: 50px;
 }
 
 .error {
-    color: red;
+    color: #f49de7;
     font-size: 12px;
     word-spacing: 2px;
     text-align: center;
@@ -53,8 +84,31 @@ h3 {
     bottom: 0;
     height: 1px;
     transform: translateX(-50%);
-    width: 70%;
+    width: 80%;
     border-bottom: 1px solid white;
+    margin-top: 50px;
+}
+
+.welcome-text ul {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 1fr 1fr;
+}
+.welcome-text li {
+    text-decoration: none;
+    display: flex;
+    padding: 20px;
+}
+
+.welcome-text img {
+    padding: 2px;
+}
+
+.welcome-text p {
+    padding: 15px;
+    text-align: center;
+    font-size: 16px;
 }
 
 /****** LOGIN.JS  ******/
@@ -77,11 +131,15 @@ h3 {
 .register-form {
     width: 350px;
     max-width: 100%;
-    margin-left: 900px;
+    margin-left: 50px;
     margin-top: 100px;
     border-radius: 5px;
     overflow: hidden;
     box-shadow: 0 0 10px white;
+}
+
+.login-form {
+    float: right;
 }
 
 .logo-container {
@@ -94,7 +152,6 @@ h3 {
 .logo-container img {
     width: 150px;
     height: 150px;
-    color: #da9833;
 }
 
 .logo {
@@ -102,7 +159,6 @@ h3 {
     display: block;
     max-width: 125px;
     margin: 0 auto;
-    /* border-radius: 50%; */
 }
 
 .login-form_content,
@@ -134,8 +190,9 @@ h3 {
     outline: 0;
     border-width: 0 0 2px;
     border-color: white;
-    background: rgba(0, 0, 0, 0.3);
-    color: white;
+    background-color: #2f416d;
+    /* background: rgba(0, 0, 0, 0.3); */
+    color: #f49de7;
     outline: none;
     transition: border-color 0.5s;
     cursor: text;
@@ -144,7 +201,7 @@ h3 {
 .login-form_input:focus,
 .register-form_input:focus,
 .edit-form_input:focus {
-    border-color: red;
+    border-color: #f49de7;
 }
 
 .login-form_input::placeholder,
@@ -156,38 +213,35 @@ h3 {
 .login-form_btn,
 .register-form_btn,
 .edit-form_btn {
-    padding: 10px;
     color: white;
+    background-color: #2f416d;
+    width: 100%;
     font-size: 15px;
     font-weight: lighter;
-    background: black;
-    width: 100%;
+    margin-top: 30px;
+    padding: 10px;
     outline: none;
     border-radius: 5px;
     cursor: pointer;
     border-color: white;
     word-spacing: 2px;
     text-align: center;
-    margin-top: 30px;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
 .login-form_btn:hover,
 .register-form_btn:hover,
 .edit-form_btn:hover {
-    /* background: black;
-    color: red;
-    border-color: red; */
-    background: black;
-    color: red;
+    background-color: #2f416d;
+    color: #f49de7;
     border-radius: 50px;
-    border-color: red;
+    border-color: #f49de7;
     transition: all 0.3s ease 0s;
 }
 .login-form_btn:active,
 .register-form_btn:active,
 .edit-form_btn:active {
-    background: red;
+    background: #f49de7;
     color: black;
 }
 
@@ -212,7 +266,7 @@ h3 {
 .sign-up_link:hover,
 .log-in_link:hover {
     font-size: 1em;
-    color: red;
+    color: #f49de7;
     text-decoration: none;
     padding: 10px;
 }
@@ -245,15 +299,13 @@ h3 {
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-.bio-editor {
-    color: #da9833;
-}
-
 /****** APP.JS ******/
 
 .app-container {
-    background-color: white;
+    background-color: #2f416d;
     overflow: hidden;
+    width: 100%;
+    height: 100%;
 }
 
 .app-logo {
@@ -278,7 +330,7 @@ h3 {
     height: 1px;
     transform: translateX(-50%);
     width: 80%;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid #f49de7;
 }
 
 .navbar {
@@ -300,16 +352,16 @@ h3 {
 .navbar li a:link,
 .navbar li a:visited {
     padding: 8px 0;
-    color: black;
+    color: #f49de7;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 90%;
     border-bottom: 2px solid transparent;
-    transition: border-bottom 0.2s;
+    transition: color 0.2s;
 }
 .navbar li a:hover,
 .navbar li a:active {
-    border-bottom: 2px solid #503df9;
+    color: white;
 }
 
 .app-main {
@@ -320,15 +372,15 @@ h3 {
 
 .uploader-modal {
     position: fixed;
-    top: 30%;
-    left: 35%;
+    top: 5%;
+    left: 70%;
     width: 400px;
     height: 300px;
     z-index: 1;
     background: rgba(0, 0, 0, 0.9);
-    border: 3px solid red;
+    border: 3px solid #f49de7;
     border-radius: 5px;
-    color: red;
+    color: #f49de7;
 }
 
 .uploader-modal h3 {
@@ -366,7 +418,7 @@ h3 {
     width: 100px;
     padding: 5px;
     background-color: black;
-    border: 1px solid red;
+    border: 1px solid #f49de7;
     border-radius: 5px;
     color: white;
     cursor: pointer;
@@ -379,7 +431,7 @@ h3 {
 
 .upload-file:hover + label,
 .upload-btn:hover {
-    background-color: red;
+    background-color: #f49de7;
     color: black;
 }
 .upload-btn {
@@ -387,7 +439,7 @@ h3 {
     padding: 5px;
     color: white;
     background-color: black;
-    border: 1px solid red;
+    border: 1px solid #f49de7;
     border-radius: 5px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -399,7 +451,7 @@ h3 {
     padding: 5px;
     color: white;
     background: linear-gradient(to right, #503df9, #f49de7);
-    border: 1px solid #503df9;
+    border: 1px solid #f49de7;
     border-radius: 5px;
     letter-spacing: 2px;
     margin-left: 18px;
@@ -410,6 +462,7 @@ h3 {
 .edit-btn:hover {
     border-radius: 50px;
     background: linear-gradient(to right, #f49de7, #503df9);
+    border: 1px solid #f49de7;
     border-color: #f49de7;
     transition: all 0.3s ease 0s;
 }
@@ -455,14 +508,12 @@ h3 {
 
 /* ***** FINDUSERS.JS ***** */
 .findusers-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-start; */
     margin-left: 30px;
 }
 .recent-profile {
-    /* display: flex;
-    flex-direction: column; */
     color: #eaeaea;
     margin: 20px;
     border-top-right-radius: 10px;
@@ -477,18 +528,26 @@ h3 {
 
 .search-title {
     margin-left: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.search-title h4 {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #f49de7;
 }
 .search-field {
-    width: 200px;
-    margin-bottom: 10px;
+    width: 400px;
+    margin-bottom: 30px;
+    margin-top: 20px;
     margin-left: 30px;
     padding: 10px;
     outline: 0;
     border-radius: 5px;
     border-color: #503df9;
-    background: white;
-    color: #f49de7;
+    color: #503df9;
     outline: none;
     transition: border-color 0.5s;
     cursor: text;
@@ -500,29 +559,37 @@ h3 {
 }
 
 .new-users {
-    margin-right: 100px;
-}
-
-.search-users {
-    margin-left: 50px;
-}
-
-.friends-list {
-    display: flex;
-    margin-top: 0.5%;
-    justify-content: space-around;
-    flex-direction: column;
-    width: 100%;
-}
-
-.friendcol {
-    margin-left: 30px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    /* grid-gap: 6vw; */
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.user-info {
+    /* color: #f49de7; */
+}
+
+/* ***** FRIENDS.JS ***** */
+.friends-list {
+    margin-left: 30px;
+    /* margin-top: 50px; */
+    /* margin-bottom: 50px; */
+}
+
+.friends-list h3,
+.friends-list h4,
+.profile-name h3 {
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #f49de7;
+}
+
+.friends-list h3,
+.friends-list h4 {
+    margin-bottom: 50px;
+}
+.friendcol {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 .friend-container {
@@ -530,18 +597,21 @@ h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: rgba(0, 0, 0, 0.25);
+    border: solid 1px #f49de7;
     margin-right: 40px;
     margin-bottom: 40px;
     padding: 30px;
+    border-radius: 5px;
+    justify-self: start;
+    color: #f49de7;
+}
+
+.friend-container:hover {
+    background-color: rgba(0, 0, 0, 0.25);
+    transition: 0.3s ease-in-out;
+    color: white;
 }
 
 .friend-container img {
-    text-align: center;
-}
-
-.friends-list h4 {
-    letter-spacing: 2px;
-    text-transform: uppercase;
     text-align: center;
 }

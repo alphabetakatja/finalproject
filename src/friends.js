@@ -39,85 +39,78 @@ export function Friends() {
     }
 
     return (
-        <div>
-            <div className="friends-list">
-                <div>
-                    {wannabes && friends.length == 0 ? (
-                        <h4>No friends...</h4>
-                    ) : (
-                        <h4>{friends.length} friend/s</h4>
-                    )}
-                </div>
-
-                <div className="friendcol">
-                    {friends.map(friend => (
-                        <div key={friend.id} className="friend-container">
-                            <div className="profile-name">
-                                <Link to={`/user/${friend.id}`}>
-                                    <p>
-                                        {friend.first} {friend.last}
-                                    </p>
-                                </Link>
-                            </div>
-                            <ProfilePic
-                                first={friend.first}
-                                last={friend.last}
-                                imageUrl={friend.url || "/images/default.png"}
-                                profilePicClass="recent-profile"
-                            />
-
-                            <div className="buttons">
-                                <button
-                                    className="edit-btn"
-                                    onClick={() =>
-                                        dispatch(unfriend(friend.id))
-                                    }
-                                >
-                                    End friendship
-                                </button>
-                            </div>
+        <div className="friends-list">
+            <div className="friend-name">
+                {wannabes && friends.length == 0 ? (
+                    <h3>No friends...</h3>
+                ) : (
+                    <h3>{friends.length} friend/s</h3>
+                )}
+            </div>
+            <div className="friendcol">
+                {friends.map(friend => (
+                    <div key={friend.id} className="friend-container">
+                        <div className="profile-name">
+                            <Link to={`/user/${friend.id}`}>
+                                <h4>
+                                    {friend.first} {friend.last}
+                                </h4>
+                            </Link>
                         </div>
-                    ))}
-                </div>
-                <div>
-                    {friends && wannabes.length == 0 ? (
-                        <h4>No pending requests...</h4>
-                    ) : (
-                        <h4>{wannabes.length} wannabe/s</h4>
-                    )}
-                </div>
-                <div className="friendcol">
-                    {wannabes.map(wannabe => (
-                        <div key={wannabe.id} className="friend-container">
-                            <div className="profile-name">
-                                <Link to={`/user/${wannabe.id}`}>
-                                    <p>
-                                        {wannabe.first} {wannabe.last}
-                                    </p>
-                                </Link>
-                            </div>
-                            <ProfilePic
-                                first={wannabe.first}
-                                last={wannabe.last}
-                                imageUrl={wannabe.url || "/images/default.png"}
-                                profilePicClass="recent-profile"
-                            />
+                        <ProfilePic
+                            first={friend.first}
+                            last={friend.last}
+                            imageUrl={friend.url || "/images/default.png"}
+                            profilePicClass="recent-profile"
+                        />
 
-                            <div className="buttons">
-                                <button
-                                    className="edit-btn"
-                                    onClick={() =>
-                                        dispatch(
-                                            acceptFriendRequest(wannabe.id)
-                                        )
-                                    }
-                                >
-                                    Accept friend request
-                                </button>
-                            </div>
+                        <div className="buttons">
+                            <button
+                                className="edit-btn"
+                                onClick={() => dispatch(unfriend(friend.id))}
+                            >
+                                End friendship
+                            </button>
                         </div>
-                    ))}
-                </div>
+                    </div>
+                ))}
+            </div>
+            <div className="friend-name">
+                {friends && wannabes.length == 0 ? (
+                    <h3>No pending requests...</h3>
+                ) : (
+                    <h3>{wannabes.length} pending request/s</h3>
+                )}
+            </div>
+            <div className="friendcol">
+                {wannabes.map(wannabe => (
+                    <div key={wannabe.id} className="friend-container">
+                        <div className="profile-name">
+                            <Link to={`/user/${wannabe.id}`}>
+                                <h3>
+                                    {wannabe.first} {wannabe.last}
+                                </h3>
+                            </Link>
+                        </div>
+                        <ProfilePic
+                            first={wannabe.first}
+                            last={wannabe.last}
+                            imageUrl={wannabe.url || "/images/default.png"}
+                            profilePicClass="recent-profile"
+                        />
+
+                        <div className="buttons">
+                            <button
+                                className="edit-btn"
+                                onClick={() =>
+                                    dispatch(acceptFriendRequest(wannabe.id))
+                                }
+                            >
+                                Accept friend request
+                            </button>
+                        </div>
+                    </div>
+                ))}
             </div>
         </div>
     );

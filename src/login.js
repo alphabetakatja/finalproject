@@ -54,6 +54,7 @@ export default class Login extends React.Component {
                         Femmetor || A mentorship platform for womxn developers
                     </h3>
                 </div>
+
                 {this.state.error && (
                     <div className="error">
                         Oooops! Make sure to fill out all the required fields...
@@ -73,7 +74,7 @@ export default class Login extends React.Component {
                                 Register
                             </Link>
                         </div>
-                        <label>Email</label>
+
                         <input
                             className="login-form_input"
                             type="text"
@@ -81,7 +82,7 @@ export default class Login extends React.Component {
                             placeholder="Email"
                             onChange={e => this.handleChange(e.target)}
                         />
-                        <label>Password</label>
+
                         <input
                             className="login-form_input"
                             type="password"

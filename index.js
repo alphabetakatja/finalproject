@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+// const server = require("http").Server(app);
+// const io = require("socket.io")(server, { origins: "localhost:8080" });
 const compression = require("compression");
 const db = require("./utils/db");
 const cookieSession = require("cookie-session");
@@ -305,6 +307,11 @@ app.get("*", function(req, res) {
     }
 });
 
+// new server that listens to  server.listen
 app.listen(8080, function() {
     console.log("I'm listening.");
 });
+
+// io.on("connection", socket => {
+//     console.log(`Socket with the id ${socket.id} just connected`);
+// });

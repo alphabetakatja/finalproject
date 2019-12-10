@@ -8,6 +8,10 @@ import reduxPromise from "redux-promise";
 import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "./reducer";
 import { Provider } from "react-redux";
+// import * as io from "socket.io-client";
+// const socket = io.connect();
+
+// socket.on('hello',)
 
 const store = createStore(
     reducer,
@@ -27,4 +31,5 @@ if (location.pathname == "/welcome") {
     );
 }
 
+// io.connect();
 ReactDOM.render(elem, document.querySelector("main"));
