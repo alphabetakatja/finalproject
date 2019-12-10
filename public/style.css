@@ -615,3 +615,12 @@ body {
 .friend-container img {
     text-align: center;
 }
+
+.chat-container {
+    overflow-y: scroll;
+    height: 20%;
+}
+.chat textarea {
+    width: 15%;
+    height: 20%;
+}

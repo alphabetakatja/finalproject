@@ -30,3 +30,7 @@ export async function unfriend(otherId) {
         buttonText: data.buttonText
     };
 }
+
+// export async function chatMessages(msgs) {
+//
+// }

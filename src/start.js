@@ -8,10 +8,7 @@ import reduxPromise from "redux-promise";
 import { composeWithDevTools } from "redux-devtools-extension";
 import reducer from "./reducer";
 import { Provider } from "react-redux";
-// import * as io from "socket.io-client";
-// const socket = io.connect();
-
-// socket.on('hello',)
+import { init } from "./socket";
 
 const store = createStore(
     reducer,
@@ -24,6 +21,7 @@ if (location.pathname == "/welcome") {
     // it means that they're logged in and they wanna see the logo
     elem = <Welcome />;
 } else {
+    init(store);
     elem = (
         <Provider store={store}>
             <App />
@@ -31,5 +29,4 @@ if (location.pathname == "/welcome") {
     );
 }
 
-// io.connect();
 ReactDOM.render(elem, document.querySelector("main"));

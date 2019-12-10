@@ -1,7 +1,5 @@
 const express = require("express");
 const app = express();
-// const server = require("http").Server(app);
-// const io = require("socket.io")(server, { origins: "localhost:8080" });
 const compression = require("compression");
 const db = require("./utils/db");
 const cookieSession = require("cookie-session");
@@ -12,6 +10,8 @@ const uidSafe = require("uid-safe");
 const path = require("path");
 const s3 = require("./s3");
 const { s3Url } = require("./config");
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 
 // middleware that will run with any single route
 app.use(express.static("./public"));
@@ -24,12 +24,15 @@ app.use(
 );
 
 // cookies
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14
-    })
-);
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 14
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function(socket, next) {
+    cookieSessionMiddleware(socket.req, socket.req.res, next);
+});
 
 // boilerplate for file upload
 var diskStorage = multer.diskStorage({
@@ -299,6 +302,38 @@ app.get("/logout", (req, res) => {
     res.redirect("/welcome#/login");
 });
 
+// new server that listens to  server.listen
+server.listen(8080, function() {
+    console.log("I'm listening.");
+});
+
+// SERVER SIDE SOCKET //
+io.on("connection", function(socket) {
+    console.log(`socket with the id ${socket.id} is now connected`);
+    if (!socket.req.session.userId) {
+        return socket.disconnect(true);
+    }
+    let userId = socket.req.session.userId;
+    console.log("userId: ", userId);
+
+    /* chat meassage stuff */
+    // make a db query to get the last 10 chat messages...
+    // db.getLastTenChatMessages().then(({ rows }) => {
+    //     // now we need to emit the messages to the frontend
+    //     console.log("results in displayFriendsWannabes: ", rows);
+    //     io.socket.emit("chatMessages", rows.reverse());
+    // });
+
+    socket.on("My amazing chat message", msg => {
+        console.log("Msg on the server: ", msg);
+        // we need to look up the info of the user...
+        // then add it to the db...
+        // then emit this object out to everyone...
+        io.sockets.emit("muffin", msg);
+    });
+    //
+});
+// --------------DO NOT DELETE THIS
 app.get("*", function(req, res) {
     if (!req.session.userId) {
         res.redirect("/welcome");
@@ -306,12 +341,3 @@ app.get("*", function(req, res) {
         res.sendFile(__dirname + "/index.html");
     }
 });
-
-// new server that listens to  server.listen
-app.listen(8080, function() {
-    console.log("I'm listening.");
-});
-
-// io.on("connection", socket => {
-//     console.log(`Socket with the id ${socket.id} just connected`);
-// });

@@ -48,7 +48,7 @@ export function Header(props) {
                         </Link>
                     </li>
                     <li>
-                        <Link to="#">
+                        <Link to="/chat">
                             <ion-icon name="chatboxes"></ion-icon>
                             chat
                         </Link>
