@@ -35,25 +35,31 @@ export function Chat() {
         <div className="chat">
             <h1>Chat Room!</h1>
             <div className="chat-container" ref={elemRef}>
-                <div className="friendcol">
+                <div>
                     {chatMessages &&
                         chatMessages.map(chatMessage => (
                             <div key={chatMessage.id}>
-                                <Link to={`/user/${chatMessage.id}`}>
-                                    <h4>
-                                        {chatMessage.first} {chatMessage.last}
-                                    </h4>
-                                </Link>
+                                <div className="message-sender">
+                                    <Link to={`/user/${chatMessage.id}`}>
+                                        <h4>
+                                            {chatMessage.first}{" "}
+                                            {chatMessage.last}
+                                        </h4>
+                                    </Link>
 
-                                <ProfilePic
-                                    first={chatMessage.first}
-                                    last={chatMessage.last}
-                                    imageUrl={
-                                        chatMessage.url || "/images/default.png"
-                                    }
-                                    profilePicClass="small-profile"
-                                />
-                                <p>{chatMessage.message}</p>
+                                    <ProfilePic
+                                        first={chatMessage.first}
+                                        last={chatMessage.last}
+                                        imageUrl={
+                                            chatMessage.url ||
+                                            "/images/default.png"
+                                        }
+                                        profilePicClass="small-profile"
+                                    />
+                                </div>
+                                <div className="message-text">
+                                    <p>{chatMessage.message}</p>
+                                </div>
                             </div>
                         ))}
                 </div>

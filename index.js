@@ -329,17 +329,27 @@ io.on("connection", async function(socket) {
         .then(({ rows }) => {
             // now we need to emit the messages to the frontend
             console.log("results in getLastTenChatMessages: ", rows);
-            io.emit("chatMessages", rows.reverse());
+            io.sockets.emit("chatMessages", rows.reverse());
         })
         .catch(err => console.log("error in getLastTenChatMessages: ", err));
 
-    // socket.on("My amazing chat message", msg => {
-    //     console.log("Msg on the server: ", msg);
-    //     // we need to look up the info of the user...
-    //     // then add it to the db...
-    //     // then emit this object out to everyone...
-    //     io.sockets.emit("chatMessage", msg);
-    // });
+    // we need to look up the info of the user...
+    // then add it to the db...
+    // then emit this object out to everyone...
+    socket.on("My amazing chat message", async function(msg) {
+        console.log("Msg on the server: ", msg);
+        let message = await db.addChatMessage(userId, msg);
+        console.log("My amazing chat message result is: ", message.rows[0]);
+        io.sockets.emit("chatMessage", {
+            id: message.rows[0].id,
+            sender_id: message.rows[0].sender_id,
+            message: message.rows[0].message,
+            created_at: message.rows[0].created_at,
+            first: socket.request.first,
+            last: socket.request.last,
+            url: socket.request.url
+        });
+    });
 });
 // --------------DO NOT DELETE THIS
 app.get("*", function(req, res) {

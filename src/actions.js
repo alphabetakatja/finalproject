@@ -40,9 +40,9 @@ export async function chatMessages(msgs) {
     };
 }
 
-export async function chatMessage(rows) {
+export async function chatMessage(message) {
     return {
         type: "NEW_MESSAGE",
-        text: rows
+        chatMessage: message
     };
 }

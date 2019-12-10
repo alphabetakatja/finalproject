@@ -14,9 +14,5 @@ export const init = store => {
         socket.on("chatMessages", msgs => store.dispatch(chatMessages(msgs)));
 
         socket.on("chatMessage", msg => store.dispatch(chatMessage(msg)));
-
-        socket.on("muffin", msg => {
-            console.log("got a message on the front end", msg);
-        });
     }
 };

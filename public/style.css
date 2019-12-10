@@ -641,13 +641,12 @@ body {
 .chat-container {
     display: flex;
     padding-left: 50px;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     height: 300px;
     width: 700px;
     overflow-y: scroll;
-    /* overflow-y: hidden; */
     background-color: white;
     color: #503df9;
     border: 3px solid #f49de7;
@@ -662,4 +661,10 @@ body {
     padding-bottom: 50px;
     border: 3px solid #f49de7;
     border-radius: 5px;
+}
+
+.message-sender {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
 }

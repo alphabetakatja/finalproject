@@ -35,6 +35,13 @@ export default function reducer(state = {}, action) {
             chatMessages: action.chatMessages
         };
     }
+
+    if (action.type == "NEW_MESSAGE") {
+        state = {
+            ...state,
+            chatMessages: [...state.chatMessages, action.chatMessage]
+        };
+    }
     console.log("state in reducer ended as: ", state);
     return state;
 }
