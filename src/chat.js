@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { socket } from "./socket";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { ProfilePic } from "./profilepic";
 
 export function Chat() {
     const elemRef = useRef();
@@ -20,6 +22,7 @@ export function Chat() {
 
     const keyCheck = e => {
         if (e.key === "Enter") {
+            e.preventDefault();
             console.log("e.target.value: ", e.target.value);
             console.log("e.key: ", e.key);
             // 1st arg is the name of the event that we're emitting
@@ -32,10 +35,28 @@ export function Chat() {
         <div className="chat">
             <h1>Chat Room!</h1>
             <div className="chat-container" ref={elemRef}>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
-                <p>Chat messages will go here...</p>
+                <div className="friendcol">
+                    {chatMessages &&
+                        chatMessages.map(chatMessage => (
+                            <div key={chatMessage.id}>
+                                <Link to={`/user/${chatMessage.id}`}>
+                                    <h4>
+                                        {chatMessage.first} {chatMessage.last}
+                                    </h4>
+                                </Link>
+
+                                <ProfilePic
+                                    first={chatMessage.first}
+                                    last={chatMessage.last}
+                                    imageUrl={
+                                        chatMessage.url || "/images/default.png"
+                                    }
+                                    profilePicClass="small-profile"
+                                />
+                                <p>{chatMessage.message}</p>
+                            </div>
+                        ))}
+                </div>
             </div>
             <textarea
                 placeholder="Add your message here..."

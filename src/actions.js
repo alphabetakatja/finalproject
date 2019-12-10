@@ -31,6 +31,18 @@ export async function unfriend(otherId) {
     };
 }
 
-// export async function chatMessages(msgs) {
-//
-// }
+export async function chatMessages(msgs) {
+    console.log("Last 10 messages rendered!", msgs);
+
+    return {
+        type: "SHOW_LAST_TEN",
+        chatMessages: msgs
+    };
+}
+
+export async function chatMessage(rows) {
+    return {
+        type: "NEW_MESSAGE",
+        text: rows
+    };
+}

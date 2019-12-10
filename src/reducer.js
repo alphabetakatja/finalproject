@@ -28,6 +28,15 @@ export default function reducer(state = {}, action) {
             friends: state.friends.filter(friend => friend.id !== action.id)
         };
     }
+
+    if (action.type == "SHOW_LAST_TEN") {
+        state = {
+            ...state,
+            chatMessages: action.chatMessages
+        };
+    }
     console.log("state in reducer ended as: ", state);
     return state;
 }
+
+// chat - server - db - server - socket - actions.js - reducer - redux state - chat;

@@ -31,7 +31,7 @@ const cookieSessionMiddleware = cookieSession({
 
 app.use(cookieSessionMiddleware);
 io.use(function(socket, next) {
-    cookieSessionMiddleware(socket.req, socket.req.res, next);
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
 
 // boilerplate for file upload
@@ -308,30 +308,38 @@ server.listen(8080, function() {
 });
 
 // SERVER SIDE SOCKET //
-io.on("connection", function(socket) {
+io.on("connection", async function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
-    if (!socket.req.session.userId) {
+    if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
-    let userId = socket.req.session.userId;
-    console.log("userId: ", userId);
+    let userId = socket.request.session.userId;
+    console.log("userId socket: ", userId);
 
-    /* chat meassage stuff */
+    let results = await db.getUserInfo(userId);
+    console.log("data in socket getUserInfo: ", results.rows[0]);
+
+    socket.request.first = results.rows[0].first;
+    socket.request.last = results.rows[0].last;
+    socket.request.url = results.rows[0].url;
+
+    /* chat message stuff */
     // make a db query to get the last 10 chat messages...
-    // db.getLastTenChatMessages().then(({ rows }) => {
-    //     // now we need to emit the messages to the frontend
-    //     console.log("results in displayFriendsWannabes: ", rows);
-    //     io.socket.emit("chatMessages", rows.reverse());
-    // });
+    db.getLastTenChatMessages()
+        .then(({ rows }) => {
+            // now we need to emit the messages to the frontend
+            console.log("results in getLastTenChatMessages: ", rows);
+            io.emit("chatMessages", rows.reverse());
+        })
+        .catch(err => console.log("error in getLastTenChatMessages: ", err));
 
-    socket.on("My amazing chat message", msg => {
-        console.log("Msg on the server: ", msg);
-        // we need to look up the info of the user...
-        // then add it to the db...
-        // then emit this object out to everyone...
-        io.sockets.emit("muffin", msg);
-    });
-    //
+    // socket.on("My amazing chat message", msg => {
+    //     console.log("Msg on the server: ", msg);
+    //     // we need to look up the info of the user...
+    //     // then add it to the db...
+    //     // then emit this object out to everyone...
+    //     io.sockets.emit("chatMessage", msg);
+    // });
 });
 // --------------DO NOT DELETE THIS
 app.get("*", function(req, res) {

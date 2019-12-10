@@ -107,3 +107,20 @@ module.exports.displayFriendsWannabes = function(userId) {
         [userId]
     );
 };
+
+exports.addChatMessage = function(sender_id, message) {
+    return db.query(
+        `INSERT INTO chat (sender_id, message) VALUES ($1, $2) RETURNING *`,
+        [sender_id, message]
+    );
+};
+
+exports.getLastTenChatMessages = function() {
+    return db.query(
+        `SELECT chat.id, sender_id, chat.message, chat.created_at, users.first, users.last, users.url, chat.url AS chatImg
+        FROM chat
+        LEFT JOIN users ON users.id = chat.sender_id
+        ORDER BY chat.id
+        DESC LIMIT 10`
+    );
+};
