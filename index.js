@@ -297,30 +297,16 @@ app.get("/logout", (req, res) => {
     res.redirect("/welcome#/login");
 });
 
-// ***** WALL POSTS *****
-
 // new server that listens to  server.listen
 server.listen(8080, function() {
     console.log("I'm listening.");
 });
 
 // ***** SERVER SIDE SOCKET ***** //
-// const onlineUsers = {};
-// key that/s a socket id or a user id
-// onlineUsers[socket.id] = userId;
-// delete onlineUsers[socket.id];
-// const onlineUsers = {};
-// io.on("connection", async function(socket) {
-//
-//     // onlineUsers[socket.id] = userId;
-//      // delete onlineUsers[socket.id]
-//     if (!socket.request.session.userId) {
-//         return socket.disconnect(true);
-//     }
-// }
+
 // SELECT * FROM users WHERE id = ANY($1);
 
-io.on("connection", async function(socket) {
+io.on("connection", async socket => {
     console.log(`socket with the id ${socket.id} is now connected`);
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
@@ -351,23 +337,62 @@ io.on("connection", async function(socket) {
         });
     });
 
-    // make a db query to get the last 10 chat messages...
+    // ***** CHAT FEATURE *****
     db.getLastTenChatMessages()
         .then(({ rows }) => {
-            // now we need to emit the messages to the frontend
             // console.log("results in getLastTenChatMessages: ", rows);
             io.sockets.emit("chatMessages", rows.reverse());
         })
         .catch(err => console.log("error in getLastTenChatMessages: ", err));
 
+    // ***** WALL POSTS *****
+    // fetching last 10 wall posts for loggedInUser
+
     db.getWallPosts(userId)
         .then(({ rows }) => {
-            console.log("results in getWallPosts: ", rows);
-            io.sockets.emit("wallPosts", rows.reverse());
+            // console.log("results in getWallPosts: ", rows);
+            io.emit("wallPosts", rows.reverse());
         })
         .catch(err => console.log("error in getWallPosts: ", err));
 
-    console.log("wall post for otherId: ", socket.request.params.otherId);
+    // fetching posts for other profiles
+
+    // socket.on("load other profile", async otherId => {
+    //     await db
+    //         .getWallPosts(otherId)
+    //         .then(({ rows }) => {
+    //             console.log("results in getWallPosts: ", rows);
+    //             io.emit("wallPosts", rows.reverse());
+    //         })
+    //         .catch(err => console.log("error in getWallPosts: ", err));
+    // });
+
+    // listening for new wall post
+    socket.on("My amazing wall post", async postData => {
+        console.log("My amazing wall post result is: ", postData);
+        let receiverId =
+            postData.receiver_id === "logged in user"
+                ? userId
+                : postData.receiver_id;
+        console.log("receiver id: ", receiverId);
+        try {
+            let addedPost = await db.addWallPosts(
+                userId,
+                receiverId,
+                postData.post,
+                postData.type
+            );
+            console.log("addedPost: ", addedPost.rows[0]);
+            io.sockets.emit("addWallPosts", {
+                ...addedPost.rows[0],
+                first: socket.request.first,
+                last: socket.request.last,
+                url: socket.request.url
+            });
+        } catch (err) {
+            console.log("error in addedPost: ", err);
+        }
+    });
 });
 // ***** DO NOT DELETE THIS *****
 app.get("*", function(req, res) {

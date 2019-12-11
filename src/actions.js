@@ -54,3 +54,11 @@ export async function wallPosts(posts) {
         wallPosts: posts
     };
 }
+
+export async function addWallPosts(post) {
+    console.log("A post has been added!", post);
+    return {
+        type: "ADD_WALL_POST",
+        addWallPosts: post
+    };
+}

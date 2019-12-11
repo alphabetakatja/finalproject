@@ -49,6 +49,13 @@ export default function reducer(state = {}, action) {
             wallPosts: action.wallPosts
         };
     }
+
+    if (action.type == "ADD_WALL_POST") {
+        state = {
+            ...state,
+            wallPosts: [...state.wallPosts, action.addWallPosts]
+        };
+    }
     console.log("state in reducer ended as: ", state);
     return state;
 }

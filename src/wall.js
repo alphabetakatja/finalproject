@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 // import axios from "./axios";
-// import { socket } from "./socket";
+import { socket } from "./socket";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { ProfilePic } from "./profilepic";
@@ -16,6 +16,30 @@ export function Wall() {
     if (!wallPosts) {
         return null;
     }
+
+    const submitPost = (input, type, path) => {
+        input = input.trimEnd();
+        if (input.length > 0) {
+            socket.emit("My amazing wall post", {
+                post: input,
+                type: type,
+                receiver_id: path === "/" ? "logged in user" : path.slice(-1)
+            });
+        } else {
+            return;
+        }
+    };
+    const keyCheck = e => {
+        if (e.key === "Enter") {
+            e.preventDefault();
+            // console.log("e.target.value: ", e.target.value);
+            // console.log("e.key: ", e.key);
+            // 1st arg is the name of the event that we're emitting
+            // console.log("location.pathname: ", location.pathname);
+            submitPost(e.target.value, "text", location.pathname);
+            e.target.value = "";
+        }
+    };
     return (
         <div className="wall">
             <h1>This is my Wall!</h1>
@@ -37,7 +61,7 @@ export function Wall() {
                                 </Link>
                             </div>
                             <div className="message-text">
-                                <p>{post.messages}</p>
+                                <p>{post.post}</p>
                                 <p>
                                     {new Date(post.created_at).toLocaleString()}
                                 </p>
@@ -45,6 +69,7 @@ export function Wall() {
                         </div>
                     ))}
             </div>
+            <input placeholder="Type something..." onKeyUp={keyCheck}></input>
         </div>
     );
 }

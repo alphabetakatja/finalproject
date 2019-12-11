@@ -130,28 +130,26 @@ exports.getLastTenChatMessages = function() {
 // Merge users table to include first, last and url
 module.exports.getWallPosts = function(userId) {
     return db.query(
-        `SELECT wall.id, sender_id, wall.messages, wall.created_at, users.first, users.last, users.url
+        `SELECT wall.id, wall.sender_id, wall.receiver_id, wall.post, wall.post_type, wall.created_at, users.first, users.last, users.url
          FROM wall
          LEFT JOIN users ON users.id = wall.sender_id
-         WHERE receiver_id = $1
-         ORDER BY wall.id
+         WHERE wall.receiver_id = $1
+         ORDER BY wall.created_at
          DESC LIMIT 10`,
         [userId]
     );
 };
 
 module.exports.addWallPosts = function(
-    senderId,
-    first,
-    last,
-    url,
-    message,
-    picture
+    sender_id,
+    receiver_id,
+    post,
+    post_type
 ) {
     return db.query(
-        `INSERT INTO wall (sender_id, first, last, url, messages, picture)
-        VALUES ($1, $2, $3, $4, $5, $6)
+        `INSERT INTO wall (sender_id, receiver_id, post, post_type)
+        VALUES ($1, $2, $3, $4)
         RETURNING *`,
-        [senderId, first, last, url, message, picture]
+        [sender_id, receiver_id, post, post_type]
     );
 };
