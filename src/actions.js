@@ -46,3 +46,11 @@ export async function chatMessage(message) {
         chatMessage: message
     };
 }
+
+export async function wallPosts(posts) {
+    console.log("Last 10 posts rendered!", posts);
+    return {
+        type: "SHOW_WALL_POSTS",
+        wallPosts: posts
+    };
+}

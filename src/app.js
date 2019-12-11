@@ -11,6 +11,8 @@ import { Header } from "./header";
 import { FindUsers } from "./findusers";
 import { Friends } from "./friends";
 import { Chat } from "./chat";
+import { Events } from "./events";
+import { Wall } from "./wall";
 
 export default class App extends React.Component {
     constructor() {
@@ -104,6 +106,7 @@ export default class App extends React.Component {
                                     />
                                 )}
                             />
+
                             <Route
                                 path="/user/:id"
                                 // component={OtherProfile}
@@ -119,6 +122,8 @@ export default class App extends React.Component {
                             <Route path="/profile" component={Profile} />
                             <Route path="/friends" component={Friends} />
                             <Route path="/chat" component={Chat} />
+                            <Route path="/wall" component={Wall} />
+                            <Route path="/events" component={Events} />
                         </div>
                     </div>
                 </BrowserRouter>

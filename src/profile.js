@@ -3,6 +3,7 @@
 import React from "react";
 import { ProfilePic } from "./profilepic";
 import { BioEditor } from "./bioeditor";
+import { Wall } from "./wall";
 
 export function Profile(props) {
     console.log("props in Profile: ", props);
@@ -25,6 +26,9 @@ export function Profile(props) {
                 <div className="profile-editor">
                     <BioEditor bio={props.bio} updateBio={props.updateBio} />
                 </div>
+            </div>
+            <div className="wall">
+                <Wall />
             </div>
         </div>
     );

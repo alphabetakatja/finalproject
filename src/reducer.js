@@ -42,6 +42,13 @@ export default function reducer(state = {}, action) {
             chatMessages: [...state.chatMessages, action.chatMessage]
         };
     }
+
+    if (action.type == "SHOW_WALL_POSTS") {
+        state = {
+            ...state,
+            wallPosts: action.wallPosts
+        };
+    }
     console.log("state in reducer ended as: ", state);
     return state;
 }

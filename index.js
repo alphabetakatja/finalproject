@@ -136,7 +136,6 @@ app.post("/login", async (req, res) => {
 });
 
 // ***** APP ROUTE *****
-
 app.get("/user.json", (req, res) => {
     console.log("req.session in user: ", req.session.userId);
     db.getUserInfo(req.session.userId)
@@ -166,7 +165,6 @@ app.post("/bio", (req, res) => {
 });
 
 // ***** OTHERPROFILE ROUTE *****
-
 app.get("/api/user/:id", (req, res) => {
     console.log("req/body in bio: ", req.params);
     if (req.session.userId != req.params.id) {
@@ -184,7 +182,6 @@ app.get("/api/user/:id", (req, res) => {
 });
 
 // ***** FINDUSERS ROUTE *****
-
 app.get("/newusers", (req, res) => {
     console.log("req.body in newusers ", req.body);
     db.findNewUsers(req.session.userId)
@@ -294,52 +291,55 @@ app.get("/api/friends", (req, res) => {
     });
 });
 
-// POST /accept-friendship
-
 // ***** LOGOUT ROUTE *****
 app.get("/logout", (req, res) => {
     req.session = null;
     res.redirect("/welcome#/login");
 });
 
+// ***** WALL POSTS *****
+
 // new server that listens to  server.listen
 server.listen(8080, function() {
     console.log("I'm listening.");
 });
 
-// SERVER SIDE SOCKET //
+// ***** SERVER SIDE SOCKET ***** //
+// const onlineUsers = {};
+// key that/s a socket id or a user id
+// onlineUsers[socket.id] = userId;
+// delete onlineUsers[socket.id];
+// const onlineUsers = {};
+// io.on("connection", async function(socket) {
+//
+//     // onlineUsers[socket.id] = userId;
+//      // delete onlineUsers[socket.id]
+//     if (!socket.request.session.userId) {
+//         return socket.disconnect(true);
+//     }
+// }
+// SELECT * FROM users WHERE id = ANY($1);
+
 io.on("connection", async function(socket) {
     console.log(`socket with the id ${socket.id} is now connected`);
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
     let userId = socket.request.session.userId;
+
     console.log("userId socket: ", userId);
 
     let results = await db.getUserInfo(userId);
-    console.log("data in socket getUserInfo: ", results.rows[0]);
+    // console.log("data in socket getUserInfo: ", results.rows[0]);
 
     socket.request.first = results.rows[0].first;
     socket.request.last = results.rows[0].last;
     socket.request.url = results.rows[0].url;
 
-    /* chat message stuff */
-    // make a db query to get the last 10 chat messages...
-    db.getLastTenChatMessages()
-        .then(({ rows }) => {
-            // now we need to emit the messages to the frontend
-            console.log("results in getLastTenChatMessages: ", rows);
-            io.sockets.emit("chatMessages", rows.reverse());
-        })
-        .catch(err => console.log("error in getLastTenChatMessages: ", err));
-
-    // we need to look up the info of the user...
-    // then add it to the db...
-    // then emit this object out to everyone...
     socket.on("My amazing chat message", async function(msg) {
-        console.log("Msg on the server: ", msg);
+        // console.log("Msg on the server: ", msg);
         let message = await db.addChatMessage(userId, msg);
-        console.log("My amazing chat message result is: ", message.rows[0]);
+        // console.log("My amazing chat message result is: ", message.rows[0]);
         io.sockets.emit("chatMessage", {
             id: message.rows[0].id,
             sender_id: message.rows[0].sender_id,
@@ -350,8 +350,26 @@ io.on("connection", async function(socket) {
             url: socket.request.url
         });
     });
+
+    // make a db query to get the last 10 chat messages...
+    db.getLastTenChatMessages()
+        .then(({ rows }) => {
+            // now we need to emit the messages to the frontend
+            // console.log("results in getLastTenChatMessages: ", rows);
+            io.sockets.emit("chatMessages", rows.reverse());
+        })
+        .catch(err => console.log("error in getLastTenChatMessages: ", err));
+
+    db.getWallPosts(userId)
+        .then(({ rows }) => {
+            console.log("results in getWallPosts: ", rows);
+            io.sockets.emit("wallPosts", rows.reverse());
+        })
+        .catch(err => console.log("error in getWallPosts: ", err));
+
+    console.log("wall post for otherId: ", socket.request.params.otherId);
 });
-// --------------DO NOT DELETE THIS
+// ***** DO NOT DELETE THIS *****
 app.get("*", function(req, res) {
     if (!req.session.userId) {
         res.redirect("/welcome");
