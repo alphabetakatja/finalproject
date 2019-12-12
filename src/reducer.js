@@ -53,7 +53,7 @@ export default function reducer(state = {}, action) {
     if (action.type == "ADD_WALL_POST") {
         state = {
             ...state,
-            wallPosts: [...state.wallPosts, action.addWallPosts]
+            wallPosts: [action.addWallPosts, ...state.wallPosts]
         };
     }
     console.log("state in reducer ended as: ", state);

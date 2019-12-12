@@ -34,7 +34,7 @@ export function Chat() {
 
     return (
         <div className="chat">
-            <h1>Chat Room!</h1>
+            <h3>Chat Room - talk to your buddies</h3>
             <div className="chat-container" ref={elemRef}>
                 {chatMessages &&
                     chatMessages.map(chatMessage => (
@@ -48,7 +48,7 @@ export function Chat() {
                                     }
                                     profilePicClass="chat-photo"
                                 />
-                                <Link to={`/user/${chatMessage.id}`}>
+                                <Link to={`/user/${chatMessage.sender_id}`}>
                                     <h4>
                                         {chatMessage.first} {chatMessage.last}
                                     </h4>

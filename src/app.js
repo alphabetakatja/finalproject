@@ -13,6 +13,7 @@ import { Friends } from "./friends";
 import { Chat } from "./chat";
 import { Events } from "./events";
 import { Wall } from "./wall";
+import { EditProfile } from "./edit-profile";
 
 export default class App extends React.Component {
     constructor() {
@@ -124,6 +125,10 @@ export default class App extends React.Component {
                             <Route path="/chat" component={Chat} />
                             <Route path="/wall" component={Wall} />
                             <Route path="/events" component={Events} />
+                            <Route
+                                path="/edit-profile"
+                                component={EditProfile}
+                            />
                         </div>
                     </div>
                 </BrowserRouter>

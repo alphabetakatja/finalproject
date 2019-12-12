@@ -276,7 +276,7 @@ body {
     padding: 10px;
 }
 
-/****** PROFILEPIC.JS ******/
+/****** PROFILEPIC.JS COMPONENT ******/
 .small-profile {
     width: 80px;
     height: 80px;
@@ -373,7 +373,7 @@ body {
     padding-top: 75px;
 }
 
-/****** UPLOADER.JS ******/
+/****** UPLOADER.JS COMPONENT ******/
 
 .uploader-modal {
     position: fixed;
@@ -471,20 +471,22 @@ body {
     border-color: #f49de7;
     transition: all 0.3s ease 0s;
 }
-/* ***** PROFILE.JS ***** */
+
+/* ***** PROFILE.JS COMPONENT***** */
 .profile-name h1,
 .profile-name h2,
 .profile-name h3 {
-    color: black;
+    color: #f49de7;
     margin-bottom: 30px;
     padding: 10px;
+    text-align: center;
 }
 
 .profile-container {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
+    justify-content: space-around;
+    align-items: flex-start;
 }
 
 .user-info {
@@ -498,7 +500,7 @@ body {
 }
 
 .bio-editor p {
-    color: black;
+    color: #f49de7;
 }
 
 .new-line {
@@ -509,6 +511,25 @@ body {
 .bio-editor textarea {
     width: 300px;
     height: 200px;
+}
+.bioeditor-icon {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-top: 10px;
+}
+.bioeditor-btn {
+    width: 15px;
+    height: 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.bioeditor-icon p {
+    padding: 4px;
+    letter-spacing: 2px;
+    /* margin-left: 18px; */
+    text-transform: uppercase;
 }
 
 /* ***** FINDUSERS.JS ***** */
@@ -575,8 +596,6 @@ body {
 /* ***** FRIENDS.JS ***** */
 .friends-list {
     margin-left: 30px;
-    /* margin-top: 50px; */
-    /* margin-bottom: 50px; */
 }
 
 .friends-list h3,
@@ -633,15 +652,17 @@ body {
     margin: 10px 50px 0px 50px;
 }
 
-.chat h1 {
+.chat h3 {
     text-align: center;
     color: #f49de7;
     padding-bottom: 30px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
 }
 .chat-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 550px;
     width: 700px;
@@ -662,7 +683,6 @@ body {
     border: 3px solid #f49de7;
     border-width: 0 0 2px;
     background-color: #2f416d;
-    /* background: rgba(0, 0, 0, 0.3); */
     color: #f49de7;
     outline: none;
     transition: border-color 0.5s;
@@ -675,12 +695,11 @@ body {
     padding: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
-
     width: 95%;
 }
 
 .message-sender {
-    padding-left: 40px;
+    /* padding: 40px; */
     padding-right: 40px;
 }
 
@@ -691,7 +710,6 @@ body {
     justify-content: space-around;
     padding: 40px;
     border: 2px solid rgba(0, 0, 0, 0.25);
-    /* border-top-left-radius: 5px; */
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
     border-top-right-radius: 20px;
@@ -703,6 +721,7 @@ body {
     text-align: left;
     font-size: 12px;
     color: #f49de7;
+    padding: 5px;
 }
 
 .message-text p {
@@ -725,9 +744,34 @@ body {
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-end;
-    color: grey;
+    color: #f49de7;
     text-align: center;
     opacity: 0.8;
     border-radius: 20px;
     margin: 10px 50px 0px 50px;
+}
+
+.wall input {
+    width: 350px;
+    height: 100px;
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 10px;
+    outline: 0;
+    border: 3px solid #f49de7;
+    border-width: 0 0 2px;
+    background-color: #2f416d;
+    color: #f49de7;
+    outline: none;
+    transition: border-color 0.5s;
+    cursor: text;
+}
+
+.wall input::placeholder,
+.chat input::placeholder {
+    color: #f49de7;
+}
+
+.edit-form {
+    position: absolute;
 }

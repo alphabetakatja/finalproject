@@ -3,6 +3,7 @@ import axios from "./axios";
 import { ProfilePic } from "./profilepic";
 import { FriendshipButton } from "./friendship-button";
 import { Wall } from "./wall";
+import { socket } from "./socket";
 
 export class OtherProfile extends React.Component {
     constructor() {
@@ -12,7 +13,9 @@ export class OtherProfile extends React.Component {
     componentDidMount() {
         // it comes from the BrowserRouter
         console.log("this.props.match: ", this.props.match);
-
+        socket.emit("load profile", {
+            receiver_id: this.props.match.params.id
+        });
         console.log("this.props.match.params.id: ", this.props.match.params.id);
         axios
             .get(`/api/user/${this.props.match.params.id}`)
@@ -37,27 +40,29 @@ export class OtherProfile extends React.Component {
     render() {
         return (
             <div className="profile-container">
-                <ProfilePic
-                    first={this.state.first}
-                    last={this.state.last}
-                    imageUrl={this.state.imageUrl}
-                    profilePicClass="big-profile"
-                />
-                <div className="user-info">
+                <div className="profile-info">
                     <div className="profile-name">
                         <h2>
                             {this.state.first} {this.state.last}
                         </h2>
                     </div>
-                    <div className="profile-editor">{this.state.bio}</div>
-                    <div className="friendship-button">
-                        <FriendshipButton
-                            otherId={this.props.match.params.id}
-                        />
+                    <ProfilePic
+                        first={this.state.first}
+                        last={this.state.last}
+                        imageUrl={this.state.imageUrl}
+                        profilePicClass="big-profile"
+                    />
+                    <div className="user-info">
+                        <div className="profile-editor">{this.state.bio}</div>
+                        <div className="friendship-button">
+                            <FriendshipButton
+                                otherId={this.props.match.params.id}
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <Wall otherId={this.props.match.params.id} />
-                    </div>
+                </div>
+                <div>
+                    <Wall />
                 </div>
             </div>
         );

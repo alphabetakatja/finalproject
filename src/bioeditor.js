@@ -84,9 +84,14 @@ export class BioEditor extends React.Component {
             return (
                 <div className="bio-editor">
                     <p className="new-line">{this.props.bio}</p>
-                    <button onClick={this.showBio} className="edit-btn">
-                        {buttonText}
-                    </button>
+                    <div className="bioeditor-icon">
+                        <img
+                            onClick={this.showBio}
+                            className="bioeditor-btn"
+                            src="./images/pencil.png"
+                        />
+                        <p>{buttonText}</p>
+                    </div>
                 </div>
             );
         }

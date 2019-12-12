@@ -31,6 +31,7 @@ export async function unfriend(otherId) {
     };
 }
 
+// ***** CHAT MESSAGES *****
 export async function chatMessages(msgs) {
     console.log("Last 10 messages rendered!", msgs);
 
@@ -47,6 +48,7 @@ export async function chatMessage(message) {
     };
 }
 
+// ***** WALL POSTS *****
 export async function wallPosts(posts) {
     console.log("Last 10 posts rendered!", posts);
     return {

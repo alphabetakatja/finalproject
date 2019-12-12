@@ -12,6 +12,9 @@ const s3 = require("./s3");
 const { s3Url } = require("./config");
 const server = require("http").Server(app);
 const io = require("socket.io")(server, { origins: "localhost:8080" });
+// const cheerio = require("cheerio");
+// const request = require("request");
+// const url = require("url");
 
 // middleware that will run with any single route
 app.use(express.static("./public"));
@@ -350,22 +353,25 @@ io.on("connection", async socket => {
 
     db.getWallPosts(userId)
         .then(({ rows }) => {
-            // console.log("results in getWallPosts: ", rows);
-            io.emit("wallPosts", rows.reverse());
+            console.log("results in getWallPosts: ", rows);
+            io.sockets.emit("wallPosts", rows);
         })
         .catch(err => console.log("error in getWallPosts: ", err));
 
     // fetching posts for other profiles
-
-    // socket.on("load other profile", async otherId => {
-    //     await db
-    //         .getWallPosts(otherId)
-    //         .then(({ rows }) => {
-    //             console.log("results in getWallPosts: ", rows);
-    //             io.emit("wallPosts", rows.reverse());
-    //         })
-    //         .catch(err => console.log("error in getWallPosts: ", err));
-    // });
+    socket.on("load profile", async id => {
+        console.log("My amazing wall post result is: ", id);
+        let receiverId =
+            id.receiver_id === "logged in user" ? userId : id.receiver_id;
+        console.log("receiver id: ", receiverId);
+        await db
+            .getWallPosts(receiverId)
+            .then(({ rows }) => {
+                console.log("results in getWallPosts otheruserId: ", rows);
+                io.emit("wallPosts", rows);
+            })
+            .catch(err => console.log("error in getWallPosts: ", err));
+    });
 
     // listening for new wall post
     socket.on("My amazing wall post", async postData => {
