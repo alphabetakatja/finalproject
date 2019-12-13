@@ -11,12 +11,14 @@ export default class Register extends React.Component {
         };
     }
     submit() {
+        console.log("this roleType: ", this.roleType.current.value);
         axios
             .post("/register", {
                 email: this.state.email,
                 password: this.state.password,
                 last: this.state.last,
-                first: this.state.first
+                first: this.state.first,
+                role: this.state.role
             })
             .then(({ data }) => {
                 console.log("data in register: ", data);
@@ -32,9 +34,15 @@ export default class Register extends React.Component {
             });
     }
     handleChange(inputElement) {
-        this.setState({
-            [inputElement.name]: inputElement.value
-        });
+        console.log("input choice: ", inputElement.value);
+        this.setState(
+            {
+                [inputElement.name]: inputElement.value
+            },
+            () => {
+                console.log("this.state: ", this.state);
+            }
+        );
 
         if (this.state.password && this.state.password.length < 4) {
             this.setState({
@@ -52,7 +60,7 @@ export default class Register extends React.Component {
         return (
             <div className="registration-page">
                 <div className="welcome-header">
-                    <h3>e || FRIENDS</h3>
+                    <h3>femmetor || a mentorship platform for womxn</h3>
                 </div>
                 <div className="welcome-main">
                     <div className="welcome-text">
@@ -140,6 +148,7 @@ export default class Register extends React.Component {
                                 placeholder="Email"
                                 onChange={e => this.handleChange(e.target)}
                             />
+
                             <input
                                 className="register-form_input"
                                 type="password"
@@ -147,6 +156,18 @@ export default class Register extends React.Component {
                                 placeholder="Password"
                                 onChange={e => this.handleChange(e.target)}
                             />
+                            <select
+                                className="register-form_input"
+                                name="role"
+                                id="role-select"
+                                onChange={e => this.handleChange(e.target)}
+                            >
+                                <option value="">
+                                    --Please choose a role--
+                                </option>
+                                <option value="mentor">Mentor</option>
+                                <option value="mentee">Mentee</option>
+                            </select>
                             <div>
                                 {this.state.passwordError && (
                                     <div className="error">
