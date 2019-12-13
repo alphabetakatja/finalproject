@@ -11,11 +11,11 @@ export function Chat() {
     console.log("chatMessages: ", chatMessages);
 
     useEffect(() => {
-        console.log("chat mounted!!!");
-        console.log("elemRef: ", elemRef.current);
-        console.log("scroll top: ", elemRef.current.scrollTop);
-        console.log("clientHeight: ", elemRef.current.clientHeight);
-        console.log("scrollHeight: ", elemRef.current.scrollHeight);
+        // console.log("chat mounted!!!");
+        // console.log("elemRef: ", elemRef.current);
+        // console.log("scroll top: ", elemRef.current.scrollTop);
+        // console.log("clientHeight: ", elemRef.current.clientHeight);
+        // console.log("scrollHeight: ", elemRef.current.scrollHeight);
 
         elemRef.current.scrollTop =
             elemRef.current.scrollHeight - elemRef.current.clientHeight;

@@ -44,11 +44,8 @@ body {
     padding-left: 20px;
     padding-bottom: 20px;
     word-spacing: 2px;
-
     margin-top: 20px;
-    /* margin-bottom: 15px; */
     letter-spacing: 1px;
-
     font-weight: 200;
 }
 
@@ -89,7 +86,7 @@ body {
     bottom: 0;
     height: 1px;
     transform: translateX(-50%);
-    width: 80%;
+    width: 30%;
     border-bottom: 1px solid white;
     margin-top: 50px;
 }
@@ -196,7 +193,6 @@ body {
     border-width: 0 0 2px;
     border-color: white;
     background-color: #2f416d;
-    /* background: rgba(0, 0, 0, 0.3); */
     color: #f49de7;
     outline: none;
     transition: border-color 0.5s;
@@ -229,9 +225,9 @@ body {
     border-radius: 5px;
     cursor: pointer;
     border-color: white;
-    word-spacing: 2px;
     text-align: center;
     letter-spacing: 1px;
+    word-spacing: 2px;
     text-transform: uppercase;
 }
 .login-form_btn:hover,
@@ -278,8 +274,8 @@ body {
 
 /****** PROFILEPIC.JS COMPONENT ******/
 .small-profile {
-    width: 80px;
-    height: 80px;
+    width: 75px;
+    height: 75px;
     color: black;
     position: relative;
     right: 20px;
@@ -314,9 +310,11 @@ body {
 }
 
 .app-logo {
-    width: 90px;
-    height: 90px;
+    width: 80px;
+    height: 80px;
+    padding: 4px;
     margin-left: 20px;
+    margin-top: 5px;
 }
 
 .app-header {
@@ -746,7 +744,7 @@ body {
     align-items: flex-end;
     color: #f49de7;
     text-align: center;
-    opacity: 0.8;
+    opacity: 0.9;
     border-radius: 20px;
     margin: 10px 50px 0px 50px;
 }
@@ -774,4 +772,26 @@ body {
 
 .edit-form {
     position: absolute;
+}
+
+/* ***** ONLINE USERS COMPONENT ***** */
+.online-users {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    height: 600px;
+    width: 300px;
+    overflow: scroll;
+    margin-left: 50px;
+    /* box-shadow: 0px 0px 50px #f49de7; */
+    background-color: #f49de7;
+    opacity: 0.9;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+.online-sign {
+    width: 10px;
+    height: 10px;
+    background-color: green;
 }

@@ -50,9 +50,7 @@ export default class Login extends React.Component {
         return (
             <div className="login-page">
                 <div className="welcome-header">
-                    <h3>
-                        Femmetor || A mentorship platform for womxn developers
-                    </h3>
+                    <h3>e || friends</h3>
                 </div>
 
                 {this.state.error && (
@@ -62,7 +60,7 @@ export default class Login extends React.Component {
                 )}
                 <div className="login-form">
                     <div className="logo-container">
-                        <img src="/images/logo-w.png" alt="logo" />
+                        <img src="/images/logo-photo.png" alt="logo" />
                     </div>
                     <div className="login-form_content">
                         <div className="login-form_header">

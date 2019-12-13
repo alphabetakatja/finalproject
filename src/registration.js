@@ -52,15 +52,13 @@ export default class Register extends React.Component {
         return (
             <div className="registration-page">
                 <div className="welcome-header">
-                    <h3>
-                        Femmetor || A mentorship platform for womxn developers
-                    </h3>
+                    <h3>e || FRIENDS</h3>
                 </div>
                 <div className="welcome-main">
                     <div className="welcome-text">
                         <h3>
-                            FemmeTor helps you grow by exchanging knowledge
-                            <br /> and experiences with peers.
+                            eFriends helps you grow by connecting you with
+                            peers.
                         </h3>
                         <h4>How does it work?</h4>
                         <ul>
@@ -83,7 +81,7 @@ export default class Register extends React.Component {
                                     className="flaticon"
                                     src="./images/profile.png"
                                 />
-                                <p>Match with a mentor</p>
+                                <p>Find an eFriend</p>
                             </li>
                             <li>
                                 <img
@@ -95,16 +93,9 @@ export default class Register extends React.Component {
                             <li>
                                 <img
                                     className="flaticon"
-                                    src="./images/learning.png"
+                                    src="./images/party-hat.png"
                                 />
-                                <p>Start learning</p>
-                            </li>
-                            <li>
-                                <img
-                                    className="flaticon"
-                                    src="./images/mortarboard.png"
-                                />
-                                <p>Become a mentor</p>
+                                <p>Enjoy the ride & have fun</p>
                             </li>
                         </ul>
                     </div>
@@ -116,7 +107,7 @@ export default class Register extends React.Component {
                     )}
                     <div className="register-form">
                         <div className="logo-container">
-                            <img src="/images/logo-w.png" alt="logo" />
+                            <img src="/images/logo-photo.png" alt="logo" />
                         </div>
                         <div className="register-form_content">
                             <p>

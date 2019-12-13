@@ -60,9 +60,6 @@ export class BioEditor extends React.Component {
         }
     }
 
-    // static getDerivedStateFromProps(props, state) {
-    // if (!props.bio)
-    // }
     render() {
         let buttonText;
         this.props.bio
@@ -97,3 +94,7 @@ export class BioEditor extends React.Component {
         }
     }
 }
+
+// static getDerivedStateFromProps(props, state) {
+// if (!props.bio)
+// }

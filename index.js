@@ -309,13 +309,15 @@ server.listen(8080, function() {
 
 // SELECT * FROM users WHERE id = ANY($1);
 
+const onlineUsers = {};
+
 io.on("connection", async socket => {
     console.log(`socket with the id ${socket.id} is now connected`);
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
     let userId = socket.request.session.userId;
-
+    let socketId = socket.id;
     console.log("userId socket: ", userId);
 
     let results = await db.getUserInfo(userId);
@@ -353,21 +355,21 @@ io.on("connection", async socket => {
 
     db.getWallPosts(userId)
         .then(({ rows }) => {
-            console.log("results in getWallPosts: ", rows);
+            // console.log("results in getWallPosts: ", rows);
             io.sockets.emit("wallPosts", rows);
         })
         .catch(err => console.log("error in getWallPosts: ", err));
 
     // fetching posts for other profiles
     socket.on("load profile", async id => {
-        console.log("My amazing wall post result is: ", id);
+        // console.log("My amazing wall post result is: ", id);
         let receiverId =
             id.receiver_id === "logged in user" ? userId : id.receiver_id;
-        console.log("receiver id: ", receiverId);
+        // console.log("receiver id: ", receiverId);
         await db
             .getWallPosts(receiverId)
             .then(({ rows }) => {
-                console.log("results in getWallPosts otheruserId: ", rows);
+                // console.log("results in getWallPosts otheruserId: ", rows);
                 io.emit("wallPosts", rows);
             })
             .catch(err => console.log("error in getWallPosts: ", err));
@@ -375,12 +377,12 @@ io.on("connection", async socket => {
 
     // listening for new wall post
     socket.on("My amazing wall post", async postData => {
-        console.log("My amazing wall post result is: ", postData);
+        // console.log("My amazing wall post result is: ", postData);
         let receiverId =
             postData.receiver_id === "logged in user"
                 ? userId
                 : postData.receiver_id;
-        console.log("receiver id: ", receiverId);
+        // console.log("receiver id: ", receiverId);
         try {
             let addedPost = await db.addWallPosts(
                 userId,
@@ -397,6 +399,38 @@ io.on("connection", async socket => {
             });
         } catch (err) {
             console.log("error in addedPost: ", err);
+        }
+    });
+
+    // ***** LIST OF ONLINE USERS *****
+    onlineUsers[socket.id] = userId;
+    let idsArray = Object.values(onlineUsers);
+
+    db.getUsersByIds(idsArray).then(data => {
+        console.log("********************Data get usersByID: ", data.rows);
+        socket.broadcast.emit("onlineUsers", data.rows);
+    });
+
+    //USER JOINS
+    const filteredOwnUserIds = idsArray.filter(id => id == userId);
+    // console.log("idsArray", idsArray);
+    if (filteredOwnUserIds.length == 1) {
+        db.getJoinedUser(userId)
+            .then(({ rows }) => {
+                console.log("results of getJoinedUser: ", rows);
+                socket.broadcast.emit("joinedUser", rows);
+            })
+            .catch(err => {
+                console.log("error in get joined user: ", err);
+            });
+    }
+
+    // USER DISCONNECTS
+    socket.on("disconnect", () => {
+        delete onlineUsers[socketId];
+        // console.log("online users:", onlineUsers);
+        if (Object.values(onlineUsers).indexOf(userId) == -1) {
+            io.sockets.emit("userLeft", userId);
         }
     });
 });

@@ -153,3 +153,29 @@ module.exports.addWallPosts = function(
         [sender_id, receiver_id, post, post_type]
     );
 };
+
+// filtering wall posts from friends
+module.exports.checkFriends = function(id) {
+    return db.query(
+        `SELECT users.id, first, last, url, accepted
+        FROM friendships
+        JOIN users
+        ON (accepted = true AND recipient_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND sender_id = $1 AND recipient_id = users.id)`,
+        [id]
+    );
+};
+// ***** GET ONLINE USERS *****
+module.exports.getUsersByIds = function(arrayOfIds) {
+    return db.query(
+        `SELECT id, first, last, url FROM users WHERE id = ANY ($1)`,
+        [arrayOfIds]
+    );
+};
+
+// ***** GET USERS WHO LOGGED IN *****
+module.exports.getJoinedUser = function(userId) {
+    return db.query(`SELECT id, first, last, url FROM users WHERE id = $1`, [
+        userId
+    ]);
+};

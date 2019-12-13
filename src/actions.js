@@ -64,3 +64,29 @@ export async function addWallPosts(post) {
         addWallPosts: post
     };
 }
+
+// ***** ONLINE USERS *****
+// ///// onlineusers/////
+
+export function displayOnlineUsers(onlineUsersList) {
+    return {
+        type: "ONLINE_USERS_LIST",
+        onlineUsers: onlineUsersList
+    };
+}
+
+export function displayJoinedUser(joinedUser) {
+    console.log("userWhoJoined..", joinedUser);
+    return {
+        type: "JOINED_USER",
+        joinedUser: joinedUser
+    };
+}
+
+export function removeUserLeft(userLeft) {
+    console.log("userWhoLeft", userLeft);
+    return {
+        type: "USER_LEFT",
+        userLeft: userLeft
+    };
+}

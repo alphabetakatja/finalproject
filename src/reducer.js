@@ -56,8 +56,31 @@ export default function reducer(state = {}, action) {
             wallPosts: [action.addWallPosts, ...state.wallPosts]
         };
     }
+    if (action.type == "ONLINE_USERS_LIST") {
+        state = {
+            ...state,
+            onlineUsers: action.onlineUsers
+        };
+    }
+
+    if (action.type == "JOINED_USER") {
+        state = {
+            ...state,
+            onlineUsers: [...state.onlineUsers, action.joinedUser]
+        };
+    }
+
+    if (action.type == "USER_LEFT") {
+        state = {
+            ...state,
+            onlineUsers: [...state.onlineUsers].filter(
+                user => user.id !== action.userLeft
+            )
+        };
+    }
+
     console.log("state in reducer ended as: ", state);
     return state;
-}
 
-// chat - server - db - server - socket - actions.js - reducer - redux state - chat;
+    // chat - server - db - server - socket - actions.js - reducer - redux state - chat;
+}

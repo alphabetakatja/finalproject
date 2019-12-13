@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { OnlineUsers } from "./online-users";
 
 export function Header(props) {
     const [users, setUsers] = useState([]);
@@ -25,7 +26,7 @@ export function Header(props) {
 
     return (
         <div className="app-header">
-            <img className="app-logo" src="/images/logo-w.png" alt="logo" />
+            <img className="app-logo" src="/images/logo-photo.png" alt="logo" />
 
             <nav>
                 <ul className="navbar">

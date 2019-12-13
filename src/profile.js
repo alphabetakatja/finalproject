@@ -1,9 +1,8 @@
-// profile.js contains last, first, ProfilePic and bio;
-
 import React from "react";
 import { ProfilePic } from "./profilepic";
 import { BioEditor } from "./bioeditor";
 import { Wall } from "./wall";
+// import { OnlineUsers } from "./online-users";
 
 export function Profile(props) {
     console.log("props in Profile: ", props);
