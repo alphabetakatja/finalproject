@@ -11,7 +11,6 @@ export default class Register extends React.Component {
         };
     }
     submit() {
-        console.log("this roleType: ", this.roleType.current.value);
         axios
             .post("/register", {
                 email: this.state.email,
@@ -89,7 +88,7 @@ export default class Register extends React.Component {
                                     className="flaticon"
                                     src="./images/profile.png"
                                 />
-                                <p>Find an eFriend</p>
+                                <p>Find an mentor</p>
                             </li>
                             <li>
                                 <img
@@ -103,7 +102,14 @@ export default class Register extends React.Component {
                                     className="flaticon"
                                     src="./images/party-hat.png"
                                 />
-                                <p>Enjoy the ride & have fun</p>
+                                <p>Start learning</p>
+                            </li>
+                            <li>
+                                <img
+                                    className="flaticon"
+                                    src="./images/party-hat.png"
+                                />
+                                <p>Become a mentor</p>
                             </li>
                         </ul>
                     </div>

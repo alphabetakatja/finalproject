@@ -94,14 +94,15 @@ app.get("/welcome", function(req, res) {
 app.post("/register", async (req, res) => {
     console.log("req body in /register: ", req.body);
 
-    let { first, last, email, password } = req.body;
+    let { first, last, email, password, role } = req.body;
     try {
         let hashedPassword = await hash(password);
         let { rows } = await db.registerUser(
             first,
             last,
             email,
-            hashedPassword
+            hashedPassword,
+            role === "mentor" ? true : false
         );
         console.log("rows in register: ", rows);
         req.session.userId = rows[0].id;
