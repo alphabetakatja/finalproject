@@ -9,6 +9,7 @@ CREATE TABLE users (
     url VARCHAR(300),
     bio TEXT,
     password VARCHAR(200) NOT NULL,
+    mentor BOOLEAN DEFAULT FALSE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
