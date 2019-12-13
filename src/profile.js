@@ -2,6 +2,7 @@ import React from "react";
 import { ProfilePic } from "./profilepic";
 import { BioEditor } from "./bioeditor";
 import { Wall } from "./wall";
+import { EditProfile } from "./edit-profile";
 // import { OnlineUsers } from "./online-users";
 
 export function Profile(props) {
@@ -27,6 +28,12 @@ export function Profile(props) {
                         <BioEditor
                             bio={props.bio}
                             updateBio={props.updateBio}
+                        />
+                    </div>
+                    <div className="profile-editor">
+                        <EditProfile
+                            editor={props.editor}
+                            updateProfile={props.updateProfile}
                         />
                     </div>
                 </div>

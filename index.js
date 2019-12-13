@@ -78,6 +78,19 @@ if (process.env.NODE_ENV != "production") {
     app.use("/bundle.js", (req, res) => res.sendFile(`${__dirname}/bundle.js`));
 }
 
+// function that checks if the homepage starts with http, if not add it
+const checkUrl = function(url) {
+    if (
+        !url.startsWith("http://") &&
+        !url.startsWith("https://") &&
+        !url.startsWith("//") &&
+        url != ""
+    ) {
+        url = "http://" + url;
+    }
+    return url;
+};
+
 // ******************************    ROUTES   **********************************
 // all the routes should go above the * route
 
@@ -161,11 +174,20 @@ app.post("/upload", uploader.single("file"), s3.upload, (req, res) => {
 
 // ***** BIO ROUTE *****
 app.post("/bio", (req, res) => {
-    console.log("req/body in bio: ", req.body);
+    // console.log("req/body in bio: ", req.body);
     db.saveBio(req.session.userId, req.body.bio).then(({ rows }) => {
-        console.log("rows in bio: ", rows[0]);
+        // console.log("rows in bio: ", rows[0]);
         res.json(rows[0]);
     });
+});
+
+// ***** EDIT-PROFILE ROUTE *****
+app.post("/edit-profile", (req, res) => {
+    // console.log("req/body in bio: ", req.body);
+    // db.editProfile().then(({ rows }) => {
+    //     console.log("rows in edit-profile: ", rows[0]);
+    //     res.json(rows[0]);
+    // });
 });
 
 // ***** OTHERPROFILE ROUTE *****

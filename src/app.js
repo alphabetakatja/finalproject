@@ -13,7 +13,7 @@ import { Friends } from "./friends";
 import { Chat } from "./chat";
 import { Events } from "./events";
 import { Wall } from "./wall";
-import { EditProfile } from "./edit-profile";
+// import { EditProfile } from "./edit-profile";
 import { OnlineUsers } from "./online-users";
 
 export default class App extends React.Component {
@@ -35,6 +35,7 @@ export default class App extends React.Component {
                 last: data.last,
                 imageUrl: data.url,
                 bio: data.bio,
+                editor: data.editor,
                 id: data.id,
                 uploaderIsVisible: false
             });
@@ -65,6 +66,11 @@ export default class App extends React.Component {
         console.log("muffin: ", bio);
         this.setState({
             bio: bio
+        });
+    }
+    updateProfile(editor) {
+        this.setState({
+            editor: editor
         });
     }
     // {function}
@@ -102,6 +108,10 @@ export default class App extends React.Component {
                                         imageUrl={this.state.imageUrl}
                                         updateBio={this.updateBio.bind(this)}
                                         bio={this.state.bio}
+                                        updateProfile={this.updateProfile.bind(
+                                            this
+                                        )}
+                                        editor={this.state.editor}
                                         toggleFunction={this.toggleModal.bind(
                                             this
                                         )}
@@ -129,10 +139,6 @@ export default class App extends React.Component {
                             <Route
                                 path="/online-users"
                                 component={OnlineUsers}
-                            />
-                            <Route
-                                path="/edit-profile"
-                                component={EditProfile}
                             />
                         </div>
                     </div>
