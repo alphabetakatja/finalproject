@@ -13,10 +13,8 @@ export function Wall() {
         return null;
     }
     useEffect(() => {
-        console.log(otherUser);
         renderPosts(otherUser);
     }, []);
-
     const renderPosts = path => {
         socket.emit("load profile", {
             receiver_id: path === "/" ? "logged in user" : path

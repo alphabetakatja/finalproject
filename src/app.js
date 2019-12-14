@@ -30,12 +30,27 @@ export default class App extends React.Component {
     componentDidMount() {
         console.log("app has mounted");
         axios.get("/user.json").then(({ data }) => {
+            let editor;
+            if (!data.bio) {
+                editor = null;
+            } else {
+                console.log("HO HO HO", data.email);
+                editor = {
+                    first: data.first,
+                    last: data.last,
+                    imageUrl: data.url,
+                    bio: data.bio,
+                    id: data.id,
+                    email: data.email
+                };
+            }
             this.setState({
                 first: data.first,
                 last: data.last,
+                email: data.email,
                 imageUrl: data.url,
                 bio: data.bio,
-                editor: data.editor,
+                editor: editor,
                 id: data.id,
                 uploaderIsVisible: false
             });
@@ -73,7 +88,7 @@ export default class App extends React.Component {
             editor: editor
         });
     }
-    // {function}
+
     render() {
         if (!this.state.id) {
             return null;
@@ -101,22 +116,28 @@ export default class App extends React.Component {
                             <Route
                                 exact
                                 path="/"
-                                render={() => (
-                                    <Profile
-                                        first={this.state.first}
-                                        last={this.state.last}
-                                        imageUrl={this.state.imageUrl}
-                                        updateBio={this.updateBio.bind(this)}
-                                        bio={this.state.bio}
-                                        updateProfile={this.updateProfile.bind(
-                                            this
-                                        )}
-                                        editor={this.state.editor}
-                                        toggleFunction={this.toggleModal.bind(
-                                            this
-                                        )}
-                                    />
-                                )}
+                                render={() => {
+                                    return (
+                                        <Profile
+                                            id={this.state.id}
+                                            first={this.state.first}
+                                            last={this.state.last}
+                                            email={this.state.email}
+                                            imageUrl={this.state.imageUrl}
+                                            updateBio={this.updateBio.bind(
+                                                this
+                                            )}
+                                            bio={this.state.bio}
+                                            updateProfile={this.updateProfile.bind(
+                                                this
+                                            )}
+                                            editor={this.state.editor}
+                                            toggleFunction={this.toggleModal.bind(
+                                                this
+                                            )}
+                                        />
+                                    );
+                                }}
                             />
 
                             <Route

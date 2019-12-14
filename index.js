@@ -81,6 +81,7 @@ if (process.env.NODE_ENV != "production") {
 // function that checks if the homepage starts with http, if not add it
 const checkUrl = function(url) {
     if (
+        url &&
         !url.startsWith("http://") &&
         !url.startsWith("https://") &&
         !url.startsWith("//") &&
@@ -122,6 +123,7 @@ app.post("/register", async (req, res) => {
         // console.log(req.session);
         res.json({
             success: true
+            // id: rows[0].id
         });
     } catch (err) {
         console.log("error in register route: ", err);
@@ -141,6 +143,7 @@ app.post("/login", async (req, res) => {
             };
             res.json({
                 success: true
+                // id: userInfo.rows[0].id
             });
         } else {
             res.json({
@@ -183,7 +186,7 @@ app.post("/bio", (req, res) => {
 
 // ***** ADD-PROFILE ROUTE *****
 // i am adding the profile for the first time
-app.post("/add-profile", (req, res) => {
+app.post("/add-profile", async (req, res) => {
     console.log("i am doing a post profile request");
     console.log("req: ", req.body);
     let age = req.body.age;
@@ -191,10 +194,11 @@ app.post("/add-profile", (req, res) => {
     let github = req.body.github;
     let userID = req.session.userId;
 
+    await db.insertTag(tag, userID);
     db.addProfile(age, checkUrl(linkedin), checkUrl(github), userID)
         .then(({ rows }) => {
             console.log("results in addProfile function: ", rows[0]);
-            // res.json(rows[0]);
+            res.json(rows[0]);
         })
         .catch(err => {
             console.log("error in addProfile fn: ", err);
@@ -222,14 +226,14 @@ app.get("/edit-profile", (req, res) => {
         .catch(err => console.log("error in get edit profile route: ", err));
 });
 
-app.post("/edit-profile", (req, res) => {
+app.post("/edit-profile", async (req, res) => {
     console.log("post route in edit profile: ", req.body);
     console.log("post route in edit profile cookie: ", req.session);
     let password = req.body.password;
     let userID = req.session.userId;
     console.log("before promise.all");
-
-    if (password != "") {
+    await db.insertTag(req.body.tag, userID);
+    if (password && password != "") {
         // if the user changed the password
         hash(password).then(hashedPassword => {
             console.log("hash: ", hashedPassword);
@@ -280,11 +284,7 @@ app.post("/edit-profile", (req, res) => {
             )
         ])
             .then(({ rows }) => {
-                console.log(
-                    "results if the user hasn't updated the password: ",
-                    rows[0]
-                );
-                res.json(rows[0]);
+                res.json(rows ? rows[0] : {});
             })
             .catch(err =>
                 console.log("catch err in promise.all without pass", err)
@@ -432,8 +432,6 @@ server.listen(8080, function() {
 
 // ***** SERVER SIDE SOCKET ***** //
 
-// SELECT * FROM users WHERE id = ANY($1);
-
 const onlineUsers = {};
 
 io.on("connection", async socket => {
@@ -477,28 +475,31 @@ io.on("connection", async socket => {
 
     // ***** WALL POSTS *****
     // fetching last 10 wall posts for loggedInUser
-
-    db.getWallPosts(userId)
-        .then(({ rows }) => {
-            // console.log("results in getWallPosts: ", rows);
-            io.sockets.emit("wallPosts", rows);
-        })
-        .catch(err => console.log("error in getWallPosts: ", err));
+    // socket.on("load-profile", async id => {
+    //     let userId = id;
+    //     await db
+    //         .getWallPosts(userId)
+    //         .then(({ rows }) => {
+    //             console.log("results in getWallPosts: ", rows);
+    //             io.emit("wallPosts", rows);
+    //         })
+    //         .catch(err => console.log("error in getWallPosts: ", err));
+    // });
 
     // fetching posts for other profiles
-    socket.on("load profile", async id => {
-        // console.log("My amazing wall post result is: ", id);
-        let receiverId =
-            id.receiver_id === "logged in user" ? userId : id.receiver_id;
-        // console.log("receiver id: ", receiverId);
-        await db
-            .getWallPosts(receiverId)
-            .then(({ rows }) => {
-                // console.log("results in getWallPosts otheruserId: ", rows);
-                io.emit("wallPosts", rows);
-            })
-            .catch(err => console.log("error in getWallPosts: ", err));
-    });
+    // socket.on("load profile", async id => {
+    //     console.log("My amazing wall post result is: ", id);
+    //     let receiverId =
+    //         id.receiver_id === "logged in user" ? userId : id.receiver_id;
+    //     console.log("receiver id: ", receiverId);
+    //     await db
+    //         .getWallPosts(receiverId)
+    //         .then(({ rows }) => {
+    //             // console.log("results in getWallPosts otheruserId: ", rows);
+    //             io.emit("wallPosts", rows);
+    //         })
+    //         .catch(err => console.log("error in getWallPosts: ", err));
+    // });
 
     // listening for new wall post
     socket.on("My amazing wall post", async postData => {

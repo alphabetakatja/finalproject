@@ -6,7 +6,8 @@ import axios from "./axios";
 export function EditProfile() {
     console.log("sanity ckeck in EditProfile component!");
     const [editingMode, setEditingMode] = useState("false");
-    const [tags, setTags] = useState([]);
+    // const [tags, setTags] = useState([]);
+    const [addProfile, setAddProfile] = useState([]);
     const [updateProfile, setUpdateProfile] = useState([]);
 
     if (!editingMode) {
@@ -15,15 +16,17 @@ export function EditProfile() {
 
     useEffect(() => {
         console.log("edit profile mounted");
-        axios
-            .post(`/edit-profile`)
-            .then(({ data }) => {
-                console.log("data in edit-profile component: ", data);
-                setUpdateProfile(data);
-            })
-            .catch(err =>
-                console.log("error in edit-profile component", err.message)
-            );
+        if (editingMode === "true") {
+            axios
+                .post(`/edit-profile`)
+                .then(({ data }) => {
+                    console.log("data in edit-profile component: ", data);
+                    setUpdateProfile(data);
+                })
+                .catch(err =>
+                    console.log("error in edit-profile component", err.message)
+                );
+        }
     });
 
     return (

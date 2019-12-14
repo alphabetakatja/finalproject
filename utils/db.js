@@ -243,3 +243,11 @@ module.exports.getJoinedUser = function(userId) {
         userId
     ]);
 };
+
+////// tags query
+module.exports.insertTag = function(tag, userId) {
+    return db.query(
+        `INSERT INTO tags (tag, mentor_id) VALUES ($1, $2)  ON CONFLICT (mentor_id) DO UPDATE SET tag=$1, mentor_id=$2`,
+        [tag, userId]
+    );
+};
