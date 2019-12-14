@@ -38,6 +38,70 @@ module.exports.saveBio = function(userId, bio) {
     );
 };
 
+// ***** EDIT PROFILE ROUTE *****
+module.exports.addProfile = function(age, linkedin, github, userID) {
+    return db.query(
+        `INSERT INTO user_profiles (age, linkedin, github, user_id) VALUES($1, $2, $3, $4) RETURNING id`,
+        [
+            // user can only write a number, not a string!
+            age ? Number(age) : null || null,
+            linkedin || null,
+            github || null,
+            userID
+        ]
+    );
+};
+
+// ***** EDIT PROFILE ROUTE *****
+
+module.exports.editProfile = function(id) {
+    return db.query(
+        `SELECT users.first AS first, users.last AS last, users.email AS email, user_profiles.age AS age, user_profiles.url AS url, user_profiles.github AS github
+       FROM users
+       LEFT JOIN user_profiles
+       ON users.id = user_profiles.user_id
+       WHERE users.id = $1`,
+        [id]
+    );
+};
+
+module.exports.updateUsersTableWithPass = function(
+    first,
+    last,
+    email,
+    password,
+    userId
+) {
+    return db.query(
+        `UPDATE users SET first=$1, last=$2, email=$3, password=$4 WHERE id=$5`,
+        [first, last, email, password, userId]
+    );
+};
+
+module.exports.updateUsersTableNoPass = function(
+    firstName,
+    lastName,
+    email,
+    userId
+) {
+    return db.query(
+        `UPDATE users SET first=$1, last=$2, email=$3 WHERE id=$4`,
+        [firstName, lastName, email, userId]
+    );
+};
+
+module.exports.updateUserProfiles = function(age, linkedin, github, userId) {
+    return db.query(
+        `INSERT INTO user_profiles (age, linkedin, github, user_id) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET age=$1, linkedin=$2, github=$3`,
+        [
+            age ? Number(age) : null || null,
+            linkedin || null,
+            github || null,
+            userId
+        ]
+    );
+};
+
 // ***** OTHERPROFILE ROUTE *****
 
 module.exports.getOtherProfile = function(userId) {

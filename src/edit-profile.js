@@ -42,11 +42,11 @@ export class EditProfile extends React.Component {
             this.showEditor();
             return;
         }
-        console.log("this.state.bio", this.state.editor);
+        console.log("this.state.editor", this.state.editor);
         axios.post("/edit-profile", this.state).then(({ data }) => {
             console.log("response from post upload ", data);
             console.log("this is post upload: ", this.props);
-            this.props.updateBio(data.editor);
+            this.props.updateProfile(data.editor);
             this.showEditor();
         });
         if (this.state.bio) {
@@ -90,7 +90,7 @@ export class EditProfile extends React.Component {
                                 className="edit-form_input"
                                 type="text"
                                 name="email"
-                                placeholder="E-mail Address"
+                                placeholder="&#xf0e0; E-mail"
                                 onChange={e => this.handleChange(e)}
                                 defaultValue={this.props.editor}
                             />
@@ -111,33 +111,36 @@ export class EditProfile extends React.Component {
                                 onChange={e => this.handleChange(e)}
                                 defaultValue={this.props.editor}
                             />
-                            <input
-                                className="edit-form_input"
-                                type="text"
-                                name="url"
-                                placeholder="Homepage"
-                                onChange={e => this.handleChange(e)}
-                                defaultValue={this.props.editor}
-                            />
-
+                            <div>
+                                <ion-icon name="logo-linkedin"></ion-icon>
+                                <input
+                                    className="edit-form_input"
+                                    type="text"
+                                    name="url"
+                                    placeholder="LinkedIn"
+                                    onChange={e => this.handleChange(e)}
+                                    defaultValue={this.props.editor}
+                                />
+                            </div>
                             <div>
                                 <ion-icon name="logo-github"></ion-icon>
                                 <input
                                     className="edit-form_input"
                                     type="text"
                                     name="url"
-                                    placeholder="Github Account"
+                                    placeholder="Github"
                                     onChange={e => this.handleChange(e)}
                                     defaultValue={this.props.editor}
                                 />
                             </div>
-                            <label>
-                                Please select a max of 2 topics you would like
-                                help with from your mentor.
-                            </label>
-                            <select onChange={e => this.handleChange(e.target)}>
+
+                            <select
+                                className="register-form_input"
+                                onChange={e => this.handleChange(e.target)}
+                            >
                                 <option value="">
-                                    --Please choose a role--
+                                    --Please select a max of 2 topics you would
+                                    like your mentor to help you with--
                                 </option>
                                 <option value="webdev">Web Development</option>
                                 <option value="mobiledev">

@@ -119,7 +119,7 @@ app.post("/register", async (req, res) => {
         );
         console.log("rows in register: ", rows);
         req.session.userId = rows[0].id;
-        console.log(req.session);
+        // console.log(req.session);
         res.json({
             success: true
         });
@@ -181,13 +181,115 @@ app.post("/bio", (req, res) => {
     });
 });
 
-// ***** EDIT-PROFILE ROUTE *****
+// ***** ADD-PROFILE ROUTE *****
+// i am adding the profile for the first time
+app.post("/add-profile", (req, res) => {
+    console.log("i am doing a post profile request");
+    console.log("req: ", req.body);
+    let age = req.body.age;
+    let linkedin = req.body.linkedin;
+    let github = req.body.github;
+    let userID = req.session.userId;
+
+    db.addProfile(age, checkUrl(linkedin), checkUrl(github), userID)
+        .then(({ rows }) => {
+            console.log("results in addProfile function: ", rows[0]);
+            // res.json(rows[0]);
+        })
+        .catch(err => {
+            console.log("error in addProfile fn: ", err);
+        });
+});
+
+// ***** EDIT PROFILE ROUTE *****
+// i am editing the profile
+app.get("/edit-profile", (req, res) => {
+    console.log("user cookie in get edit profile: ", req.session.userId);
+    let userID = req.session.userId;
+    db.editProfile(userID)
+        .then(({ rows }) => {
+            console.log("information pulled from editProfile fn: ", rows[0]);
+            // res.json(rows[0]);
+            // {
+            // first: rows[0].first,
+            // last: rows[0].last,
+            // email: rows[0].email,
+            // age: rows[0].age || null,
+            // linkedin: rows[0].linkedin || null,
+            // github: rows[0].github || null
+            // }
+        })
+        .catch(err => console.log("error in get edit profile route: ", err));
+});
+
 app.post("/edit-profile", (req, res) => {
-    // console.log("req/body in bio: ", req.body);
-    // db.editProfile().then(({ rows }) => {
-    //     console.log("rows in edit-profile: ", rows[0]);
-    //     res.json(rows[0]);
-    // });
+    console.log("post route in edit profile: ", req.body);
+    console.log("post route in edit profile cookie: ", req.session);
+    let password = req.body.password;
+    let userID = req.session.userId;
+    console.log("before promise.all");
+
+    if (password != "") {
+        // if the user changed the password
+        hash(password).then(hashedPassword => {
+            console.log("hash: ", hashedPassword);
+            // do stuff here...
+            Promise.all([
+                db.updateUsersTableWithPass(
+                    req.body.first,
+                    req.body.last,
+                    req.body.email,
+                    hashedPassword,
+                    userID
+                ),
+                db.updateUserProfiles(
+                    req.body.age,
+                    checkUrl(req.body.linkedin),
+                    checkUrl(req.body.github),
+                    userID
+                )
+            ])
+                .then(({ rows }) => {
+                    console.log(
+                        "results if the user has updated the password: ",
+                        rows[0]
+                    );
+                    // res.json();
+                    // let users = results[0];
+                    // let userProfiles = results[1];
+                    // let mergeResults = [...users, ...userProfiles];
+                    // console.log("merged results with password: ", mergeResults);
+                })
+                .catch(err =>
+                    console.log("catch err in promise.all with pass", err)
+                );
+        });
+    } else {
+        Promise.all([
+            db.updateUsersTableNoPass(
+                req.body.first,
+                req.body.last,
+                req.body.email,
+                userID
+            ),
+            db.updateUserProfiles(
+                req.body.age,
+                checkUrl(req.body.linkedin),
+                checkUrl(req.body.github),
+                userID
+            )
+        ])
+            .then(({ rows }) => {
+                console.log(
+                    "results if the user hasn't updated the password: ",
+                    rows[0]
+                );
+                res.json(rows[0]);
+            })
+            .catch(err =>
+                console.log("catch err in promise.all without pass", err)
+            );
+    }
 });
 
 // ***** OTHERPROFILE ROUTE *****
