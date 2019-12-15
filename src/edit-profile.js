@@ -51,14 +51,6 @@ export class EditProfile extends React.Component {
                     ...this.state.editor,
                     [inputElement.name]: inputElement.value
                 }
-                // {
-                //     first: inputElement.value,
-                //     last: inputElement.value,
-                //     email: inputElement.value,
-                //     password: inputElement.value,
-                //     linkedin: inputElement.value,
-                //     github: inputElement.value
-                // }
             },
             () => {
                 console.log("this.state: ", this.state);

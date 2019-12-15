@@ -48,60 +48,51 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-            <div className="login-page">
-                <div className="welcome-header">
-                    <h3>e || friends</h3>
-                </div>
-
+            <div className="login-form">
                 {this.state.error && (
                     <div className="error">
                         Oooops! Make sure to fill out all the required fields...
                     </div>
                 )}
-                <div className="login-form">
-                    <div className="logo-container">
-                        <img src="/images/logo-photo.png" alt="logo" />
-                    </div>
-                    <div className="login-form_content">
-                        <div className="login-form_header">
-                            <Link className="log-in_link" to="/login">
-                                Login
-                            </Link>
-                            ||
-                            <Link className="sign-up_link" to="/">
-                                Register
-                            </Link>
-                        </div>
-
-                        <input
-                            className="login-form_input"
-                            type="text"
-                            name="email"
-                            placeholder="Email"
-                            onChange={e => this.handleChange(e.target)}
-                        />
-
-                        <input
-                            className="login-form_input"
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            onChange={e => this.handleChange(e.target)}
-                        />
-                        <div>
-                            {this.state.passwordError && (
-                                <div className="error">
-                                    Minimum 5 characters required...
-                                </div>
-                            )}
-                        </div>
-                        <button
-                            className="login-form_btn"
-                            onClick={e => this.submit(e)}
-                        >
+                <div className="login-form_content">
+                    <div className="login-form_header">
+                        <Link className="log-in_link" to="/login">
                             Login
-                        </button>
+                        </Link>
+                        ||
+                        <Link className="sign-up_link" to="/">
+                            Register
+                        </Link>
                     </div>
+
+                    <input
+                        className="login-form_input"
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                        onChange={e => this.handleChange(e.target)}
+                    />
+
+                    <input
+                        className="login-form_input"
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                        onChange={e => this.handleChange(e.target)}
+                    />
+                    <div>
+                        {this.state.passwordError && (
+                            <div className="error">
+                                Minimum 5 characters required...
+                            </div>
+                        )}
+                    </div>
+                    <button
+                        className="login-form_btn"
+                        onClick={e => this.submit(e)}
+                    >
+                        Login
+                    </button>
                 </div>
             </div>
         );

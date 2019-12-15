@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8" />
+
+        <link rel="stylesheet" href="./video.css" />
+        <title>Video Background</title>
+    </head>
+    <body>
+        <header class="v-header container">
+            <div class="fullscreen-video-wrapper">
+                <video
+                    src="./video/background-video.mp4"
+                    autoplay=""
+                    loop=""
+                ></video>
+            </div>
+            <div class="header-overlay"></div>
+            <div class="header-content">
+                <h1>FemmeTor</h1>
+                <p>A mentorship platform for womxn developers</p>
+                <a href="#" class="btn">Read More</a>
+            </div>
+            <div class="register-form">
+                <div class="register-form_content">
+                    <p>
+                        <!-- <Link className="log-in_link" to="/login"> -->
+                        Login
+                        <!-- </Link> -->
+                        ||
+                        <!-- <Link className="sign-up_link" to="/"> -->
+                        Register
+                        <!-- </Link> -->
+                    </p>
+                    <input
+                        class="register-form_input"
+                        type="text"
+                        name="first"
+                        placeholder="First Name"
+                    />
+                    <input
+                        class="register-form_input"
+                        type="text"
+                        name="last"
+                        placeholder="Last Name"
+                    />
+                    <input
+                        class="register-form_input"
+                        type="text"
+                        name="email"
+                        placeholder="Email"
+                    />
+                    <input
+                        class="register-form_input"
+                        type="password"
+                        name="password"
+                        placeholder="Password"
+                    />
+                    <!-- <select
+                        class="register-form_input"
+                        name="role"
+                        id="role-select"
+                        onChange={e => this.handleChange(e.target)}
+                    >
+                        <option value="">
+                            --Please choose a role--
+                        </option>
+                        <option value="mentor">Mentor</option>
+                        <option value="mentee">Mentee</option>
+                    </select> -->
+                    <!-- <div>
+                        {this.state.passwordError && (
+                            <div className="error">
+                                Minimum 5 characters required...
+                            </div>
+                        )}
+                    </div> -->
+                    <!-- <button
+                        class="register-form_btn"
+                        <!-- onClick={e => this.submit(e)} -->
+                    <!-- >
+                        <!-- Register -->
+                    <button class="register-form_btn">REGISTER</button>
+                </div>
+            </div>
+        </header>
+
+        <section class="section section-a">
+            <div class="container">
+                <h2>How does it work?</h2>
+                <ul>
+                    <li>
+                        <img
+                            className="flaticon"
+                            src="./images/clipboard.png"
+                        />
+                        <p>Register & join the community</p>
+                    </li>
+                    <li>
+                        <img className="flaticon" src="./images/frame.png" />
+                        <p>Create a profile</p>
+                    </li>
+                    <li>
+                        <img className="flaticon" src="./images/profile.png" />
+                        <p>Find an mentor</p>
+                    </li>
+                    <li>
+                        <img className="flaticon" src="./images/message.png" />
+                        <p>Exchange messages</p>
+                    </li>
+                    <li>
+                        <img
+                            className="flaticon"
+                            src="./images/party-hat.png"
+                        />
+                        <p>Start learning</p>
+                    </li>
+                    <li>
+                        <img
+                            className="flaticon"
+                            src="./images/party-hat.png"
+                        />
+                        <p>Become a mentor</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </body>
+</html>

@@ -10,7 +10,7 @@ export function ProfilePic({
 }) {
     // console.log("props in ProfilePic: ", props);
     console.log("imageurl", imageUrl);
-    imageUrl = imageUrl || "/images/default.png";
+    imageUrl = imageUrl || "/images/photo-camera.png";
     return (
         <div>
             <img

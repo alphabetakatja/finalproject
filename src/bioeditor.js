@@ -68,13 +68,18 @@ export class BioEditor extends React.Component {
         if (this.state.editingMode) {
             return (
                 <div className="bio-editor">
+                    <div className="bioeditor-icon">
+                        <img
+                            src="images/save-button.png"
+                            className="bioeditor-btn"
+                            onClick={this.saveBio}
+                        />
+                        <p onClick={this.saveBio}>Save</p>
+                    </div>
                     <textarea
                         onChange={e => this.handleChange(e)}
                         defaultValue={this.props.bio}
                     />
-                    <button onClick={this.saveBio} className="edit-btn">
-                        Save
-                    </button>
                 </div>
             );
         } else {
