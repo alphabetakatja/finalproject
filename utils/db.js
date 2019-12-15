@@ -41,7 +41,7 @@ module.exports.saveBio = function(userId, bio) {
 // ***** EDIT PROFILE ROUTE *****
 module.exports.addProfile = function(age, linkedin, github, userID) {
     return db.query(
-        `INSERT INTO user_profiles (age, linkedin, github, user_id) VALUES($1, $2, $3, $4) RETURNING id`,
+        `INSERT INTO user_profiles (age, linkedin, github, user_id) VALUES($1, $2, $3, $4) RETURNING *`,
         [
             // user can only write a number, not a string!
             age ? Number(age) : null || null,
@@ -85,14 +85,14 @@ module.exports.updateUsersTableNoPass = function(
     userId
 ) {
     return db.query(
-        `UPDATE users SET first=$1, last=$2, email=$3 WHERE id=$4`,
+        `UPDATE users SET first=$1, last=$2, email=$3 WHERE id=$4 RETURNING *`,
         [firstName, lastName, email, userId]
     );
 };
 
 module.exports.updateUserProfiles = function(age, linkedin, github, userId) {
     return db.query(
-        `INSERT INTO user_profiles (age, linkedin, github, user_id) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET age=$1, linkedin=$2, github=$3`,
+        `INSERT INTO user_profiles (age, linkedin, github, user_id) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET age=$1, linkedin=$2, github=$3 RETURNING *`,
         [
             age ? Number(age) : null || null,
             linkedin || null,
@@ -247,7 +247,33 @@ module.exports.getJoinedUser = function(userId) {
 ////// tags query
 module.exports.insertTag = function(tag, userId) {
     return db.query(
-        `INSERT INTO tags (tag, mentor_id) VALUES ($1, $2)  ON CONFLICT (mentor_id) DO UPDATE SET tag=$1, mentor_id=$2`,
+        `INSERT INTO tags (tag, mentor_id) VALUES ($1, $2)  ON CONFLICT (mentor_id) DO UPDATE SET tag=$1, mentor_id=$2 RETURNING tag, mentor_id`,
         [tag, userId]
+    );
+};
+
+module.exports.filterByTag = function(tag) {
+    return db.query(
+        `SELECT users.id AS id, users.first, users.last, users.url, users.bio, users.mentor AS role, tags.tag
+            FROM users
+            LEFT JOIN tags
+            ON users.id = tags.mentor_id
+            WHERE tag = $1
+            ORDER BY id DESC
+            `,
+        [tag]
+    );
+};
+
+module.exports.findByTag = function(val) {
+    return db.query(
+        `SELECT users.first, users.last, users.url, users.bio, users.mentor AS role, tags.tag
+            FROM users
+            LEFT JOIN tags
+            ON users.id = tags.mentor_id
+            WHERE tag ILIKE $1
+            LIMIT 4
+            `,
+        [val + "%"]
     );
 };

@@ -38,7 +38,7 @@ export class EditProfile extends React.Component {
         }
     }
     showEditor() {
-        console.log("toggleBio is running!");
+        console.log("toggleEditor is running!");
         this.setState({
             editingMode: !this.state.editingMode
         });
@@ -121,7 +121,7 @@ export class EditProfile extends React.Component {
         this.props.editor || this.state.editor
             ? (buttonText = "Edit your profile...")
             : (buttonText = "Add your profile...");
-        console.log("FUCK THAT LAZY SLUT");
+        console.log("FUCK THAT LAZY SLOTH");
         console.log(this.state);
         console.log(this.props);
         if (this.state.editingMode) {
@@ -201,22 +201,28 @@ export class EditProfile extends React.Component {
                                 --Please select a max of 2 topics you would like
                                 your mentor to help you with--
                             </option>
-                            <option value="webdev">Web Development</option>
-                            <option value="mobiledev">
+                            <option value="Web Development">
+                                Web Development
+                            </option>
+                            <option value="Mobile Development">
                                 Mobile Development
                             </option>
-                            <option value="javadev">Java Development</option>
-                            <option value="python">Python Data Science</option>
-                            <option value="itnetworking">
+                            <option value="Java Development">
+                                Java Development
+                            </option>
+                            <option value="Python Data Science">
+                                Python Data Science
+                            </option>
+                            <option value="IT & Networking">
                                 IT & Networking
                             </option>
-                            <option value="interviews">
+                            <option value="Interviews & Communication">
                                 Interviews & Communication
                             </option>
-                            <option value="joborientation">
+                            <option value="Job Orientation">
                                 Job Orientation
                             </option>
-                            <option value="cvpresentation">
+                            <option value="Cv & Personal Presentation">
                                 Cv & Personal Presentation
                             </option>
                         </select>
@@ -232,7 +238,24 @@ export class EditProfile extends React.Component {
             );
         } else {
             return (
-                <div className="bio-editor">
+                <div className="profile-editor">
+                    <ul>
+                        <li>
+                            <ion-icon name="logo-linkedin"></ion-icon>
+                            <p className="new-line">
+                                {this.state.editor.linkedin}
+                            </p>
+                        </li>
+                        <li>
+                            <ion-icon name="logo-github"></ion-icon>
+                            <p className="new-line">
+                                {this.state.editor.github}
+                            </p>
+                        </li>
+                        <li>
+                            <p className="new-line">{this.state.editor.tag}</p>
+                        </li>
+                    </ul>
                     <div className="bioeditor-icon">
                         <img
                             onClick={this.showEditor}

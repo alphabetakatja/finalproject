@@ -66,7 +66,7 @@ export default function reducer(state = {}, action) {
     if (action.type == "JOINED_USER") {
         state = {
             ...state,
-            onlineUsers: [...state.onlineUsers, action.joinedUser]
+            onlineUsers: [...state.onlineUsers, action.joinedUser[0]]
         };
     }
 

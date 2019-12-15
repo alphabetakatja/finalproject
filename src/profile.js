@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { ProfilePic } from "./profilepic";
 import { BioEditor } from "./bioeditor";
 // import { Wall } from "./wall";

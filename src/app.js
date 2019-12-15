@@ -15,6 +15,7 @@ import { Events } from "./events";
 import { Wall } from "./wall";
 // import { EditProfile } from "./edit-profile";
 import { OnlineUsers } from "./online-users";
+import { FindMatch } from "./find-match";
 
 export default class App extends React.Component {
     constructor() {
@@ -161,6 +162,7 @@ export default class App extends React.Component {
                                 path="/online-users"
                                 component={OnlineUsers}
                             />
+                            <Route path="/matches" component={FindMatch} />
                         </div>
                     </div>
                 </BrowserRouter>

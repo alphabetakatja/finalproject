@@ -207,24 +207,24 @@ app.post("/add-profile", async (req, res) => {
 
 // ***** EDIT PROFILE ROUTE *****
 // i am editing the profile
-app.get("/edit-profile", (req, res) => {
-    console.log("user cookie in get edit profile: ", req.session.userId);
-    let userID = req.session.userId;
-    db.editProfile(userID)
-        .then(({ rows }) => {
-            console.log("information pulled from editProfile fn: ", rows[0]);
-            // res.json(rows[0]);
-            // {
-            // first: rows[0].first,
-            // last: rows[0].last,
-            // email: rows[0].email,
-            // age: rows[0].age || null,
-            // linkedin: rows[0].linkedin || null,
-            // github: rows[0].github || null
-            // }
-        })
-        .catch(err => console.log("error in get edit profile route: ", err));
-});
+// app.get("/edit-profile", (req, res) => {
+//     console.log("user cookie in get edit profile: ", req.session.userId);
+//     let userID = req.session.userId;
+//     db.editProfile(userID)
+//         .then(({ rows }) => {
+//             console.log("information pulled from editProfile fn: ", rows[0]);
+//             res.json(rows[0]);
+//
+//             // first: rows[0].first,
+//             // last: rows[0].last,
+//             // email: rows[0].email,
+//             // age: rows[0].age || null,
+//             // linkedin: rows[0].linkedin || null,
+//             // github: rows[0].github || null
+//             // }
+//         })
+//         .catch(err => console.log("error in get edit profile route: ", err));
+// });
 
 app.post("/edit-profile", async (req, res) => {
     console.log("post route in edit profile: ", req.body);
@@ -284,12 +284,27 @@ app.post("/edit-profile", async (req, res) => {
             )
         ])
             .then(({ rows }) => {
+                console.log("*******SDFSDFSDFSDFSDFSDFSDFSDF: ", rows);
                 res.json(rows ? rows[0] : {});
             })
             .catch(err =>
                 console.log("catch err in promise.all without pass", err)
             );
     }
+});
+
+// ***** FILTER BY TAG *****
+app.get("/api/find-match/:val", (req, res) => {
+    console.log("req.params", req.params);
+    var tag = req.params.val;
+    db.findByTag(tag)
+        .then(({ rows }) => {
+            console.log("rows in findByTag: ", rows);
+            res.json(rows);
+        })
+        .catch(err => {
+            console.log("error in GET/find-match/:tag ", err);
+        });
 });
 
 // ***** OTHERPROFILE ROUTE *****
@@ -487,19 +502,19 @@ io.on("connection", async socket => {
     // });
 
     // fetching posts for other profiles
-    // socket.on("load profile", async id => {
-    //     console.log("My amazing wall post result is: ", id);
-    //     let receiverId =
-    //         id.receiver_id === "logged in user" ? userId : id.receiver_id;
-    //     console.log("receiver id: ", receiverId);
-    //     await db
-    //         .getWallPosts(receiverId)
-    //         .then(({ rows }) => {
-    //             // console.log("results in getWallPosts otheruserId: ", rows);
-    //             io.emit("wallPosts", rows);
-    //         })
-    //         .catch(err => console.log("error in getWallPosts: ", err));
-    // });
+    socket.on("load profile", async id => {
+        console.log("My amazing wall post result is: ", id);
+        let receiverId =
+            id.receiver_id === "logged in user" ? userId : id.receiver_id;
+        console.log("receiver id: ", receiverId);
+        await db
+            .getWallPosts(receiverId)
+            .then(({ rows }) => {
+                // console.log("results in getWallPosts otheruserId: ", rows);
+                io.emit("wallPosts", rows);
+            })
+            .catch(err => console.log("error in getWallPosts: ", err));
+    });
 
     // listening for new wall post
     socket.on("My amazing wall post", async postData => {
