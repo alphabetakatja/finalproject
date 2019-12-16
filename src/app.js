@@ -90,6 +90,7 @@ export default class App extends React.Component {
         });
     }
     updateProfile(editor) {
+        console.log("editor in app blabla: ", editor);
         this.setState({
             editor: editor
         });

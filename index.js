@@ -210,30 +210,36 @@ app.post("/add-profile", async (req, res) => {
 app.get("/edit-profile", (req, res) => {
     console.log("user cookie in get edit profile: ", req.session.userId);
     let userID = req.session.userId;
-    db.editProfile(userID)
-        .then(({ rows }) => {
-            console.log("information pulled from editProfile fn: ", rows[0]);
-            res.json(rows[0]);
 
-            // first: rows[0].first,
-            // last: rows[0].last,
-            // email: rows[0].email,
-            // age: rows[0].age || null,
-            // linkedin: rows[0].linkedin || null,
-            // github: rows[0].github || null
-            // }
+    Promise.all([db.editProfile(userID), db.getTag(userID)])
+        .then(results => {
+            console.log(
+                "information pulled from editProfile fn: ",
+                results[0].rows,
+                results[1].rows
+            );
+            let mergedResults = [...results[0].rows, ...results[1].rows];
+            console.log("merged results: ", mergedResults);
+            res.json({
+                first: mergedResults[0].first,
+                last: mergedResults[0].last,
+                email: mergedResults[0].email,
+                url: mergedResults[0].url,
+                bio: mergedResults[0].bio,
+                isMentor: mergedResults[0].mentor,
+                age: mergedResults[0].age,
+                linkedin: mergedResults[0].linkedin,
+                github: mergedResults[0].github,
+                tag: mergedResults[1].tag
+            });
         })
         .catch(err => console.log("error in get edit profile route: ", err));
 });
 
-app.post("/edit-profile", async (req, res) => {
-    console.log("post route in edit profile: ", req.body);
-    console.log("post route in edit profile cookie: ", req.session);
+app.post("/edit-profile", (req, res) => {
     let password = req.body.password;
     let userID = req.session.userId;
-    console.log("before promise.all");
-    await db.insertTag(req.body.tag, userID);
-    console.log("after insert tag: ");
+    // console.log("after insert tag: ");
     if (password && password != "") {
         // if the user changed the password
         hash(password).then(hashedPassword => {
@@ -250,17 +256,14 @@ app.post("/edit-profile", async (req, res) => {
                     checkUrl(req.body.linkedin),
                     checkUrl(req.body.github),
                     userID
-                )
+                ),
+                db.insertTag(req.body.tag, userID)
             ])
                 .then(results => {
-                    console.log(
-                        "results if the user has updated the password: ",
-                        results[0].rows,
-                        results[1].rows
-                    );
                     let mergedResults = [
                         ...results[0].rows,
-                        ...results[1].rows
+                        ...results[1].rows,
+                        ...results[2].rows
                     ];
                     console.log("merged results: ", mergedResults);
                     res.json({
@@ -273,7 +276,8 @@ app.post("/edit-profile", async (req, res) => {
                         isMentor: mergedResults[0].mentor,
                         age: mergedResults[1].age,
                         linkedin: mergedResults[1].linkedin,
-                        github: mergedResults[1].github
+                        github: mergedResults[1].github,
+                        tag: mergedResults[2].tag
                     });
                 })
                 .catch(err =>
@@ -288,16 +292,15 @@ app.post("/edit-profile", async (req, res) => {
                 checkUrl(req.body.linkedin),
                 checkUrl(req.body.github),
                 userID
-            )
+            ),
+            db.insertTag(req.body.tag, userID)
         ])
             .then(results => {
-                console.log(
-                    "*******SDFSDFSDFSDFSDFSDFSDFSDF: ",
-                    results[0].rows,
-                    results[1].rows
-                );
-
-                let mergedResults = [...results[0].rows, ...results[1].rows];
+                let mergedResults = [
+                    ...results[0].rows,
+                    ...results[1].rows,
+                    ...results[2].rows
+                ];
                 console.log("merged results: ", mergedResults);
                 res.json({
                     first: mergedResults[0].first,
@@ -309,7 +312,8 @@ app.post("/edit-profile", async (req, res) => {
                     isMentor: mergedResults[0].mentor,
                     age: mergedResults[1].age,
                     linkedin: mergedResults[1].linkedin,
-                    github: mergedResults[1].github
+                    github: mergedResults[1].github,
+                    tag: mergedResults[2].tag
                 });
             })
             .catch(err =>

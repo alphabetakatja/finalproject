@@ -6,8 +6,8 @@ export class EditProfile extends React.Component {
     constructor(props) {
         super(props);
         let editor = props.editor || {};
-        console.log("SDFSDFSDFSDFSDFSDFSDFSDF");
-        console.log(editor);
+        // console.log("SDFSDFSDFSDFSDFSDFSDFSDF");
+        // console.log(editor);
         console.log(props);
         this.state = {
             editingMode: false,
@@ -18,12 +18,15 @@ export class EditProfile extends React.Component {
                 email: editor.email || null,
                 password: editor.password || null,
                 linkedin: editor.linkedin || null,
-                github: editor.github || null
+                github: editor.github || null,
+                age: editor.age || null,
+                tag: editor.tag || null
             }
         };
         this.showEditor = this.showEditor.bind(this);
         this.saveEditor = this.saveEditor.bind(this);
     }
+
     componentDidMount() {
         console.log("props in profile editor: ", this.props);
         axios.get("/edit-profile").then(({ data }) => {
@@ -41,6 +44,7 @@ export class EditProfile extends React.Component {
             );
         }
     }
+
     showEditor() {
         console.log("toggleEditor is running!");
         this.setState({
@@ -74,14 +78,15 @@ export class EditProfile extends React.Component {
             });
             // CALL EDIT PROFILE API HERE
             axios
-                .post("./edit-profile", {
+                .post("/edit-profile", {
                     email: this.props.email,
                     password: this.state.editor.password,
                     last: this.state.editor.last,
                     first: this.state.editor.first,
                     linkedin: this.state.editor.linkedin,
                     github: this.state.editor.github,
-                    tag: this.state.editor.tag
+                    tag: this.state.editor.tag,
+                    age: this.state.editor.age
                 })
                 .then(({ data }) => {
                     console.log("response from post upload ", data);
@@ -120,9 +125,9 @@ export class EditProfile extends React.Component {
         this.props.editor || this.state.editor
             ? (buttonText = "Edit your profile...")
             : (buttonText = "Add your profile...");
-        console.log("LAZY SLOTH");
-        console.log(this.state);
-        console.log(this.props);
+        // console.log("LAZY SLOTH");
+        // console.log(this.state);
+        // console.log(this.props);
         if (this.state.editingMode) {
             return (
                 <div>
@@ -192,9 +197,10 @@ export class EditProfile extends React.Component {
                         </div>
 
                         <select
-                            className="register-form_input"
+                            className="edit-form_input"
                             name="tag"
                             onChange={e => this.handleChange(e.target)}
+                            defaultValue={this.state.editor.tag}
                         >
                             <option value="">
                                 --Please select a topic you would like to help/
@@ -238,23 +244,13 @@ export class EditProfile extends React.Component {
         } else {
             return (
                 <div className="profile-editor">
-                    <ul>
-                        <li>
-                            <ion-icon name="logo-linkedin"></ion-icon>
-                            <p className="new-line">
-                                {this.state.editor.linkedin}
-                            </p>
-                        </li>
-                        <li>
-                            <ion-icon name="logo-github"></ion-icon>
-                            <p className="new-line">
-                                {this.state.editor.github}
-                            </p>
-                        </li>
-                        <li>
-                            <p className="new-line">{this.state.editor.tag}</p>
-                        </li>
-                    </ul>
+                    <p className="new-line">{this.state.editor.age}</p>
+                    <a className="new-line">{this.state.editor.tag}</a>
+
+                    <p className="new-line">{this.state.editor.linkedin}</p>
+
+                    <a className="new-line">{this.state.editor.github}</a>
+
                     <div className="bioeditor-icon">
                         <img
                             onClick={this.showEditor}

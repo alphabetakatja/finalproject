@@ -54,7 +54,7 @@ body {
     left: 0;
     background-color: #000;
     z-index: 1;
-    opacity: 0.85;
+    opacity: 0.5;
 }
 
 .form-header-wrapper {
@@ -551,6 +551,66 @@ body {
     letter-spacing: 2px;
     /* margin-left: 18px; */
     text-transform: uppercase;
+}
+
+/* ******************** EDIT-PROFILE COMPONENT ***************************** */
+.edit-form_content {
+    padding: 30px;
+}
+
+.edit-form_input {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #34b3a0;
+    background-color: white;
+    color: #000;
+    outline: none;
+    transition: border-color 0.5s;
+    cursor: text;
+}
+
+.edit-form_input:focus {
+    border-color: #fff;
+}
+
+.edit-form_input::placeholder {
+    background-color: white;
+    color: black;
+}
+
+.edit-form_input option {
+    background-color: white;
+}
+
+.edit-form_btn {
+    color: #000;
+    background-color: #34b3a0;
+    width: 100%;
+    font-size: 15px;
+    font-weight: lighter;
+    margin-top: 30px;
+    padding: 10px;
+    outline: none;
+    border-radius: 5px;
+    cursor: pointer;
+    border-color: #34b3a0;
+    text-align: center;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.edit-form_btn:hover {
+    background-color: #000;
+    color: #34b3a0;
+}
+
+.edit-form_footer {
+    text-align: center;
+    padding: 10px;
 }
 
 /* ***** FINDUSERS.JS ***** */

@@ -52,11 +52,11 @@ module.exports.addProfile = function(age, linkedin, github, userID) {
     );
 };
 
-// ***** EDIT PROFILE ROUTE *****
+// *********************** EDIT PROFILE COMPONENT **********************
 
 module.exports.editProfile = function(id) {
     return db.query(
-        `SELECT users.first AS first, users.last AS last, users.email AS email, user_profiles.age AS age, user_profiles.linkedin AS linkedin, user_profiles.github AS github
+        `SELECT users.first AS first, users.last AS last, users.email AS email, users.url AS url, users.bio AS bio, users.mentor AS mentor, user_profiles.age AS age, user_profiles.linkedin AS linkedin, user_profiles.github AS github
        FROM users
        LEFT JOIN user_profiles
        ON users.id = user_profiles.user_id
@@ -238,11 +238,23 @@ module.exports.getJoinedUser = function(userId) {
     ]);
 };
 
-////// tags query
+// ************** TAG TABLE QUERIES ***************************
 module.exports.insertTag = function(tag, userId) {
     return db.query(
-        `INSERT INTO tags (tag, mentor_id) VALUES ($1, $2)  ON CONFLICT (mentor_id) DO UPDATE SET tag=$1, mentor_id=$2 RETURNING tag, mentor_id`,
+        `INSERT INTO tags (tag, mentor_id)
+        VALUES ($1, $2)  ON CONFLICT (mentor_id)
+        DO UPDATE SET tag=$1, mentor_id=$2
+        RETURNING tag, mentor_id`,
         [tag, userId]
+    );
+};
+
+module.exports.getTag = function(userId) {
+    return db.query(
+        `SELECT tag
+        FROM tags WHERE mentor_id = $1
+        `,
+        [userId]
     );
 };
 
@@ -254,6 +266,7 @@ module.exports.filterByTag = function(tag) {
             ON users.id = tags.mentor_id
             WHERE tag = $1
             ORDER BY id DESC
+            RETURNING *
             `,
         [tag]
     );
