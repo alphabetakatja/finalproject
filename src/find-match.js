@@ -7,6 +7,21 @@ export function FindMatch() {
     const [tags, setTags] = useState([]);
     const [searchTag, setSearchTag] = useState("");
     // const [newusers, setNewUsers] = useState([]);
+    const userRole = true;
+    const role = userRole === true ? "MENTOR" : "MENTEE";
+    function filterByRole(array, role) {
+        // if role==="MENTOR" return list of mentees
+        if (role === "MENTOR") {
+            return array.map(item => {
+                if (item.role === false) {
+                    return item;
+                }
+                // else {
+                //     return array.filter(item => item.role === true);
+                // }
+            });
+        }
+    }
 
     if (!tags) {
         return null;
@@ -17,8 +32,18 @@ export function FindMatch() {
             axios
                 .get(`api/find-match/${searchTag}`)
                 .then(({ data }) => {
+                    // role of the loggedInUser
                     console.log("data in find-match/:tag get request: ", data);
-                    setTags(data);
+                    const filteredRows = filterByRole(data, role).filter(
+                        item => item != undefined
+                    );
+                    console.log("filtered rows: ", filteredRows);
+                    // const displayFilteredProfiles = filteredRows.console.log(
+                    //     "checking if the results are filtered properly: ",
+                    //     displayFilteredProfiles
+                    // );
+                    // setTags(displayFilteredProfiles);
+                    setTags(filteredRows);
                 })
                 .catch(err => console.log("error in FindMatch: ", err));
         }
@@ -28,6 +53,7 @@ export function FindMatch() {
         <div>
             <div className="search-title">
                 <h4>Are you looking for someone in particular?</h4>
+                <h5>Check out the list of available mentors...</h5>
                 <input
                     className="search-field"
                     onChange={e => setSearchTag(e.target.value)}

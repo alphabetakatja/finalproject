@@ -45,10 +45,6 @@ export default class Welcome extends React.Component {
                                 Read More
                             </a>
                         </div>
-                        <div>
-                            <Route exact path="/" component={Register} />
-                            <Route path="/login" component={Login} />
-                        </div>
                     </div>
                 </header>
 
@@ -90,6 +86,15 @@ export default class Welcome extends React.Component {
                 </section>
 
                 <section className="section section-b">
+                    <div className="container">
+                        <div>
+                            <Route exact path="/" component={Register} />
+                            <Route path="/login" component={Login} />
+                        </div>
+                    </div>
+                </section>
+
+                <section className="section section-c">
                     <div className="container">
                         <h2>Here is how it works:</h2>
                         <ul>

@@ -116,7 +116,10 @@ module.exports.findNewUsers = function(userId) {
 
 module.exports.findUsers = function(val) {
     return db.query(
-        `SELECT first, last, id, bio, url FROM  users WHERE first ILIKE $1 OR last ILIKE $1 LIMIT 4`,
+        `SELECT first, last, id, bio, url
+        FROM  users
+        WHERE first ILIKE $1
+        OR last ILIKE $1 LIMIT 4`,
         [val + "%"]
     );
 };
@@ -258,29 +261,82 @@ module.exports.getTag = function(userId) {
     );
 };
 
-module.exports.filterByTag = function(tag) {
+module.exports.filterByTag = function(tag, userId) {
     return db.query(
         `SELECT users.id AS id, users.first, users.last, users.url, users.bio, users.mentor AS role, tags.tag
             FROM users
             LEFT JOIN tags
             ON users.id = tags.mentor_id
             WHERE tag = $1
+            AND users.id != $2
             ORDER BY id DESC
             RETURNING *
             `,
-        [tag]
+        [tag, userId]
     );
 };
 
-module.exports.findByTag = function(val) {
+module.exports.findByTag = function(val, userId) {
     return db.query(
         `SELECT users.first, users.last, users.url, users.bio, users.mentor AS role, tags.tag
             FROM users
             LEFT JOIN tags
             ON users.id = tags.mentor_id
             WHERE tag ILIKE $1
+            AND users.id != $2
             LIMIT 4
             `,
-        [val + "%"]
+        [val + "%", userId]
+    );
+};
+
+// ***** MENTORSHIPBUTTON ROUTE *****
+module.exports.checkMentorshipStatus = function(otherId, userId) {
+    return db.query(
+        `SELECT * FROM mentorships
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)`,
+        [otherId, userId]
+    );
+};
+
+module.exports.sendMentorshipRequest = function(otherId, userId) {
+    return db.query(
+        `INSERT INTO mentorships (receiver_id, sender_id)
+        VALUES ($1, $2) RETURNING *`,
+        [otherId, userId]
+    );
+};
+
+module.exports.acceptMentorshipRequest = function(otherId, userId) {
+    return db.query(
+        `UPDATE mentorships
+        SET accepted = true
+        WHERE (receiver_id = $2 AND sender_id = $1)
+        OR (receiver_id = $2 AND sender_id = $1)
+        RETURNING *`,
+        [otherId, userId]
+    );
+};
+
+module.exports.unfriend = function(otherId, userId) {
+    return db.query(
+        `DELETE FROM mentorships
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)
+        RETURNING *`,
+        [otherId, userId]
+    );
+};
+
+module.exports.displayFriendsWannabes = function(userId) {
+    return db.query(
+        `SELECT users.id, first, last, url, accepted
+        FROM friendships
+        JOIN users
+        ON (accepted = false AND receiver_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND receiver_id = $1 AND sender_id = users.id)
+        OR (accepted = true AND sender_id = $1 AND receiver_id = users.id)`,
+        [userId]
     );
 };

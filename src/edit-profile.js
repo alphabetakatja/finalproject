@@ -244,12 +244,36 @@ export class EditProfile extends React.Component {
         } else {
             return (
                 <div className="profile-editor">
-                    <p className="new-line">{this.state.editor.age}</p>
-                    <a className="new-line">{this.state.editor.tag}</a>
-
-                    <p className="new-line">{this.state.editor.linkedin}</p>
-
-                    <a className="new-line">{this.state.editor.github}</a>
+                    <ul>
+                        <li>
+                            <p className="new-line">
+                                Age: {this.state.editor.age}
+                            </p>
+                        </li>
+                        <li>
+                            <a className="new-line">
+                                Interest: {this.state.editor.tag}
+                            </a>
+                        </li>
+                        <li>
+                            <img
+                                className="flaticon"
+                                src="./images/linkedin.png"
+                            />
+                            <p className="new-line">
+                                {this.state.editor.linkedin}
+                            </p>
+                        </li>
+                        <li>
+                            <img
+                                className="flaticon"
+                                src="./images/github-logo.png"
+                            />
+                            <p className="new-line">
+                                {this.state.editor.github}
+                            </p>
+                        </li>
+                    </ul>
 
                     <div className="bioeditor-icon">
                         <img

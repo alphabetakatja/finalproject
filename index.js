@@ -326,7 +326,7 @@ app.post("/edit-profile", (req, res) => {
 app.get("/api/find-match/:val", (req, res) => {
     console.log("req.params", req.params);
     var tag = req.params.val;
-    db.findByTag(tag)
+    db.findByTag(tag, req.session.userId)
         .then(({ rows }) => {
             console.log("rows in findByTag: ", rows);
             res.json(rows);
