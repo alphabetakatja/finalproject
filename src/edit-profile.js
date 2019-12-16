@@ -26,6 +26,10 @@ export class EditProfile extends React.Component {
     }
     componentDidMount() {
         console.log("props in profile editor: ", this.props);
+        axios.get("/edit-profile").then(({ data }) => {
+            console.log("data in get edit-profile: ", data);
+            this.setState({ editor: data });
+        });
 
         if (!this.props.editor) {
             console.log("no editor");
@@ -53,7 +57,7 @@ export class EditProfile extends React.Component {
                 }
             },
             () => {
-                console.log("this.state: ", this.state);
+                console.log("this.state in edit profile: ", this.state);
             }
         );
     }
@@ -116,7 +120,7 @@ export class EditProfile extends React.Component {
         this.props.editor || this.state.editor
             ? (buttonText = "Edit your profile...")
             : (buttonText = "Add your profile...");
-        console.log("FUCK THAT LAZY SLOTH");
+        console.log("LAZY SLOTH");
         console.log(this.state);
         console.log(this.props);
         if (this.state.editingMode) {
@@ -193,8 +197,8 @@ export class EditProfile extends React.Component {
                             onChange={e => this.handleChange(e.target)}
                         >
                             <option value="">
-                                --Please select a max of 2 topics you would like
-                                your mentor to help you with--
+                                --Please select a topic you would like to help/
+                                help you with--
                             </option>
                             <option value="Web Development">
                                 Web Development

@@ -56,7 +56,7 @@ module.exports.addProfile = function(age, linkedin, github, userID) {
 
 module.exports.editProfile = function(id) {
     return db.query(
-        `SELECT users.first AS first, users.last AS last, users.email AS email, user_profiles.age AS age, user_profiles.url AS url, user_profiles.github AS github
+        `SELECT users.first AS first, users.last AS last, users.email AS email, user_profiles.age AS age, user_profiles.linkedin AS linkedin, user_profiles.github AS github
        FROM users
        LEFT JOIN user_profiles
        ON users.id = user_profiles.user_id

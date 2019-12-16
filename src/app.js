@@ -145,7 +145,6 @@ export default class App extends React.Component {
                                     );
                                 }}
                             />
-
                             <Route
                                 path="/user/:id"
                                 // component={OtherProfile}
