@@ -233,16 +233,15 @@ app.post("/edit-profile", async (req, res) => {
     let userID = req.session.userId;
     console.log("before promise.all");
     await db.insertTag(req.body.tag, userID);
+    console.log("after insert tag: ");
     if (password && password != "") {
         // if the user changed the password
         hash(password).then(hashedPassword => {
-            console.log("hash: ", hashedPassword);
-            // do stuff here...
+            // console.log("hash: ", hashedPassword);
             Promise.all([
                 db.updateUsersTableWithPass(
                     req.body.first,
                     req.body.last,
-                    req.body.email,
                     hashedPassword,
                     userID
                 ),
@@ -253,16 +252,29 @@ app.post("/edit-profile", async (req, res) => {
                     userID
                 )
             ])
-                .then(({ rows }) => {
+                .then(results => {
                     console.log(
                         "results if the user has updated the password: ",
-                        rows[0]
+                        results[0].rows,
+                        results[1].rows
                     );
-                    // res.json();
-                    // let users = results[0];
-                    // let userProfiles = results[1];
-                    // let mergeResults = [...users, ...userProfiles];
-                    // console.log("merged results with password: ", mergeResults);
+                    let mergedResults = [
+                        ...results[0].rows,
+                        ...results[1].rows
+                    ];
+                    console.log("merged results: ", mergedResults);
+                    res.json({
+                        first: mergedResults[0].first,
+                        last: mergedResults[0].last,
+                        email: mergedResults[0].email,
+                        url: mergedResults[0].url,
+                        bio: mergedResults[0].bio,
+                        password: mergedResults[0].password,
+                        isMentor: mergedResults[0].mentor,
+                        age: mergedResults[1].age,
+                        linkedin: mergedResults[1].linkedin,
+                        github: mergedResults[1].github
+                    });
                 })
                 .catch(err =>
                     console.log("catch err in promise.all with pass", err)
@@ -270,12 +282,7 @@ app.post("/edit-profile", async (req, res) => {
         });
     } else {
         Promise.all([
-            db.updateUsersTableNoPass(
-                req.body.first,
-                req.body.last,
-                req.body.email,
-                userID
-            ),
+            db.updateUsersTableNoPass(req.body.first, req.body.last, userID),
             db.updateUserProfiles(
                 req.body.age,
                 checkUrl(req.body.linkedin),
@@ -283,9 +290,27 @@ app.post("/edit-profile", async (req, res) => {
                 userID
             )
         ])
-            .then(({ rows }) => {
-                console.log("*******SDFSDFSDFSDFSDFSDFSDFSDF: ", rows);
-                res.json(rows ? rows[0] : {});
+            .then(results => {
+                console.log(
+                    "*******SDFSDFSDFSDFSDFSDFSDFSDF: ",
+                    results[0].rows,
+                    results[1].rows
+                );
+
+                let mergedResults = [...results[0].rows, ...results[1].rows];
+                console.log("merged results: ", mergedResults);
+                res.json({
+                    first: mergedResults[0].first,
+                    last: mergedResults[0].last,
+                    email: mergedResults[0].email,
+                    url: mergedResults[0].url,
+                    bio: mergedResults[0].bio,
+                    password: mergedResults[0].password,
+                    isMentor: mergedResults[0].mentor,
+                    age: mergedResults[1].age,
+                    linkedin: mergedResults[1].linkedin,
+                    github: mergedResults[1].github
+                });
             })
             .catch(err =>
                 console.log("catch err in promise.all without pass", err)

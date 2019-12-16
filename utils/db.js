@@ -78,27 +78,21 @@ module.exports.updateUsersTableWithPass = function(
     );
 };
 
-module.exports.updateUsersTableNoPass = function(
-    firstName,
-    lastName,
-    email,
-    userId
-) {
+module.exports.updateUsersTableNoPass = function(firstName, lastName, userId) {
     return db.query(
-        `UPDATE users SET first=$1, last=$2, email=$3 WHERE id=$4 RETURNING *`,
-        [firstName, lastName, email, userId]
+        `UPDATE users SET first=$1, last=$2 WHERE id=$3 RETURNING *`,
+        [firstName, lastName, userId]
     );
 };
 
 module.exports.updateUserProfiles = function(age, linkedin, github, userId) {
     return db.query(
-        `INSERT INTO user_profiles (age, linkedin, github, user_id) VALUES ($1, $2, $3, $4) ON CONFLICT (user_id) DO UPDATE SET age=$1, linkedin=$2, github=$3 RETURNING *`,
-        [
-            age ? Number(age) : null || null,
-            linkedin || null,
-            github || null,
-            userId
-        ]
+        `INSERT INTO user_profiles (age, linkedin, github, user_id)
+        VALUES ($1, $2, $3, $4)
+        ON CONFLICT (user_id)
+        DO UPDATE SET age=$1, linkedin=$2, github=$3
+        RETURNING *`,
+        [age ? Number(age) : null, linkedin || null, github || null, userId]
     );
 };
 

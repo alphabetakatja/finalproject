@@ -2,12 +2,26 @@ import React from "react";
 import { HashRouter, Route } from "react-router-dom";
 import Register from "./registration";
 import Login from "./login";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
+// try to make a modal for register and login
 
 export default class Welcome extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            formIsVisible: false
+        };
+    }
+    toggleForm() {
+        console.log("toggleForm is running!");
+        this.setState({
+            formIsVisible: !this.state.formIsVisible
+        });
+    }
+    closeModal() {
+        this.setState({
+            formIsVisible: false
+        });
     }
     render() {
         return (

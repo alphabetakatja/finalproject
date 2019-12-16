@@ -81,8 +81,10 @@ export class EditProfile extends React.Component {
                 })
                 .then(({ data }) => {
                     console.log("response from post upload ", data);
+                    // console.log("this is post upload: ", this.props)
+                    // console.log("data.editor in edit profile: ", data.editor);
+                    this.props.updateProfile(data);
                     console.log("this is post upload: ", this.props);
-                    this.props.updateProfile(data.editor);
                     this.showEditor();
                 });
         } else {
@@ -102,7 +104,8 @@ export class EditProfile extends React.Component {
                 .then(({ data }) => {
                     console.log("response from post upload ", data);
                     console.log("this is post upload: ", this.props);
-                    this.props.updateProfile(data.editor);
+                    this.props.updateProfile(data);
+                    console.log("this is post upload: ", this.props);
                     this.showEditor();
                 });
         }

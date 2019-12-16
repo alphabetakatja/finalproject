@@ -32,7 +32,7 @@ export default class App extends React.Component {
         console.log("app has mounted");
         axios.get("/user.json").then(({ data }) => {
             let editor;
-            if (!data.bio) {
+            if (!data.first) {
                 editor = null;
             } else {
                 console.log("HO HO HO", data.email);
@@ -45,16 +45,21 @@ export default class App extends React.Component {
                     email: data.email
                 };
             }
-            this.setState({
-                first: data.first,
-                last: data.last,
-                email: data.email,
-                imageUrl: data.url,
-                bio: data.bio,
-                editor: editor,
-                id: data.id,
-                uploaderIsVisible: false
-            });
+            this.setState(
+                {
+                    first: data.first,
+                    last: data.last,
+                    email: data.email,
+                    imageUrl: data.url,
+                    bio: data.bio,
+                    editor: editor,
+                    id: data.id,
+                    uploaderIsVisible: false
+                },
+                () => {
+                    console.log("this.state in app: ", this.state);
+                }
+            );
         });
         this.closeModal = this.closeModal.bind(this);
     }
