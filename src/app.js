@@ -31,18 +31,19 @@ export default class App extends React.Component {
     componentDidMount() {
         console.log("app has mounted");
         axios.get("/user.json").then(({ data }) => {
+            console.log("HO HO HO", data);
             let editor;
             if (!data.first) {
                 editor = null;
             } else {
-                console.log("HO HO HO", data.email);
                 editor = {
                     first: data.first,
                     last: data.last,
                     imageUrl: data.url,
                     bio: data.bio,
                     id: data.id,
-                    email: data.email
+                    email: data.email,
+                    role: data.mentor
                 };
             }
             this.setState(
@@ -52,6 +53,7 @@ export default class App extends React.Component {
                     email: data.email,
                     imageUrl: data.url,
                     bio: data.bio,
+                    role: data.mentor,
                     editor: editor,
                     id: data.id,
                     uploaderIsVisible: false
@@ -83,14 +85,14 @@ export default class App extends React.Component {
         this.toggleModal();
     }
     updateBio(bio) {
-        console.log("I am a method in updateBio!");
-        console.log("muffin: ", bio);
+        // console.log("I am a method in updateBio!");
+        // console.log("muffin: ", bio);
         this.setState({
             bio: bio
         });
     }
     updateProfile(editor) {
-        console.log("editor in app blabla: ", editor);
+        // console.log("editor in app blabla: ", editor);
         this.setState({
             editor: editor
         });
@@ -167,7 +169,14 @@ export default class App extends React.Component {
                                 path="/online-users"
                                 component={OnlineUsers}
                             />
-                            <Route path="/matches" component={FindMatch} />
+
+                            <Route
+                                path="/matches"
+                                // component={OtherProfile}
+                                render={() => (
+                                    <FindMatch mentor={this.state.role} />
+                                )}
+                            />
                         </div>
                     </div>
                 </BrowserRouter>

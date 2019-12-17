@@ -278,7 +278,7 @@ module.exports.filterByTag = function(tag, userId) {
 
 module.exports.findByTag = function(val, userId) {
     return db.query(
-        `SELECT users.first, users.last, users.url, users.bio, users.mentor AS role, tags.tag
+        `SELECT users.id, users.first, users.last, users.url, users.bio, users.mentor AS mentor, tags.tag
             FROM users
             LEFT JOIN tags
             ON users.id = tags.mentor_id
@@ -287,6 +287,20 @@ module.exports.findByTag = function(val, userId) {
             LIMIT 4
             `,
         [val + "%", userId]
+    );
+};
+
+module.exports.findAvailableUsers = function(userId) {
+    return db.query(
+        `SELECT users.id, first, last, bio, url, mentor, taken,
+         created_at, tags.tag
+         FROM users
+         LEFT JOIN tags
+         ON users.id = tags.mentor_id
+         WHERE users.id != $1
+         ORDER BY id DESC;
+        `,
+        [userId]
     );
 };
 

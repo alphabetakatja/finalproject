@@ -336,6 +336,16 @@ app.get("/api/find-match/:val", (req, res) => {
         });
 });
 
+app.get("/available-users", (req, res) => {
+    console.log("req.body in newusers ", req.body);
+    db.findAvailableUsers(req.session.userId)
+        .then(({ rows }) => {
+            console.log("rows in newusers : ", rows);
+            res.json(rows);
+        })
+        .catch(err => console.log("error in /available-users: ", err));
+});
+
 // ***** OTHERPROFILE ROUTE *****
 app.get("/api/user/:id", (req, res) => {
     console.log("req/body in bio: ", req.params);

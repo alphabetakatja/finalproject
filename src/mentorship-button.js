@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 
-export function FriendshipButton({ otherId }) {
+export function MentorshipButton({ otherId }) {
     console.log("otherId in FriendshipButton: ", otherId);
     const [buttonText, setButtonText] = useState("");
 
     useEffect(() => {
-        console.log("friendship button mounted", otherId);
+        console.log("mentorship button mounted", otherId);
         axios.get(`/mentorshipstatus/${otherId}`).then(({ data }) => {
             console.log("response in get mentorshipstatus: ", data);
             setButtonText(data.buttonText);
@@ -45,7 +45,7 @@ export function FriendshipButton({ otherId }) {
             });
         }
         if (buttonText == "Cancel Mentorship Request") {
-            axios.post(`/end-mentoship/${otherId}`).then(({ data }) => {
+            axios.post(`/end-mentorship/${otherId}`).then(({ data }) => {
                 console.log("response in post end-mentorship-request: ", data);
                 setButtonText(data.buttonText);
             });
