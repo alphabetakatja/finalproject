@@ -7,5 +7,5 @@ CREATE TABLE mentorships(
     accepted BOOLEAN DEFAULT FALSE
 );
 
-
+-- INSERT INTO friendships (receiver_id, sender_id, accepted) VALUES (1, 3, true), (, 201, false), (201, 6, true), (201, 7, false);
 -- INSERT INTO mentorships (receiver_id, sender_id, accepted) VALUES (4, 201, true), (5, 201, false), (201, 6, true), (201, 7, false);

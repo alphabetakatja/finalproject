@@ -13,11 +13,6 @@ export function FindMatch(props) {
     const role = userRole === true ? true : false;
     function filterByRole(array, role) {
         return array.filter(item => {
-            return item.role != role;
-        });
-    }
-    function filterUsers(array, role) {
-        return array.filter(item => {
             return item.mentor != role;
         });
     }
@@ -31,7 +26,7 @@ export function FindMatch(props) {
             .get("/available-users")
             .then(({ data }) => {
                 console.log("data in availableUsers get request: ", data);
-                const filteredUsers = filterUsers(data, role);
+                const filteredUsers = filterByRole(data, role);
                 setAvailableUsers(filteredUsers);
             })
             .catch(err => console.log("error in FindUsers: ", err));
@@ -40,7 +35,7 @@ export function FindMatch(props) {
             axios
                 .get(`api/find-match/${searchTag}`)
                 .then(({ data }) => {
-                    const filteredRows = filterUsers(data, role);
+                    const filteredRows = filterByRole(data, role);
                     console.log("filtered rows: ", filteredRows);
                     setTags(filteredRows);
                 })

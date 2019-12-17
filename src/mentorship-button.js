@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 
-export function MentorshipButton({ otherId }) {
-    console.log("otherId in FriendshipButton: ", otherId);
+export function MentorshipButton({ otherId, mentor, otherUserStatus, taken }) {
+    // console.log("otherId in MentorshipButton: ", otherId);
+    // console.log("mentor in MentorshipButton: ", mentor);
+    // console.log("checkMentorStatus in MentorshipButton: ", otherUserStatus);
+    // console.log("taken in MentorshipButton: ", taken);
     const [buttonText, setButtonText] = useState("");
+    // const userRole = mentor;
+    // console.log("userRole: ", mentor);
+    const role = otherUserStatus === true ? true : false;
+    console.log("role in MentorshipButton: ", role);
 
     useEffect(() => {
-        console.log("mentorship button mounted", otherId);
+        console.log("mentorship button mounted", otherId, mentor);
         axios.get(`/mentorshipstatus/${otherId}`).then(({ data }) => {
             console.log("response in get mentorshipstatus: ", data);
             setButtonText(data.buttonText);
@@ -54,9 +61,12 @@ export function MentorshipButton({ otherId }) {
 
     return (
         <div>
-            <button className="" onClick={submit}>
-                {buttonText}
-            </button>
+            {role == false && <div className="mentor">MENTEE</div>}
+            {role == true && (
+                <button className="" onClick={submit}>
+                    {buttonText}
+                </button>
+            )}
         </div>
     );
 }

@@ -106,7 +106,9 @@ module.exports.getOtherProfile = function(userId) {
 
 module.exports.findNewUsers = function(userId) {
     return db.query(
-        `SELECT id, first, last, bio, url, created_at FROM users WHERE id != $1
+        `SELECT id, first, last, bio, url, created_at
+        FROM users
+        WHERE id != $1
         ORDER BY id DESC
         LIMIT 4;
         `,
@@ -117,7 +119,7 @@ module.exports.findNewUsers = function(userId) {
 module.exports.findUsers = function(val) {
     return db.query(
         `SELECT first, last, id, bio, url
-        FROM  users
+        FROM users
         WHERE first ILIKE $1
         OR last ILIKE $1 LIMIT 4`,
         [val + "%"]
@@ -144,7 +146,11 @@ module.exports.sendFriendRequest = function(otherId, userId) {
 
 module.exports.acceptFriendRequest = function(otherId, userId) {
     return db.query(
-        `UPDATE friendships SET accepted = true WHERE (receiver_id = $2 AND sender_id = $1) OR (receiver_id = $2 AND sender_id = $1) RETURNING *`,
+        `UPDATE friendships
+        SET accepted = true
+        WHERE (receiver_id = $2 AND sender_id = $1)
+        OR (receiver_id = $2 AND sender_id = $1)
+        RETURNING *`,
         [otherId, userId]
     );
 };
@@ -187,6 +193,35 @@ exports.getLastTenChatMessages = function() {
 };
 
 //wall feature
+// *********************** MENTORSHIP RELATIONSHIP ****************************
+
+module.exports.checkMentorshipStatus = function(otherId, userId) {
+    return db.query(
+        `SELECT * FROM mentorships
+        WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1)`,
+        [otherId, userId]
+    );
+};
+
+module.exports.sendMentorshipRequest = function(otherId, userId) {
+    return db.query(
+        `INSERT INTO mentorships (receiver_id, sender_id)
+        VALUES ($1, $2) RETURNING *`,
+        [otherId, userId]
+    );
+};
+
+module.exports.checkIfAvailable = function(userId) {
+    return db.query(
+        `SELECT users.id, first, last, url, mentor, taken, accepted
+        FROM mentorships
+        JOIN users
+        ON (taken = false AND accepted = false AND receiver_id = $1 AND sender_id = users.id)
+        OR (taken = false AND accepted = false AND sender_id = $1 AND receiver_id = users.id)`,
+        [userId]
+    );
+};
 
 // Merge users table to include first, last and url
 module.exports.getWallPosts = function(userId) {
@@ -284,7 +319,7 @@ module.exports.findByTag = function(val, userId) {
             ON users.id = tags.mentor_id
             WHERE tag ILIKE $1
             AND users.id != $2
-            LIMIT 4
+            ORDER BY id DESC
             `,
         [val + "%", userId]
     );

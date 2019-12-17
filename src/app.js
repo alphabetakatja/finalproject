@@ -26,12 +26,11 @@ export default class App extends React.Component {
             imageUrl: "",
             uploaderIsVisible: false
         };
-        // this.toggleModal = this.toggleModal.bind(this);
     }
     componentDidMount() {
         console.log("app has mounted");
         axios.get("/user.json").then(({ data }) => {
-            console.log("HO HO HO", data);
+            // console.log("HO HO HO", data);
             let editor;
             if (!data.first) {
                 editor = null;
@@ -66,7 +65,7 @@ export default class App extends React.Component {
         this.closeModal = this.closeModal.bind(this);
     }
     toggleModal() {
-        console.log("toggleModal is running!");
+        // console.log("toggleModal is running!");
         this.setState({
             uploaderIsVisible: !this.state.uploaderIsVisible
         });
@@ -77,8 +76,8 @@ export default class App extends React.Component {
         });
     }
     methodInApp(imageUrl) {
-        console.log("I am a method in App!");
-        console.log("muffin: ", imageUrl);
+        // console.log("I am a method in App!");
+        // console.log("muffin: ", imageUrl);
         this.setState({
             imageUrl: imageUrl
         });
@@ -156,6 +155,7 @@ export default class App extends React.Component {
                                         key={props.match.url}
                                         match={props.match}
                                         history={props.history}
+                                        mentor={this.state.role}
                                     />
                                 )}
                             />

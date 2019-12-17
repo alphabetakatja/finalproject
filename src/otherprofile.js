@@ -2,6 +2,7 @@ import React from "react";
 import axios from "./axios";
 import { ProfilePic } from "./profilepic";
 import { FriendshipButton } from "./friendship-button";
+import { MentorshipButton } from "./mentorship-button";
 // import { Wall } from "./wall";
 // import { socket } from "./socket";
 
@@ -11,8 +12,7 @@ export class OtherProfile extends React.Component {
         this.state = {};
     }
     componentDidMount() {
-        // it comes from the BrowserRouter
-        console.log("this.props.match: ", this.props.match);
+        console.log("this.props.match: ", this.props);
         // socket.emit("load profile", {
         //     receiver_id: this.props.match.params.id
         // });
@@ -31,7 +31,9 @@ export class OtherProfile extends React.Component {
                         first: data.otherUserData.first,
                         last: data.otherUserData.last,
                         imageUrl: data.otherUserData.url,
-                        bio: data.otherUserData.bio
+                        bio: data.otherUserData.bio,
+                        mentor: data.otherUserData.mentor,
+                        taken: data.otherUserData.taken
                     });
                 }
             });
@@ -57,6 +59,12 @@ export class OtherProfile extends React.Component {
                         <div className="friendship-button">
                             <FriendshipButton
                                 otherId={this.props.match.params.id}
+                            />
+                            <MentorshipButton
+                                otherId={this.props.match.params.id}
+                                mentor={this.props.mentor}
+                                otherUserStatus={this.state.mentor}
+                                taken={this.state.taken}
                             />
                         </div>
                     </div>

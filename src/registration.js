@@ -22,7 +22,7 @@ export default class Register extends React.Component {
             .then(({ data }) => {
                 console.log("data in register: ", data);
                 if (data.success) {
-                    console.log("No error here!");
+                    // console.log("No error here!");
                     // one way is: location.href = '/'
                     location.replace("/");
                 } else {
@@ -33,7 +33,7 @@ export default class Register extends React.Component {
             });
     }
     handleChange(inputElement) {
-        console.log("input choice: ", inputElement.value);
+        // console.log("input choice: ", inputElement.value);
         this.setState(
             {
                 [inputElement.name]: inputElement.value

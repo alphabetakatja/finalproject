@@ -322,7 +322,7 @@ app.post("/edit-profile", (req, res) => {
     }
 });
 
-// ***** FILTER BY TAG *****
+// *************************** FILTER BY TAG & ROLE *********************************
 app.get("/api/find-match/:val", (req, res) => {
     console.log("req.params", req.params);
     var tag = req.params.val;
@@ -463,6 +463,39 @@ app.post("/cancel-friendship/:otherId", (req, res) => {
     });
 });
 
+// ******************** MENTORSHIP RELATIONSHIP *************************
+app.get("/mentorshipstatus/:otherId", (req, res) => {
+    console.log("req.body in searchUser: ", req.params);
+    db.checkMentorshipStatus(req.params.otherId, req.session.userId).then(
+        ({ rows }) => {
+            console.log("rows in checkMentorshipStatus : ", rows);
+            // if (rows.length == 0 && rows[0]. ==) {
+            //     res.json({
+            //         buttonText: "Add friend"
+            //     });
+            // }
+            // if (rows.length > 0) {
+            //     if (rows[0].accepted == true) {
+            //         res.json({
+            //             buttonText: "End friendship"
+            //         });
+            //     } else if (
+            //         rows[0].sender_id == req.session.userId &&
+            //         rows[0].accepted == false
+            //     ) {
+            //         res.json({
+            //             buttonText: "Cancel friendship request"
+            //         });
+            //     } else {
+            //         res.json({
+            //             buttonText: "Accept Friend Request"
+            //         });
+            //     }
+            // }
+        }
+    );
+});
+
 // ***** FRIENDS ROUTE *****
 
 app.get("/api/friends", (req, res) => {
@@ -489,13 +522,13 @@ server.listen(8080, function() {
 const onlineUsers = {};
 
 io.on("connection", async socket => {
-    console.log(`socket with the id ${socket.id} is now connected`);
+    // console.log(`socket with the id ${socket.id} is now connected`);
     if (!socket.request.session.userId) {
         return socket.disconnect(true);
     }
     let userId = socket.request.session.userId;
     let socketId = socket.id;
-    console.log("userId socket: ", userId);
+    // console.log("userId socket: ", userId);
 
     let results = await db.getUserInfo(userId);
     // console.log("data in socket getUserInfo: ", results.rows[0]);
