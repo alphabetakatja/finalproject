@@ -10,6 +10,7 @@ export function MentorshipButton({ otherId, mentor, otherUserStatus, taken }) {
     // const userRole = mentor;
     // console.log("userRole: ", mentor);
     const role = otherUserStatus === true ? true : false;
+    const bothMentors = otherUserStatus === true ? true : true;
     console.log("role in MentorshipButton: ", role);
     console.log("is the other user taken? ", taken);
 
@@ -62,19 +63,15 @@ export function MentorshipButton({ otherId, mentor, otherUserStatus, taken }) {
 
     return (
         <div>
-            {role == false && taken == false && (
+            {role == false && <div className="mentor">MENTEE</div>}
+            {mentor && role == true && (
+                <div className="mentors">You are both mentors</div>
+            )}
+            {role == true && !mentor && (
                 <button className="edit-btn" onClick={submit}>
                     {buttonText}
                 </button>
             )}
-            {role == false && taken == true && <p>Mentee Unavailable</p>}
-
-            {role == true && taken == false && (
-                <button className="edit-btn" onClick={submit}>
-                    {buttonText}
-                </button>
-            )}
-            {role == true && taken == true && <p>Mentor Unavailable</p>}
         </div>
     );
 }
