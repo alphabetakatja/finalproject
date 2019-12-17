@@ -1,10 +1,13 @@
 import React from "react";
 import axios from "./axios";
 import { ProfilePic } from "./profilepic";
-import { FriendshipButton } from "./friendship-button";
+// import { FriendshipButton } from "./friendship-button";
 import { MentorshipButton } from "./mentorship-button";
 // import { Wall } from "./wall";
 // import { socket } from "./socket";
+// <FriendshipButton
+//     otherId={this.props.match.params.id}
+// />
 
 export class OtherProfile extends React.Component {
     constructor() {
@@ -57,9 +60,6 @@ export class OtherProfile extends React.Component {
                     <div className="user-info">
                         <div className="profile-editor">{this.state.bio}</div>
                         <div className="friendship-button">
-                            <FriendshipButton
-                                otherId={this.props.match.params.id}
-                            />
                             <MentorshipButton
                                 otherId={this.props.match.params.id}
                                 mentor={this.props.mentor}

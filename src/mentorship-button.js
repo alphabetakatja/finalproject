@@ -11,6 +11,7 @@ export function MentorshipButton({ otherId, mentor, otherUserStatus, taken }) {
     // console.log("userRole: ", mentor);
     const role = otherUserStatus === true ? true : false;
     console.log("role in MentorshipButton: ", role);
+    console.log("is the other user taken? ", taken);
 
     useEffect(() => {
         console.log("mentorship button mounted", otherId, mentor);
@@ -61,12 +62,19 @@ export function MentorshipButton({ otherId, mentor, otherUserStatus, taken }) {
 
     return (
         <div>
-            {role == false && <div className="mentor">MENTEE</div>}
-            {role == true && (
-                <button className="" onClick={submit}>
+            {role == false && taken == false && (
+                <button className="edit-btn" onClick={submit}>
                     {buttonText}
                 </button>
             )}
+            {role == false && taken == true && <p>Mentee Unavailable</p>}
+
+            {role == true && taken == false && (
+                <button className="edit-btn" onClick={submit}>
+                    {buttonText}
+                </button>
+            )}
+            {role == true && taken == true && <p>Mentor Unavailable</p>}
         </div>
     );
 }

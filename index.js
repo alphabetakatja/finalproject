@@ -469,35 +469,88 @@ app.get("/mentorshipstatus/:otherId", (req, res) => {
     db.checkMentorshipStatus(req.params.otherId, req.session.userId).then(
         ({ rows }) => {
             console.log("rows in checkMentorshipStatus : ", rows);
-            // if (rows.length == 0 && rows[0]. ==) {
-            //     res.json({
-            //         buttonText: "Add friend"
-            //     });
-            // }
-            // if (rows.length > 0) {
-            //     if (rows[0].accepted == true) {
-            //         res.json({
-            //             buttonText: "End friendship"
-            //         });
-            //     } else if (
-            //         rows[0].sender_id == req.session.userId &&
-            //         rows[0].accepted == false
-            //     ) {
-            //         res.json({
-            //             buttonText: "Cancel friendship request"
-            //         });
-            //     } else {
-            //         res.json({
-            //             buttonText: "Accept Friend Request"
-            //         });
-            //     }
-            // }
+            if (rows.length == 0) {
+                res.json({
+                    buttonText: "Request Mentorship"
+                });
+            }
+            if (rows.length > 0) {
+                if (rows[0].accepted == true) {
+                    res.json({
+                        buttonText: "End Mentorship"
+                    });
+                } else if (
+                    rows[0].sender_id == req.session.userId &&
+                    rows[0].accepted == false
+                ) {
+                    res.json({
+                        buttonText: "Cancel Mentorship Request"
+                    });
+                } else {
+                    res.json({
+                        buttonText: "Accept Mentorship Request"
+                    });
+                }
+            }
         }
     );
 });
 
-// ***** FRIENDS ROUTE *****
+// ******************** SEND MENTORSHIP REQUEST *******************
+app.post("/send-mentorship-request/:otherId", (req, res) => {
+    console.log("req.params in send mentorship request post: ", req.params);
+    db.sendMentorshipRequest(req.params.otherId, req.session.userId).then(
+        ({ rows }) => {
+            console.log("rows in sendMentorshipRequest query: ", rows);
+            res.json({
+                buttonText: "Cancel Mentorship Request"
+            });
+        }
+    );
+});
 
+// ***************** ACCEPT MENTORSHIP REQUEST ****************
+app.post("/accept-mentorship-request/:otherId", (req, res) => {
+    console.log("req.params in accept mentorship request post: ", req.params);
+    Promise.all([
+        db.updateTakenColumn(req.session.userId),
+        db.acceptMentorshipRequest(req.params.otherId, req.session.userId)
+    ]).then(results => {
+        console.log(
+            "information pulled from editProfile fn: ",
+            results[0].rows,
+            results[1].rows
+        );
+        let mergedResults = [...results[0].rows, ...results[1].rows];
+        console.log("rows in acceptMentorshipRequest query: ", mergedResults);
+        res.json({
+            buttonText: "End Mentorship"
+        });
+    });
+});
+
+// ********************** END MENTORSHIP *********************
+app.post("/end-mentorship/:otherId", (req, res) => {
+    console.log("req.params in end mentorship post request: ", req.params);
+    db.unmentor(req.params.otherId, req.session.userId).then(({ rows }) => {
+        console.log("rows in end Mentorship query: ", rows);
+        res.json({
+            buttonText: "Request Mentorship"
+        });
+    });
+});
+
+// ********************* CANCEL FRIENDSHIP REQUEST *********************
+app.post("/cancel-mentorship/:otherId", (req, res) => {
+    console.log("req.params in end friendship post request: ", req.params);
+    db.unmentor(req.params.otherId, req.session.userId).then(({ rows }) => {
+        console.log("rows in cancel Mentorship query: ", rows);
+        res.json({
+            buttonText: "Request Mentorship"
+        });
+    });
+});
+// ***** FRIENDS ROUTE *****
 app.get("/api/friends", (req, res) => {
     console.log("get req in /friends-wannabes in: ", req.session);
     db.displayFriendsWannabes(req.session.userId).then(({ rows }) => {

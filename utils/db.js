@@ -96,13 +96,13 @@ module.exports.updateUserProfiles = function(age, linkedin, github, userId) {
     );
 };
 
-// ***** OTHERPROFILE ROUTE *****
+// *************************** OTHERPROFILE ROUTE *****************************
 
 module.exports.getOtherProfile = function(userId) {
     return db.query(`SELECT * FROM users WHERE id=$1`, [userId]);
 };
 
-// ***** FINDPEOPLE ROUTE *****
+// ***************************** FINDPEOPLE ROUTE *****************************
 
 module.exports.findNewUsers = function(userId) {
     return db.query(
@@ -126,7 +126,7 @@ module.exports.findUsers = function(val) {
     );
 };
 
-// ***** FRIENDSHIPBUTTON ROUTE *****
+// *********************** FRIENDSHIPBUTTON ROUTE ****************************
 module.exports.checkFriendshipStatus = function(otherId, userId) {
     return db.query(
         `SELECT * FROM friendships
@@ -192,7 +192,6 @@ exports.getLastTenChatMessages = function() {
     );
 };
 
-//wall feature
 // *********************** MENTORSHIP RELATIONSHIP ****************************
 
 module.exports.checkMentorshipStatus = function(otherId, userId) {
@@ -220,6 +219,37 @@ module.exports.checkIfAvailable = function(userId) {
         ON (taken = false AND accepted = false AND receiver_id = $1 AND sender_id = users.id)
         OR (taken = false AND accepted = false AND sender_id = $1 AND receiver_id = users.id)`,
         [userId]
+    );
+};
+
+module.exports.acceptMentorshipRequest = function(otherId, userId) {
+    return db.query(
+        `UPDATE mentorships
+        SET accepted = true
+        WHERE (receiver_id = $2 AND sender_id = $1)
+        OR (receiver_id = $2 AND sender_id = $1)
+        RETURNING *
+        `,
+        [otherId, userId]
+    );
+};
+
+module.exports.updateTakenColumn = function(userId) {
+    return db.query(
+        `UPDATE users
+        SET taken = true
+        WHERE id = $1
+        RETURNING *
+        `,
+        [userId]
+    );
+};
+
+module.exports.unmentor = function(otherId, userId) {
+    return db.query(
+        `DELETE FROM mentorships WHERE (receiver_id = $1 AND sender_id = $2)
+        OR (receiver_id = $2 AND sender_id = $1) RETURNING *`,
+        [otherId, userId]
     );
 };
 
