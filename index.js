@@ -120,7 +120,6 @@ app.post("/register", async (req, res) => {
         );
         console.log("rows in register: ", rows);
         req.session.userId = rows[0].id;
-        // console.log(req.session);
         res.json({
             success: true
             // id: rows[0].id
@@ -376,7 +375,7 @@ app.get("/newusers", (req, res) => {
 
 app.get("/users/:val", (req, res) => {
     console.log("req.body in searchUser: ", req.params);
-    db.findUsers(req.params.val).then(({ rows }) => {
+    db.findUsers(req.params.val, req.session.userId).then(({ rows }) => {
         console.log("rows in searchUser : ", rows);
         res.json(rows);
     });
@@ -466,12 +465,31 @@ app.post("/cancel-friendship/:otherId", (req, res) => {
 // ******************** MENTORSHIP RELATIONSHIP *************************
 app.get("/mentorshipstatus/:otherId", (req, res) => {
     console.log("req.body in searchUser: ", req.params);
+
+    let otherId;
+    let mentorOtherId;
+    let userId;
+    let mentorUserId;
+
+    Promise.all([
+        db.getUserInfo(req.params.otherId),
+        db.getUserInfo(req.session.userId)
+    ]).then(results => {
+        let promRes = results.map(result => result.rows);
+        console.log("promRes arr", promRes);
+        console.log(promRes[0][0].id, promRes[1][0].id);
+        otherId = promRes[0][0].id;
+        mentorOtherId = promRes[0][0].mentor;
+        userId = promRes[1][0].id;
+        mentorUserId = promRes[1][0].mentor;
+    });
     db.checkMentorshipStatus(req.params.otherId, req.session.userId).then(
         ({ rows }) => {
-            console.log("rows in checkMentorshipStatus : ", rows);
+            console.log("rows in checkFriendshipStatus : ", rows);
             if (rows.length == 0) {
                 res.json({
-                    buttonText: "Request Mentorship"
+                    buttonText:
+                        mentorOtherId === true ? null : "Request Mentorship"
                 });
             }
             if (rows.length > 0) {
@@ -615,25 +633,24 @@ io.on("connection", async socket => {
 
     // ***** WALL POSTS *****
     // fetching last 10 wall posts for loggedInUser
-    // socket.on("load-profile", async id => {
-    //     let userId = id;
-    //     await db
-    //         .getWallPosts(userId)
-    //         .then(({ rows }) => {
-    //             console.log("results in getWallPosts: ", rows);
-    //             io.emit("wallPosts", rows);
-    //         })
-    //         .catch(err => console.log("error in getWallPosts: ", err));
-    // });
+    socket.on("load-profile", async id => {
+        let userId = id;
+        await db
+            .getWallPosts(userId)
+            .then(({ rows }) => {
+                console.log("results in getWallPosts: ", rows);
+                io.emit("wallPosts", rows);
+            })
+            .catch(err => console.log("error in getWallPosts: ", err));
+    });
 
     // fetching posts for other profiles
     socket.on("load profile", async id => {
-        console.log("My amazing wall post result is: ", id);
-        let receiverId =
-            id.receiver_id === "logged in user" ? userId : id.receiver_id;
-        console.log("receiver id: ", receiverId);
+        // console.log("My amazing wall post result is: ", id);
+        let receiverId = id === "logged in user" ? userId : id;
+        console.log("receiver id: ", receiverId.receiver_id * 1);
         await db
-            .getWallPosts(receiverId)
+            .getWallPosts(receiverId.receiver_id * 1)
             .then(({ rows }) => {
                 // console.log("results in getWallPosts otheruserId: ", rows);
                 io.emit("wallPosts", rows);
@@ -677,7 +694,7 @@ io.on("connection", async socket => {
         socket.broadcast.emit("onlineUsers", data.rows);
     });
 
-    //USER JOINS
+    // USER JOINS
     const filteredOwnUserIds = idsArray.filter(id => id == userId);
     // console.log("idsArray", idsArray);
     if (filteredOwnUserIds.length == 1) {
@@ -699,7 +716,49 @@ io.on("connection", async socket => {
             io.sockets.emit("userLeft", userId);
         }
     });
+
+    // *************** PRIVATE CHAT *******************
+    socket.on("privateChat", receiverId => {
+        console.log("entering private chat: ", receiverId);
+        db.getPrivateMessages(userId, receiverId)
+            .then(({ rows }) => {
+                console.log("rows in getPMs:", rows);
+                io.sockets.emit("privateChatMessages", rows.reverse());
+            })
+            .catch(err => {
+                console.log("error in getPrivateMessages:", err);
+            });
+    });
+
+    socket.on("privateChatMessage", payload => {
+        let pmsgUser = {
+            msg: payload.msg,
+            id: userId
+        };
+        console.log("inside private chat");
+        console.log("received: ", JSON.stringify(payload));
+        console.log("from: ", userId);
+        db.sendPrivateMessage(userId, payload.receiverId, payload.msg)
+            .then(({ rows }) => {
+                pmsgUser.created_at = rows[0].created_at;
+                db.getUserInfo(userId)
+                    .then(({ rows }) => {
+                        console.log(rows);
+                        pmsgUser.id = rows[0].id;
+                        pmsgUser.first = rows[0].first;
+                        pmsgUser.last = rows[0].last;
+                        pmsgUser.url = rows[0].url;
+                        pmsgUser.message = payload.msg;
+                        io.sockets.emit("privateChatMessage", pmsgUser);
+                    })
+                    .catch(err => {
+                        console.log("error in sendPrivateMessage: ", err);
+                    });
+            })
+            .catch(e => console.log("error en privateChat: ", e));
+    });
 });
+
 // ***** DO NOT DELETE THIS *****
 app.get("*", function(req, res) {
     if (!req.session.userId) {

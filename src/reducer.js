@@ -6,6 +6,7 @@ export default function reducer(state = {}, action) {
             friends: action.friends
         };
     }
+
     if (action.type == "ACCEPT_FRIEND_REQUEST") {
         state = {
             ...state,
@@ -22,6 +23,7 @@ export default function reducer(state = {}, action) {
             })
         };
     }
+
     if (action.type == "UNFRIEND") {
         state = {
             ...state,
@@ -56,6 +58,7 @@ export default function reducer(state = {}, action) {
             wallPosts: [action.addWallPosts, ...state.wallPosts]
         };
     }
+
     if (action.type == "ONLINE_USERS_LIST") {
         state = {
             ...state,
@@ -79,8 +82,46 @@ export default function reducer(state = {}, action) {
         };
     }
 
-    console.log("state in reducer ended as: ", state);
-    return state;
+    // private chat
 
-    // chat - server - db - server - socket - actions.js - reducer - redux state - chat;
+    // setting current user
+    if (action.type == "USER_LOGGED") {
+        state = {
+            ...state,
+            userId: action.userId
+        };
+    }
+
+    if (action.type == "GOT_P_MSG") {
+        console.log("private chat messages", state.privateChatMessages);
+        console.log("action:", action.pmsg);
+        state = {
+            ...state,
+            privateChatMessages: [...state.privateChatMessages, action.pmsg]
+        };
+    }
+
+    if (action.type == "SHOW_P_MSGS") {
+        state = {
+            ...state,
+            privateChatMessages: action.pmsgs
+        };
+    }
+
+    if (action.type == "FRIENDS_WITH_USERS") {
+        const users = [
+            ...state.users.map(p => {
+                if (action.id == p.id) {
+                    p.accepted = action.accepted;
+                    return p;
+                }
+            })
+        ];
+        state = { ...state, users };
+    }
+    console.log(`state ended as `, state);
+    // this will return the new state
+    return state;
 }
+
+// chat - server - db - server - socket - actions.js - reducer - redux state - chat;

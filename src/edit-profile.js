@@ -265,13 +265,15 @@ export class EditProfile extends React.Component {
                             </p>
                         </li>
                         <li>
-                            <img
-                                className="flaticon"
-                                src="./images/github-logo.png"
-                            />
-                            <p className="new-line">
-                                {this.state.editor.github}
-                            </p>
+                            <a href={this.state.editor.github}>
+                                <img
+                                    className="flaticon"
+                                    src="./images/github-logo.png"
+                                />
+                                <p className="new-line">
+                                    {this.state.editor.github}
+                                </p>
+                            </a>
                         </li>
                     </ul>
 

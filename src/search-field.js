@@ -27,3 +27,60 @@ export function Profile(props) {
         </div>
     );
 }
+
+{
+    role == false && <div className="mentor">MENTEE</div>;
+}
+{
+    mentor && role == true && (
+        <div className="mentors">You are both mentors</div>
+    );
+}
+{
+    !mentor && role == true && (
+        <button className="edit-btn" onClick={submit}>
+            {buttonText}
+        </button>
+    );
+}
+{
+    mentor && role == false && (
+        <button className="edit-btn" onClick={submit}>
+            Accept Mentorship Request
+        </button>
+    );
+}
+{
+    mentor && role == false && taken == true && (
+        <button className="edit-btn" onClick={submit}>
+            End Mentorship Request
+        </button>
+    );
+}
+
+{
+    mentor ? (
+        ""
+    ) : (
+        <>
+            {otherUserStatus && (
+                <button className="edit-btn" onClick={submit}>
+                    {buttonText}
+                </button>
+            )}
+        </>
+    );
+}
+{
+    buttonText == "Cancel Mentorship Request" ? (
+        <>
+            {!otherUserStatus && (
+                <button className="edit-btn" onClick={submit}>
+                    {buttonText}
+                </button>
+            )}
+        </>
+    ) : (
+        ""
+    );
+}

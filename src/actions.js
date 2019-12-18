@@ -32,9 +32,15 @@ export async function unfriend(otherId) {
 }
 
 // ***** CHAT MESSAGES *****
-export async function chatMessages(msgs) {
-    console.log("Last 10 messages rendered!", msgs);
+// export async function setUser(id) {
+//     return {
+//         type: "USER_LOGGED",
+//         userId: id
+//     };
+// }
 
+export async function chatMessages(msgs) {
+    // console.log("Last 10 messages rendered!", msgs);
     return {
         type: "SHOW_LAST_TEN",
         chatMessages: msgs
@@ -45,6 +51,20 @@ export async function chatMessage(message) {
     return {
         type: "NEW_MESSAGE",
         chatMessage: message
+    };
+}
+
+// ******* PRIVATE CHAT ***********
+export async function privateChatMessages(pmsgs) {
+    return {
+        type: "SHOW_P_MSGS",
+        pmsgs: pmsgs
+    };
+}
+export async function privateChatMessage(pmsg) {
+    return {
+        type: "GOT_P_MSG",
+        pmsg: pmsg
     };
 }
 
@@ -66,7 +86,6 @@ export async function addWallPosts(post) {
 }
 
 // ***** ONLINE USERS *****
-// ///// onlineusers/////
 
 export function displayOnlineUsers(onlineUsersList) {
     return {

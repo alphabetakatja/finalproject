@@ -4,7 +4,7 @@ var db = spicedPg("postgres:postgres:postgres@localhost:5432/socialnetwork");
 // ***** REGISTER ROUTE *****
 module.exports.registerUser = function(first, last, email, password, mentor) {
     return db.query(
-        `INSERT INTO users (first, last, email, password, mentor) VALUES ($1, $2, $3, $4, $5) RETURNING id`,
+        `INSERT INTO users (first, last, email, password, mentor) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
         [first, last, email, password, mentor]
     );
 };
@@ -116,13 +116,15 @@ module.exports.findNewUsers = function(userId) {
     );
 };
 
-module.exports.findUsers = function(val) {
+module.exports.findUsers = function(val, userId) {
     return db.query(
         `SELECT first, last, id, bio, url
         FROM users
         WHERE first ILIKE $1
-        OR last ILIKE $1 LIMIT 4`,
-        [val + "%"]
+        OR last ILIKE $1
+        AND id != $2
+        LIMIT 4`,
+        [val + "%", userId]
     );
 };
 
@@ -419,3 +421,30 @@ module.exports.displayFriendsWannabes = function(userId) {
         [userId]
     );
 };
+
+// ************************** PRIVATE CHAT *******************************
+// PRIVATE
+module.exports.getPrivateMessages = function(sender_id, receiver_id) {
+    return db.query(
+        `
+  SELECT *, private_chat.id AS chat_id, users.id AS users_id
+  FROM private_chat JOIN users ON (sender_id = users.id)
+  WHERE (receiver_id = $1 AND sender_id = $2)
+  OR (receiver_id = $2 AND sender_id = $1)
+  ORDER BY chat_id DESC LIMIT 10
+  `,
+        [sender_id, receiver_id]
+    );
+};
+
+//
+module.exports.sendPrivateMessage = function(sender_id, receiver_id, message) {
+    return db.query(
+        `
+        INSERT INTO private_chat (sender_id, receiver_id, message)
+        VALUES ($1, $2, $3) RETURNING *
+        `,
+        [sender_id, receiver_id, message]
+    );
+};
+// SELECT * FROM users WHERE id= ANY($1)

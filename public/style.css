@@ -13,6 +13,7 @@ body {
     font-size: 1rem;
     line-height: 1.5;
     color: #333;
+    background-color: #f4f4f4;
     overflow-x: hidden;
 }
 
@@ -312,22 +313,6 @@ body {
     object-fit: cover;
 }
 
-.big-profile {
-    display: flex;
-    flex-direction: column;
-    color: #eaeaea;
-    margin: 20px;
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    object-fit: cover;
-    width: 200px;
-    height: 200px;
-    padding: 20px;
-    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-}
-
 /************************** APP.JS COMPONENT ***************************/
 
 .app-container {
@@ -394,10 +379,6 @@ body {
 .navbar li a:hover,
 .navbar li a:active {
     color: white;
-}
-
-.app-main {
-    padding-top: 75px;
 }
 
 /************************** UPLOADER.JS COMPONENT ***********************/
@@ -479,42 +460,75 @@ body {
 }
 
 .edit-btn {
-    width: 200px;
-    padding: 5px;
-    color: white;
-    background: linear-gradient(to right, #503df9, #f49de7);
-    border: 1px solid #f49de7;
+    color: #000;
+    background-color: #34b3a0;
+    width: 30%;
+    font-size: 15px;
+    font-weight: lighter;
+    margin-top: 30px;
+    padding: 10px;
+    outline: none;
     border-radius: 5px;
-    letter-spacing: 2px;
-    margin-left: 18px;
-    text-transform: uppercase;
     cursor: pointer;
+    border-color: #34b3a0;
+    text-align: center;
+    letter-spacing: 1px;
+    word-spacing: 2px;
+    text-transform: uppercase;
 }
 
 .edit-btn:hover {
-    border-radius: 50px;
-    background: linear-gradient(to right, #f49de7, #503df9);
-    border: 1px solid #f49de7;
-    border-color: #f49de7;
-    transition: all 0.3s ease 0s;
+    background: #000;
+    border: 1px solid #34b3a0;
+    color: #34b3a0;
 }
 
 /* ********************** PROFILE.JS COMPONENT ***************************** */
 .profile-name h1,
 .profile-name h2,
 .profile-name h3 {
-    color: #f49de7;
+    color: #000;
     margin-bottom: 30px;
     padding: 10px;
     text-align: center;
 }
 
+.profile-name h2 {
+    letter-spacing: 4px;
+    word-spacing: 2px;
+    font-size: 35px;
+    font-weight: 200;
+}
+
+.profile-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: 1fr 1fr;
+    margin: 0 30px;
+}
+
 .profile-container {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     border: 2px solid black;
     /* align-items: flex-start; */
+}
+
+.big-profile {
+    display: flex;
+    flex-direction: column;
+    color: #eaeaea;
+    margin: 20px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    object-fit: cover;
+    width: 350px;
+    height: 350px;
+    padding: 20px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
 .user-info {
@@ -522,13 +536,21 @@ body {
 }
 
 .profile-editor {
-    /* display: flex;
-    flex-direction: column; */
-    /* justify-content: flex-start; */
+    grid-column-start: 2;
+    grid-column-end: 2;
+    text-align: center;
+}
+
+.profile-editor {
 }
 
 .bio-editor p {
     color: black;
+    text-align: justify;
+    letter-spacing: 4px;
+    word-spacing: 2px;
+    font-size: 17px;
+    font-weight: 200;
 }
 
 .new-line {
@@ -672,7 +694,7 @@ body {
     letter-spacing: 2px;
     text-transform: uppercase;
     text-align: center;
-    color: #f49de7;
+    color: #000;
 }
 .search-field {
     width: 400px;
@@ -682,8 +704,8 @@ body {
     padding: 10px;
     outline: 0;
     border-radius: 5px;
-    border-color: #503df9;
-    color: #503df9;
+    border-color: #34b3a0;
+    color: #000;
     outline: none;
     transition: border-color 0.5s;
     cursor: text;
@@ -714,7 +736,7 @@ body {
     letter-spacing: 2px;
     text-transform: uppercase;
     text-align: center;
-    color: #f49de7;
+    color: #34b3a0;
 }
 
 .friends-list h3,
@@ -731,13 +753,13 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: solid 1px #f49de7;
+    border: solid 1px #000;
     margin-right: 40px;
     margin-bottom: 40px;
     padding: 30px;
     border-radius: 5px;
     justify-self: start;
-    color: #f49de7;
+    color: #000;
 }
 
 .friend-container:hover {
@@ -749,6 +771,8 @@ body {
 .friend-container img {
     text-align: center;
 }
+
+/* ****************************CHAT ROOM ****************** */
 
 .chat {
     display: flex;
@@ -764,7 +788,7 @@ body {
 
 .chat h3 {
     text-align: center;
-    color: #f49de7;
+    color: #000;
     padding-bottom: 30px;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -777,9 +801,9 @@ body {
     height: 550px;
     width: 700px;
     overflow-y: scroll;
-    background-color: #2f416d;
-    color: #503df9;
-    border: 3px solid #f49de7;
+    background-color: #fff;
+    color: #000;
+    border: 3px solid #34b3a0;
     border-radius: 5px;
 }
 
@@ -790,10 +814,10 @@ body {
     margin-bottom: 50px;
     padding: 10px;
     outline: 0;
-    border: 3px solid #f49de7;
+    border: 3px solid #34b3a0;
     border-width: 0 0 2px;
-    background-color: #2f416d;
-    color: #f49de7;
+    background-color: #f4f4f4;
+    color: #000;
     outline: none;
     transition: border-color 0.5s;
     cursor: text;
@@ -808,8 +832,17 @@ body {
     width: 95%;
 }
 
+.message-box--left {
+    align-items: flex-start;
+    background-color: blue;
+}
+
+.message-box--right {
+    align-items: flex-end;
+}
+
 .message-sender {
-    /* padding: 40px; */
+    padding: 40px;
     padding-right: 40px;
 }
 
@@ -830,12 +863,12 @@ body {
     text-decoration: none;
     text-align: left;
     font-size: 12px;
-    color: #f49de7;
+    color: #000;
     padding: 5px;
 }
 
 .message-text p {
-    color: #f49de7;
+    color: #000;
 }
 
 .chat-photo {
@@ -845,7 +878,7 @@ body {
     right: 20px;
     top: 5px;
     border-radius: 5px;
-    border: 3px solid #f49de7;
+    border: 3px solid #000;
     object-fit: cover;
 }
 
@@ -870,7 +903,7 @@ body {
     outline: 0;
     border: 3px solid #f49de7;
     border-width: 0 0 2px;
-    background-color: #2f416d;
+    background-color: #f4f4f4;
     color: #f49de7;
     outline: none;
     transition: border-color 0.5s;
@@ -879,7 +912,7 @@ body {
 
 .wall input::placeholder,
 .chat input::placeholder {
-    color: #f49de7;
+    color: #000;
 }
 
 .edit-form {

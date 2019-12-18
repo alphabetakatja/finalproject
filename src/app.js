@@ -11,6 +11,7 @@ import { Header } from "./header";
 import { FindUsers } from "./findusers";
 import { Friends } from "./friends";
 import { Chat } from "./chat";
+import { PrivateChat } from "./private-chat";
 import { Events } from "./events";
 import { Wall } from "./wall";
 // import { EditProfile } from "./edit-profile";
@@ -53,6 +54,7 @@ export default class App extends React.Component {
                     imageUrl: data.url,
                     bio: data.bio,
                     role: data.mentor,
+                    taken: data.taken,
                     editor: editor,
                     id: data.id,
                     uploaderIsVisible: false
@@ -156,6 +158,7 @@ export default class App extends React.Component {
                                         match={props.match}
                                         history={props.history}
                                         mentor={this.state.role}
+                                        taken={this.state.taken}
                                     />
                                 )}
                             />
@@ -163,6 +166,7 @@ export default class App extends React.Component {
                             <Route path="/profile" component={Profile} />
                             <Route path="/friends" component={Friends} />
                             <Route path="/chat" component={Chat} />
+                            <Route path="/pchat/:id" component={PrivateChat} />
                             <Route path="/wall" component={Wall} />
                             <Route path="/events" component={Events} />
                             <Route

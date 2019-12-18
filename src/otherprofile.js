@@ -4,7 +4,8 @@ import { ProfilePic } from "./profilepic";
 // import { FriendshipButton } from "./friendship-button";
 import { MentorshipButton } from "./mentorship-button";
 // import { Wall } from "./wall";
-// import { socket } from "./socket";
+import { PrivateChat } from "./private-chat";
+import { socket } from "./socket";
 // <FriendshipButton
 //     otherId={this.props.match.params.id}
 // />
@@ -16,9 +17,9 @@ export class OtherProfile extends React.Component {
     }
     componentDidMount() {
         console.log("this.props.match: ", this.props);
-        // socket.emit("load profile", {
-        //     receiver_id: this.props.match.params.id
-        // });
+        socket.emit("load profile", {
+            receiver_id: this.props.match.params.id
+        });
         console.log("this.props.match.params.id: ", this.props.match.params.id);
         axios
             .get(`/api/user/${this.props.match.params.id}`)
@@ -36,7 +37,8 @@ export class OtherProfile extends React.Component {
                         imageUrl: data.otherUserData.url,
                         bio: data.otherUserData.bio,
                         mentor: data.otherUserData.mentor,
-                        taken: data.otherUserData.taken
+                        taken: data.otherUserData.taken,
+                        id: data.otherUserData.id
                     });
                 }
             });
@@ -44,30 +46,30 @@ export class OtherProfile extends React.Component {
 
     render() {
         return (
-            <div className="profile-container">
-                <div className="profile-info">
-                    <div className="profile-name">
-                        <h2>
-                            {this.state.first} {this.state.last}
-                        </h2>
-                    </div>
+            <div>
+                <div className="profile-name">
+                    <h2>
+                        {this.state.first} {this.state.last}
+                    </h2>
+                </div>
+                <div className="profile-container">
                     <ProfilePic
                         first={this.state.first}
                         last={this.state.last}
                         imageUrl={this.state.imageUrl}
                         profilePicClass="big-profile"
                     />
-                    <div className="user-info">
-                        <div className="profile-editor">{this.state.bio}</div>
-                        <div className="friendship-button">
-                            <MentorshipButton
-                                otherId={this.props.match.params.id}
-                                mentor={this.props.mentor}
-                                otherUserStatus={this.state.mentor}
-                                taken={this.state.taken}
-                            />
-                        </div>
+
+                    <div className="profile-editor">{this.state.bio}</div>
+                    <div className="friendship-button">
+                        <MentorshipButton
+                            otherId={this.props.match.params.id}
+                            mentor={this.props.mentor}
+                            otherUserStatus={this.state.mentor}
+                            taken={this.state.taken}
+                        />
                     </div>
+                    <PrivateChat receiverId={this.props.match.params.id} />
                 </div>
             </div>
         );

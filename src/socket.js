@@ -7,7 +7,9 @@ import {
     addWallPosts,
     displayOnlineUsers,
     displayJoinedUser,
-    removeUserLeft
+    removeUserLeft,
+    privateChatMessage,
+    privateChatMessages
 } from "./actions";
 
 export let socket;
@@ -23,6 +25,14 @@ export const init = store => {
         socket.on("chatMessages", msgs => store.dispatch(chatMessages(msgs)));
 
         socket.on("chatMessage", msg => store.dispatch(chatMessage(msg)));
+
+        // private chat messages
+        socket.on("privateChatMessages", pmsgs =>
+            store.dispatch(privateChatMessages(pmsgs))
+        );
+        socket.on("privateChatMessage", pmsg =>
+            store.dispatch(privateChatMessage(pmsg))
+        );
 
         // wall posts
         socket.on("wallPosts", posts => store.dispatch(wallPosts(posts)));
