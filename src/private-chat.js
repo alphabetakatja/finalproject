@@ -33,32 +33,28 @@ export function PrivateChat({ receiverId }) {
         }
     };
     return (
-        <div>
-            <h1>PRIVATE chatroom</h1>
+        <div className="chat">
             <div className="chat-container" ref={elemRef}>
-                <p> private chat:</p>
-                {privateChatMessages &&
-                    privateChatMessages.map(chat => (
-                        <div key={chat.id}>
-                            <Link to={`/user/${chat.id}`}>
-                                <img
-                                    src={chat.url}
-                                    width="50px"
-                                    height="50px"
-                                />
-                            </Link>
-                            <h4>
-                                {chat.first} {chat.last} wrote:
-                            </h4>
-                            <p>{chat.message}</p>
-                            <h6>{chat.created_at}</h6>
-                        </div>
-                    ))}
+                <div className="chat-message">
+                    {privateChatMessages &&
+                        privateChatMessages.map(chat => (
+                            <div key={chat.id} className="message-box">
+                                <Link to={`/user/${chat.id}`}>
+                                    <img
+                                        src={chat.url}
+                                        width="50px"
+                                        height="50px"
+                                    />
+                                </Link>
+                                <p>{chat.message}</p>
+                            </div>
+                        ))}
+                </div>
             </div>
-            <textarea
-                placeholder="Add message here..."
+            <input
+                placeholder="Say hello, ask for help or just post what's new on your mind..."
                 onKeyUp={keyCheck}
-            ></textarea>
+            ></input>
         </div>
     );
 }

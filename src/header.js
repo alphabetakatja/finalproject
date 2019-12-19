@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { OnlineUsers } from "./online-users";
+import { FindMatch } from "./find-match";
 
 export function Header(props) {
     const [users, setUsers] = useState([]);
@@ -26,7 +27,7 @@ export function Header(props) {
 
     return (
         <div className="app-header">
-            <img className="app-logo" src="/images/logo-photo.png" alt="logo" />
+            <img className="app-logo" src="/images/logo.png" alt="logo" />
 
             <nav>
                 <ul className="navbar">
@@ -43,9 +44,9 @@ export function Header(props) {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/users">
+                        <Link to="/matches">
                             <ion-icon name="search"></ion-icon>
-                            search
+                            match & connect
                         </Link>
                     </li>
                     <li>

@@ -6,9 +6,7 @@ export class EditProfile extends React.Component {
     constructor(props) {
         super(props);
         let editor = props.editor || {};
-        // console.log("SDFSDFSDFSDFSDFSDFSDFSDF");
-        // console.log(editor);
-        console.log(props);
+        // console.log(props);
         this.state = {
             editingMode: false,
             buttonText: "Edit Profile...",
@@ -28,9 +26,9 @@ export class EditProfile extends React.Component {
     }
 
     componentDidMount() {
-        console.log("props in profile editor: ", this.props);
+        // console.log("props in profile editor: ", this.props);
         axios.get("/edit-profile").then(({ data }) => {
-            console.log("data in get edit-profile: ", data);
+            // console.log("data in get edit-profile: ", data);
             this.setState({ editor: data });
         });
 
@@ -46,7 +44,7 @@ export class EditProfile extends React.Component {
     }
 
     showEditor() {
-        console.log("toggleEditor is running!");
+        // console.log("toggleEditor is running!");
         this.setState({
             editingMode: !this.state.editingMode
         });
@@ -70,7 +68,7 @@ export class EditProfile extends React.Component {
             this.showEditor();
             return;
         }
-        console.log("this.state.editor", this.state.editor);
+        // console.log("this.state.editor", this.state.editor);
 
         if (this.state.editor) {
             this.setState({
@@ -89,11 +87,11 @@ export class EditProfile extends React.Component {
                     age: this.state.editor.age
                 })
                 .then(({ data }) => {
-                    console.log("response from post upload ", data);
+                    // console.log("response from post upload ", data);
                     // console.log("this is post upload: ", this.props)
                     // console.log("data.editor in edit profile: ", data.editor);
                     this.props.updateProfile(data);
-                    console.log("this is post upload: ", this.props);
+                    // console.log("this is post upload: ", this.props);
                     this.showEditor();
                 });
         } else {
@@ -111,10 +109,10 @@ export class EditProfile extends React.Component {
                     tag: this.state.editor.tag
                 })
                 .then(({ data }) => {
-                    console.log("response from post upload ", data);
-                    console.log("this is post upload: ", this.props);
+                    // console.log("response from post upload ", data);
+                    // console.log("this is post upload: ", this.props);
                     this.props.updateProfile(data);
-                    console.log("this is post upload: ", this.props);
+                    // console.log("this is post upload: ", this.props);
                     this.showEditor();
                 });
         }
@@ -243,29 +241,35 @@ export class EditProfile extends React.Component {
             );
         } else {
             return (
-                <div className="profile-editor">
+                <div>
+                    <h3>My Profile</h3>
                     <ul>
                         <li>
-                            <p className="new-line">
-                                Age: {this.state.editor.age}
-                            </p>
-                        </li>
-                        <li>
                             <a className="new-line">
-                                Interest: {this.state.editor.tag}
+                                <img
+                                    className="flaticon"
+                                    src="./images/html-coding.png"
+                                />
+                                <p>{this.state.editor.tag}</p>
                             </a>
                         </li>
                         <li>
-                            <img
-                                className="flaticon"
-                                src="./images/linkedin.png"
-                            />
-                            <p className="new-line">
-                                {this.state.editor.linkedin}
-                            </p>
+                            <a
+                                className="new-line"
+                                href={this.state.editor.linkedin}
+                            >
+                                <img
+                                    className="flaticon"
+                                    src="./images/linkedin.png"
+                                />
+                                <p>{this.state.editor.linkedin}</p>
+                            </a>
                         </li>
                         <li>
-                            <a href={this.state.editor.github}>
+                            <a
+                                className="new-line"
+                                href={this.state.editor.github}
+                            >
                                 <img
                                     className="flaticon"
                                     src="./images/github-logo.png"

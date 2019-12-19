@@ -6,6 +6,7 @@ import { MentorshipButton } from "./mentorship-button";
 // import { Wall } from "./wall";
 import { PrivateChat } from "./private-chat";
 import { socket } from "./socket";
+
 // <FriendshipButton
 //     otherId={this.props.match.params.id}
 // />
@@ -52,22 +53,35 @@ export class OtherProfile extends React.Component {
                         {this.state.first} {this.state.last}
                     </h2>
                 </div>
-                <div className="profile-container">
-                    <ProfilePic
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.imageUrl}
-                        profilePicClass="big-profile"
-                    />
-
-                    <div className="profile-editor">{this.state.bio}</div>
-                    <div className="friendship-button">
-                        <MentorshipButton
-                            otherId={this.props.match.params.id}
-                            mentor={this.props.mentor}
-                            otherUserStatus={this.state.mentor}
-                            taken={this.state.taken}
+                <div className="profile-layout">
+                    <div className="profile-container">
+                        <ProfilePic
+                            first={this.state.first}
+                            last={this.state.last}
+                            imageUrl={this.state.imageUrl}
+                            profilePicClass="big-profile"
                         />
+                        {this.state.mentor == false && (
+                            <div className="role">
+                                <p>MENTEE</p>
+                            </div>
+                        )}
+                        {this.state.mentor == true && (
+                            <div className="role">
+                                <p>MENTOR</p>
+                            </div>
+                        )}
+                        <div className="friendship-button">
+                            <MentorshipButton
+                                otherId={this.props.match.params.id}
+                                mentor={this.props.mentor}
+                                otherUserStatus={this.state.mentor}
+                                taken={this.state.taken}
+                            />
+                        </div>
+                        <div className="bio-editor">
+                            <p>{this.state.bio}</p>
+                        </div>
                     </div>
                     <PrivateChat receiverId={this.props.match.params.id} />
                 </div>

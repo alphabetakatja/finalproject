@@ -159,6 +159,7 @@ export default class App extends React.Component {
                                         history={props.history}
                                         mentor={this.state.role}
                                         taken={this.state.taken}
+                                        editor={this.state.editor}
                                     />
                                 )}
                             />

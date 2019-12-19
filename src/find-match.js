@@ -46,9 +46,17 @@ export function FindMatch(props) {
     return (
         <div>
             <div className="findusers-container">
-                <div className="search-title">
-                    <h4>Check out who recently joined...</h4>
-                </div>
+                {role == true && (
+                    <div className="search-title">
+                        <h4>Check out the list of mentees...</h4>
+                    </div>
+                )}
+                {role == false && (
+                    <div className="search-title">
+                        <h4>Check out the list of available mentors...</h4>
+                    </div>
+                )}
+
                 <div className="new-users">
                     {availableUsers.map(user => (
                         <div key={user.id} className="friend-container">
@@ -65,6 +73,10 @@ export function FindMatch(props) {
                                 imageUrl={user.url || "/images/default.png"}
                                 profilePicClass="recent-profile"
                             />
+                            <div className="tag-info">
+                                <h4>{user.tag}</h4>
+                                <p>{user.bio}</p>
+                            </div>
                             <div className="user-info">
                                 <strong>Member since: </strong>
                                 <p>
@@ -76,8 +88,22 @@ export function FindMatch(props) {
                 </div>
 
                 <div className="search-title">
-                    <h4>Are you looking for someone in particular?</h4>
-                    <h5>Check out the list of available mentors...</h5>
+                    {role == true && (
+                        <>
+                            <h4>Are you looking for someone in particular?</h4>
+                            <h5>
+                                Find a mentee based on your field of interest...
+                            </h5>
+                        </>
+                    )}
+                    {role == false && (
+                        <>
+                            <h4>Are you looking for someone in particular?</h4>
+                            <h5>
+                                Find a mentor based on your field of interest...
+                            </h5>
+                        </>
+                    )}
                     <input
                         className="search-field"
                         onChange={e => setSearchTag(e.target.value)}
@@ -101,9 +127,9 @@ export function FindMatch(props) {
                                 profilePicClass="recent-profile"
                             />
 
-                            <div className="user-info">
-                                <div className="profile-editor">{tag.tag}</div>
-                                <div className="profile-editor">{tag.bio}</div>
+                            <div className="tag-info">
+                                <h4>{tag.tag}</h4>
+                                <p>{tag.bio}</p>
                             </div>
                         </div>
                     ))}

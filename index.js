@@ -489,7 +489,7 @@ app.get("/mentorshipstatus/:otherId", (req, res) => {
             if (rows.length == 0) {
                 res.json({
                     buttonText:
-                        mentorOtherId === true ? null : "Request Mentorship"
+                        mentorOtherId === true ? "Request Mentorship" : null
                 });
             }
             if (rows.length > 0) {

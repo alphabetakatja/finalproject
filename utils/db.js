@@ -293,6 +293,7 @@ module.exports.checkFriends = function(id) {
         [id]
     );
 };
+
 // ***** GET ONLINE USERS *****
 module.exports.getUsersByIds = function(arrayOfIds) {
     return db.query(
@@ -400,7 +401,7 @@ module.exports.acceptMentorshipRequest = function(otherId, userId) {
     );
 };
 
-module.exports.unfriend = function(otherId, userId) {
+module.exports.unmentor = function(otherId, userId) {
     return db.query(
         `DELETE FROM mentorships
         WHERE (receiver_id = $1 AND sender_id = $2)
@@ -410,7 +411,7 @@ module.exports.unfriend = function(otherId, userId) {
     );
 };
 
-module.exports.displayFriendsWannabes = function(userId) {
+module.exports.displayMenteesWannabes = function(userId) {
     return db.query(
         `SELECT users.id, first, last, url, accepted
         FROM friendships
