@@ -9,7 +9,7 @@ export class EditProfile extends React.Component {
         // console.log(props);
         this.state = {
             editingMode: false,
-            buttonText: "Edit Profile...",
+            buttonText: "Edit Profile",
             editor: {
                 first: editor.first || null,
                 last: editor.last || null,
@@ -36,7 +36,7 @@ export class EditProfile extends React.Component {
             console.log("no editor");
             this.setState(
                 {
-                    buttonText: "Add your Profile..."
+                    buttonText: "Add Profile"
                 },
                 () => console.log("this.state in profile editor: ", this.state)
             );
@@ -72,7 +72,7 @@ export class EditProfile extends React.Component {
 
         if (this.state.editor) {
             this.setState({
-                buttonText: "Edit your profile..."
+                buttonText: "Edit Profile"
             });
             // CALL EDIT PROFILE API HERE
             axios
@@ -96,7 +96,7 @@ export class EditProfile extends React.Component {
                 });
         } else {
             this.setState({
-                buttonText: "Add your profile..."
+                buttonText: "Add Profile"
             });
             axios
                 .post("/add-profile", {
@@ -121,8 +121,8 @@ export class EditProfile extends React.Component {
     render() {
         let buttonText;
         this.props.editor || this.state.editor
-            ? (buttonText = "Edit your profile...")
-            : (buttonText = "Add your profile...");
+            ? (buttonText = "Edit Profile")
+            : (buttonText = "Add Profile");
         // console.log("LAZY SLOTH");
         // console.log(this.state);
         // console.log(this.props);
@@ -243,60 +243,71 @@ export class EditProfile extends React.Component {
             return (
                 <div>
                     <h3>My Profile</h3>
+
                     <ul>
                         <li>
-                            <a className="new-line">
+                            <div className="icon">
                                 <img
                                     className="profile-icon"
                                     src="./images/html-coding.png"
                                 />
+                            </div>
+                            <a className="new-line">
                                 <p>{this.state.editor.tag}</p>
                             </a>
                         </li>
                         <li>
-                            <a className="new-line">
+                            <div className="icon">
                                 <img
                                     className="profile-icon"
                                     src="./images/email.png"
                                 />
+                            </div>
+                            <a className="new-line">
                                 <p>{this.state.editor.email}</p>
                             </a>
                         </li>
                         <li>
-                            <a
-                                className="new-line"
-                                href={this.state.editor.linkedin}
-                            >
+                            <div className="icon">
                                 <img
                                     className="profile-icon"
                                     src="./images/linkedin.png"
                                 />
+                            </div>
+                            <a
+                                className="new-line"
+                                href={this.state.editor.linkedin}
+                            >
                                 <p>{this.state.editor.linkedin}</p>
                             </a>
                         </li>
                         <li>
-                            <a
-                                className="new-line"
-                                href={this.state.editor.github}
-                            >
+                            <div className="icon">
                                 <img
                                     className="profile-icon"
                                     src="./images/github-logo.png"
                                 />
+                            </div>
+                            <a
+                                className="new-line"
+                                href={this.state.editor.github}
+                            >
                                 <p className="new-line">
                                     {this.state.editor.github}
                                 </p>
                             </a>
                         </li>
                         <li>
-                            <a className="new-line">
-                                <img
-                                    onClick={this.showEditor}
-                                    className="bioeditor-btn"
-                                    src="./images/pencil.png"
-                                />
-                                <p className="new-line">{buttonText}</p>
-                            </a>
+                            <div className="icon">
+                                <a>
+                                    <img
+                                        onClick={this.showEditor}
+                                        className="bioeditor-btn"
+                                        src="./images/pencil.png"
+                                    />
+                                </a>
+                            </div>
+                            <p className="new-line">{buttonText}</p>
                         </li>
                     </ul>
                 </div>

@@ -41,7 +41,7 @@ export default function reducer(state = {}, action) {
     if (action.type == "NEW_MESSAGE") {
         state = {
             ...state,
-            chatMessages: [...state.chatMessages, action.chatMessage]
+            chatMessages: [action.chatMessage, ...state.chatMessages]
         };
     }
 

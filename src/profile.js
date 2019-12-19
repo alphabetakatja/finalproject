@@ -18,19 +18,6 @@ export function Profile({
     editor,
     updateProfile
 }) {
-    // console.log("props in Profile: ", {
-    //     id,
-    //     first,
-    //     last,
-    //     email,
-    //     imageUrl,
-    //     toggleFunction,
-    //     bio,
-    //     updateBio,
-    //     editor,
-    //     updateProfile
-    // });
-
     useEffect(() => {
         socket.emit("load profile", id);
     }, [id]);

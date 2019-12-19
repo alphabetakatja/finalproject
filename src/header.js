@@ -51,8 +51,8 @@ export function Header(props) {
                     </li>
                     <li>
                         <Link to="/chat">
-                            <ion-icon name="chatboxes"></ion-icon>
-                            chat
+                            <ion-icon name="clipboard"></ion-icon>
+                            job board
                         </Link>
                     </li>
                     <li>

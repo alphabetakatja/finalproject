@@ -86,40 +86,46 @@ export class OtherProfile extends React.Component {
                             <p>{this.state.bio}</p>
                         </div>
                     </div>
-                    <PrivateChat receiverId={this.props.match.params.id} />
-                    <div className="other-user-profile">
+
+                    <div className="profile-editor">
                         <h3>Profile</h3>
                         <ul>
                             <li>
-                                <a className="new-line">
+                                <div className="icon">
                                     <img
                                         className="profile-icon"
-                                        src="./images/email.png"
+                                        src="/./images/email.png"
                                     />
+                                </div>
+                                <a className="new-line">
                                     <p>{this.state.email}</p>
                                 </a>
                             </li>
                             <li>
+                                <div className="icon">
+                                    <img
+                                        className="profile-icon"
+                                        src="/./images/linkedin.png"
+                                    />
+                                </div>
                                 <a
                                     className="new-line"
                                     href={this.state.linkedin}
                                 >
-                                    <img
-                                        className="profile-icon"
-                                        src="./images/linkedin.png"
-                                    />
                                     <p>{this.state.linkedin}</p>
                                 </a>
                             </li>
                             <li>
+                                <div className="icon">
+                                    <img
+                                        className="profile-icon"
+                                        src="/./images/github-logo.png"
+                                    />
+                                </div>
                                 <a
                                     className="new-line"
                                     href={this.state.github}
                                 >
-                                    <img
-                                        className="profile-icon"
-                                        src="./images/github-logo.png"
-                                    />
                                     <p className="new-line">
                                         {this.state.github}
                                     </p>
@@ -127,6 +133,7 @@ export class OtherProfile extends React.Component {
                             </li>
                         </ul>
                     </div>
+                    <PrivateChat receiverId={this.props.match.params.id} />
                 </div>
             </div>
         );

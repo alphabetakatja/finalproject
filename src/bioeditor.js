@@ -7,7 +7,7 @@ export class BioEditor extends React.Component {
         super(props);
         this.state = {
             editingMode: false,
-            buttonText: "Edit Bio..."
+            buttonText: "Edit Bio"
         };
         this.showBio = this.showBio.bind(this);
         this.saveBio = this.saveBio.bind(this);
@@ -19,7 +19,7 @@ export class BioEditor extends React.Component {
             console.log("no bio");
             this.setState(
                 {
-                    buttonText: "Add your Bio..."
+                    buttonText: "Add your Bio"
                 },
                 () => console.log("this.state in bioeditor: ", this.state)
             );
@@ -51,11 +51,11 @@ export class BioEditor extends React.Component {
         });
         if (this.state.bio) {
             this.setState({
-                buttonText: "Edit your bio..."
+                buttonText: "Edit your bio"
             });
         } else {
             this.setState({
-                buttonText: "Add your bio..."
+                buttonText: "Add your bio"
             });
         }
     }
@@ -63,8 +63,8 @@ export class BioEditor extends React.Component {
     render() {
         let buttonText;
         this.props.bio
-            ? (buttonText = "Edit your bio...")
-            : (buttonText = "Add your bio...");
+            ? (buttonText = "Edit your bio")
+            : (buttonText = "Add your bio");
         if (this.state.editingMode) {
             return (
                 <div className="bio-editor">

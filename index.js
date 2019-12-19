@@ -468,7 +468,7 @@ app.post("/cancel-friendship/:otherId", (req, res) => {
 });
 
 // ******************** MENTORSHIP RELATIONSHIP *************************
-app.get("/mentorshipstatus/:otherId", (req, res) => {
+app.get("/mentorshipstatus/:otherId", async (req, res) => {
     console.log("req.body in searchUser: ", req.params);
 
     let otherId;
@@ -476,7 +476,7 @@ app.get("/mentorshipstatus/:otherId", (req, res) => {
     let userId;
     let mentorUserId;
 
-    Promise.all([
+    await Promise.all([
         db.getUserInfo(req.params.otherId),
         db.getUserInfo(req.session.userId)
     ]).then(results => {

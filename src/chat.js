@@ -32,19 +32,16 @@ export function Chat(props) {
 
     return (
         <div className="chat">
-            <h3>Chat Room - talk to your buddies</h3>
-            <div className="chat-container" ref={elemRef}>
+            <h3>Welcome to our job board</h3>
+            <input
+                placeholder="Post links related to tech job offers in Berlin..."
+                onKeyUp={keyCheck}
+            ></input>
+            <div className="job-board" ref={elemRef}>
                 {chatMessages && (
                     <div>
                         {chatMessages.map(chatMessage => (
-                            <div
-                                key={chatMessage.id}
-                                className={`message-box ${
-                                    chatMessage.sender_id === userId
-                                        ? "message-box--left"
-                                        : "message-box--right"
-                                }`}
-                            >
+                            <div key={chatMessage.id} className="board-box">
                                 <div className="message-sender">
                                     <ProfilePic
                                         first={chatMessage.first}
@@ -62,8 +59,10 @@ export function Chat(props) {
                                         </h4>
                                     </Link>
                                 </div>
-                                <div className="message-text">
-                                    <p>{chatMessage.message}</p>
+                                <div className="box-text">
+                                    <a href={chatMessage.message}>
+                                        <p>{chatMessage.message}</p>
+                                    </a>
                                     <p>
                                         {new Date(
                                             chatMessage.created_at
@@ -75,10 +74,6 @@ export function Chat(props) {
                     </div>
                 )}
             </div>
-            <input
-                placeholder="Say hello, ask for help or just post what's new on your mind..."
-                onKeyUp={keyCheck}
-            ></input>
         </div>
     );
 }

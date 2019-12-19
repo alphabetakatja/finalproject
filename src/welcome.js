@@ -92,52 +92,49 @@ export default class Welcome extends React.Component {
                             <Route path="/login" component={Login} />
                         </div>
                     </div>
-                </section>
-
-                <section className="section section-c">
                     <div className="container">
                         <h2>Here is how it works:</h2>
                         <ul>
                             <li>
-                                <img
+                                <ion-icon
                                     className="flaticon"
-                                    src="./images/register.png"
-                                />
-                                <p>Register & join the community</p>
+                                    name="create"
+                                ></ion-icon>
+                                <p>Register & join</p>
                             </li>
                             <li>
-                                <img
+                                <ion-icon
                                     className="flaticon"
-                                    src="./images/profile.png"
-                                />
+                                    name="person"
+                                ></ion-icon>
                                 <p>Create a profile</p>
                             </li>
                             <li>
-                                <img
+                                <ion-icon
                                     className="flaticon"
-                                    src="./images/mentor.png"
-                                />
-                                <p>Find an mentor</p>
+                                    name="people"
+                                ></ion-icon>
+                                <p>Find a mentor</p>
                             </li>
                             <li>
-                                <img
+                                <ion-icon
                                     className="flaticon"
-                                    src="./images/chat.png"
-                                />
+                                    name="chatbubbles"
+                                ></ion-icon>
                                 <p>Exchange messages</p>
                             </li>
                             <li>
-                                <img
+                                <ion-icon
                                     className="flaticon"
-                                    src="./images/student.png"
-                                />
+                                    name="laptop"
+                                ></ion-icon>
                                 <p>Start learning</p>
                             </li>
                             <li>
-                                <img
+                                <ion-icon
                                     className="flaticon"
-                                    src="./images/teacher.png"
-                                />
+                                    name="woman"
+                                ></ion-icon>
                                 <p>Become a mentor</p>
                             </li>
                         </ul>
