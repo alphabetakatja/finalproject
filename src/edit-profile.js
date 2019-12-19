@@ -247,10 +247,19 @@ export class EditProfile extends React.Component {
                         <li>
                             <a className="new-line">
                                 <img
-                                    className="flaticon"
+                                    className="profile-icon"
                                     src="./images/html-coding.png"
                                 />
                                 <p>{this.state.editor.tag}</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a className="new-line">
+                                <img
+                                    className="profile-icon"
+                                    src="./images/email.png"
+                                />
+                                <p>{this.state.editor.email}</p>
                             </a>
                         </li>
                         <li>
@@ -259,7 +268,7 @@ export class EditProfile extends React.Component {
                                 href={this.state.editor.linkedin}
                             >
                                 <img
-                                    className="flaticon"
+                                    className="profile-icon"
                                     src="./images/linkedin.png"
                                 />
                                 <p>{this.state.editor.linkedin}</p>
@@ -271,7 +280,7 @@ export class EditProfile extends React.Component {
                                 href={this.state.editor.github}
                             >
                                 <img
-                                    className="flaticon"
+                                    className="profile-icon"
                                     src="./images/github-logo.png"
                                 />
                                 <p className="new-line">
@@ -279,16 +288,17 @@ export class EditProfile extends React.Component {
                                 </p>
                             </a>
                         </li>
+                        <li>
+                            <a className="new-line">
+                                <img
+                                    onClick={this.showEditor}
+                                    className="bioeditor-btn"
+                                    src="./images/pencil.png"
+                                />
+                                <p className="new-line">{buttonText}</p>
+                            </a>
+                        </li>
                     </ul>
-
-                    <div className="bioeditor-icon">
-                        <img
-                            onClick={this.showEditor}
-                            className="bioeditor-btn"
-                            src="./images/pencil.png"
-                        />
-                        <p>{buttonText}</p>
-                    </div>
                 </div>
             );
         }

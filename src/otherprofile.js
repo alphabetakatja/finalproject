@@ -37,6 +37,9 @@ export class OtherProfile extends React.Component {
                         last: data.otherUserData.last,
                         imageUrl: data.otherUserData.url,
                         bio: data.otherUserData.bio,
+                        email: data.otherUserData.email,
+                        linkedin: data.otherUserData.linkedin,
+                        github: data.otherUserData.github,
                         mentor: data.otherUserData.mentor,
                         taken: data.otherUserData.taken,
                         id: data.otherUserData.id
@@ -84,6 +87,46 @@ export class OtherProfile extends React.Component {
                         </div>
                     </div>
                     <PrivateChat receiverId={this.props.match.params.id} />
+                    <div className="other-user-profile">
+                        <h3>Profile</h3>
+                        <ul>
+                            <li>
+                                <a className="new-line">
+                                    <img
+                                        className="profile-icon"
+                                        src="./images/email.png"
+                                    />
+                                    <p>{this.state.email}</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className="new-line"
+                                    href={this.state.linkedin}
+                                >
+                                    <img
+                                        className="profile-icon"
+                                        src="./images/linkedin.png"
+                                    />
+                                    <p>{this.state.linkedin}</p>
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    className="new-line"
+                                    href={this.state.github}
+                                >
+                                    <img
+                                        className="profile-icon"
+                                        src="./images/github-logo.png"
+                                    />
+                                    <p className="new-line">
+                                        {this.state.github}
+                                    </p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         );

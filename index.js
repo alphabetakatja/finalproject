@@ -349,13 +349,18 @@ app.get("/available-users", (req, res) => {
 app.get("/api/user/:id", (req, res) => {
     console.log("req/body in bio: ", req.params);
     if (req.session.userId != req.params.id) {
-        db.getOtherProfile(req.params.id).then(({ rows }) => {
-            console.log("rows in user/:id: ", rows[0]);
-            res.json({
-                otherUserData: rows[0],
-                loggedInUser: req.session.userId
-            });
-        });
+        // db.getOtherProfile(req.params.id)
+
+        db.editProfile(req.params.id)
+            .then(({ rows }) => {
+                console.log("lalalalalallalalalala");
+                console.log("rows in user/:id: ", rows[0]);
+                res.json({
+                    otherUserData: rows[0],
+                    loggedInUser: req.session.userId
+                });
+            })
+            .catch(err => console.log("err in api/user/:id: ", err));
     } else
         res.json({
             success: false
