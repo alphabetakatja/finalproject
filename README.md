@@ -4,11 +4,11 @@
 
 A single-page platform for womxn developers built with React, where users can choose their role (mentor/mentee), find a mentor or a mentee, request a mentorship, chat and share job offers with each other.
 
-Technologies used: React.js, Redux, socket.io, PostgreSQL, Node.js ... and of course JavaScript and CSS.
+Technologies used: React.js, Redux, socket.io, PostgreSQL, Node.js
 
 This project was build within 12 days of learning React.js and Redux by doing and coding. The result represents core features of a social network.
 
-For me this was a good opportunity to gather more practical experience with asychronous JavaScript (using Promises and async/await) as well as with database queries - and to explore React, a very powerful framework for buildung single-site applications.
+For me this was a good opportunity to gather more practical experience with asychronous JavaScript (using Promises and async/await) as well as with database queries - and to explore React, a very powerful framework for building single-page applications.
 
 ## App Features in details
 
@@ -41,6 +41,12 @@ Once registered/logged in a user can edit her profile - upload a personal profil
 The profile pictures are stored online at Amazon Webservice cloud storage.
 
 ![](edit-profile.jpg)
+
+In the edit profile section the user can choose or change his field of interest:
+
+![](field-interest.jpg)
+
+And add/edit her bio section:
 
 ![](edit-bio.jpg)
 
