@@ -54,33 +54,45 @@ export default class Welcome extends React.Component {
                         <p>
                             In my final project I decided to tackle the problem
                             that is both of my personal and public interest. I
-                            am talking about underrepresentation of women in the
-                            digital economy. The digital revolution is fully
-                            underway, and the tech industry is reshaping the
-                            world. That means that more and more businesses will
-                            take place online as we move into the future, and if
-                            women are disproportionately excluded from the
-                            digital economy, then the divide between the
-                            opportunities available to men and to women will
-                            widen with each passing year. Even though it would
-                            be easy to imagine a western-European country, for
-                            example Germany, to be setting a good example of
-                            gender equality in tech, that is unfortunately not
-                            the case. <br /> <br />{" "}
+                            am talking about{" "}
+                            <strong>
+                                underrepresentation of womxn in the digital
+                                economy
+                            </strong>
+                            . The digital revolution is fully underway, and the
+                            tech industry is reshaping the world. That means
+                            that more and more businesses will take place online
+                            as we move into the future, and if womxn are
+                            disproportionately excluded from the digital
+                            economy, then{" "}
+                            <strong>
+                                the divide between the opportunities available
+                                to men and to womxn will widen with each passing
+                                year
+                            </strong>
+                            . Even though it would be easy to imagine a
+                            western-European country, for example Germany, to be
+                            setting a good example of gender equality in tech,
+                            that is unfortunately not the case. <br /> <br />{" "}
                         </p>
                         <img id="graph" src="./images/women-tech.jpg" />
                         <p>
                             There are many ways through which the current state
                             could be improved: by adapting novel legislations or
                             through education, but anyway by creating
-                            stimulative environment for women participation in
+                            stimulative environment for womxn participation in
                             tech developments, from their early age until their
-                            professional careers. I am here presenting an online
-                            platform made for women by women, that establishes
-                            friendly/pleasant environment for female mentors and
-                            female mentees to get in touch, exchange knowledge,
-                            give support to each other, and share tips and
-                            tricks.
+                            professional careers start. I am here presenting an{" "}
+                            <strong>
+                                online platform made for womxn by womxn
+                            </strong>
+                            , that establishes friendly environment for female
+                            mentors and female mentees to{" "}
+                            <strong>
+                                get in touch, exchange knowledge, support each
+                                other, and share tips and tricks
+                            </strong>
+                            .
                         </p>
                     </div>
                 </section>
