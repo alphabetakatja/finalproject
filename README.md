@@ -43,7 +43,7 @@ The match and connect feature allows you to automatically get a list of users wh
 E.g.: In case you're logged in as a mentor you'll get a filtered list of mentees and vice versa and view their profiles.
 On each user profile, besides the profile info and the bio we can see the user's role.
 
-//picture
+![](users.jpg)
 
 ### Mentorship button
 
